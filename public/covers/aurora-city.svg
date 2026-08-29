@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="600" viewBox="0 0 900 600">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0d1420"/>
+      <stop offset="55%" stop-color="#101c2e"/>
+      <stop offset="100%" stop-color="#1b2f45"/>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="600" fill="url(#bg)"/>
+  <defs>
+    <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+      <path d="M 60 0 L 0 0 0 60" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="900" height="600" fill="url(#grid)"/>
+  <g opacity="0.85">
+    <path d="M -50 420 C 180 300, 320 500, 520 360 S 820 240, 980 320" fill="none" stroke="#7fd6c2" stroke-width="3" opacity="0.8"/>
+    <path d="M -50 470 C 200 360, 340 540, 560 400 S 840 300, 980 380" fill="none" stroke="#7fd6c2" stroke-width="1.6" opacity="0.5"/>
+    <path d="M -50 520 C 240 430, 400 580, 600 450 S 860 360, 980 440" fill="none" stroke="#f0a35e" stroke-width="1.2" opacity="0.45"/>
+    <path d="M 0 560 L 180 560 L 210 520 L 340 520 L 380 560 L 900 560" fill="rgba(10,16,26,0.9)"/>
+    <path d="M 0 560 L 180 560 L 210 520 L 340 520 L 380 560 L 900 560 L 900 600 L 0 600 Z" fill="rgba(8,12,20,0.95)"/>
+    <g fill="#7fd6c2" opacity="0.55">
+      <rect x="60" y="568" width="3" height="10"/><rect x="156" y="568" width="3" height="21"/><rect x="252" y="568" width="3" height="32"/><rect x="348" y="568" width="3" height="17"/><rect x="444" y="568" width="3" height="28"/><rect x="540" y="568" width="3" height="13"/><rect x="636" y="568" width="3" height="24"/><rect x="732" y="568" width="3" height="35"/><rect x="828" y="568" width="3" height="20"/>
+    </g>
+  </g>
+  <text x="640" y="320" font-family="'Arial Black', 'Helvetica Neue', sans-serif" font-weight="900" font-size="190" fill="#7fd6c2" opacity="0.9" text-anchor="middle" dominant-baseline="middle">A</text>
+  <path d="M 32 32 v 26 M 32 32 h 26" fill="none" stroke="rgba(255,255,255,0.28)" stroke-width="2"/><path d="M 868 32 v 26 M 868 32 h 26" fill="none" stroke="rgba(255,255,255,0.28)" stroke-width="2"/><path d="M 32 568 v 26 M 32 568 h 26" fill="none" stroke="rgba(255,255,255,0.28)" stroke-width="2"/><path d="M 868 568 v 26 M 868 568 h 26" fill="none" stroke="rgba(255,255,255,0.28)" stroke-width="2"/>
+  <text x="56" y="536" font-family="'Courier New', monospace" font-size="22" letter-spacing="10" fill="rgba(255,255,255,0.75)">AURORA CITY</text>
+  <defs>
+    <filter id="noise">
+      <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.06"/></feComponentTransfer>
+    </filter>
+  </defs>
+  <rect width="900" height="600" filter="url(#noise)"/>
+  <defs>
+    <radialGradient id="vig" cx="50%" cy="45%" r="75%">
+      <stop offset="55%" stop-color="rgba(0,0,0,0)"/>
+      <stop offset="100%" stop-color="rgba(0,0,0,0.55)"/>
+    </radialGradient>
+  </defs>
+  <rect width="900" height="600" fill="url(#vig)"/>
+</svg>

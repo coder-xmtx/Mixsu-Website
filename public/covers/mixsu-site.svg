@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="600" viewBox="0 0 900 600">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#10141b"/>
+      <stop offset="55%" stop-color="#151c28"/>
+      <stop offset="100%" stop-color="#1f2838"/>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="600" fill="url(#bg)"/>
+  <defs>
+    <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+      <path d="M 60 0 L 0 0 0 60" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="900" height="600" fill="url(#grid)"/>
+  <g>
+    <rect x="110" y="150" width="420" height="300" rx="10" fill="rgba(10,14,22,0.85)" stroke="#f0a35e" stroke-width="2"/>
+    <circle cx="140" cy="184" r="6" fill="#f0785e"/><circle cx="164" cy="184" r="6" fill="#f0c05e"/><circle cx="188" cy="184" r="6" fill="#7fd6a2"/>
+    <line x1="120" y1="208" x2="520" y2="208" stroke="rgba(255,255,255,0.18)" stroke-width="1.5"/>
+    <rect x="140" y="240" width="150" height="14" rx="7" fill="#f0a35e" opacity="0.7"/>
+    <rect x="140" y="274" width="220" height="8" rx="4" fill="rgba(255,255,255,0.22)"/>
+    <rect x="140" y="294" width="180" height="8" rx="4" fill="rgba(255,255,255,0.16)"/>
+    <rect x="140" y="314" width="200" height="8" rx="4" fill="rgba(255,255,255,0.16)"/>
+    <rect x="380" y="240" width="110" height="84" rx="8" fill="none" stroke="#7fd6c2" stroke-width="1.5" opacity="0.7"/>
+  </g>
+  <text x="640" y="320" font-family="'Arial Black', 'Helvetica Neue', sans-serif" font-weight="900" font-size="190" fill="#f0a35e" opacity="0.9" text-anchor="middle" dominant-baseline="middle"></></text>
+  <path d="M 32 32 v 26 M 32 32 h 26" fill="none" stroke="rgba(255,255,255,0.28)" stroke-width="2"/><path d="M 868 32 v 26 M 868 32 h 26" fill="none" stroke="rgba(255,255,255,0.28)" stroke-width="2"/><path d="M 32 568 v 26 M 32 568 h 26" fill="none" stroke="rgba(255,255,255,0.28)" stroke-width="2"/><path d="M 868 568 v 26 M 868 568 h 26" fill="none" stroke="rgba(255,255,255,0.28)" stroke-width="2"/>
+  <text x="56" y="536" font-family="'Courier New', monospace" font-size="22" letter-spacing="10" fill="rgba(255,255,255,0.75)">MIXSU STUDIO</text>
+  <defs>
+    <filter id="noise">
+      <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.06"/></feComponentTransfer>
+    </filter>
+  </defs>
+  <rect width="900" height="600" filter="url(#noise)"/>
+  <defs>
+    <radialGradient id="vig" cx="50%" cy="45%" r="75%">
+      <stop offset="55%" stop-color="rgba(0,0,0,0)"/>
+      <stop offset="100%" stop-color="rgba(0,0,0,0.55)"/>
+    </radialGradient>
+  </defs>
+  <rect width="900" height="600" fill="url(#vig)"/>
+</svg>

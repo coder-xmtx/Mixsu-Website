@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="600" viewBox="0 0 900 600">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#150f12"/>
+      <stop offset="55%" stop-color="#251419"/>
+      <stop offset="100%" stop-color="#3a1c1f"/>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="600" fill="url(#bg)"/>
+  <defs>
+    <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+      <path d="M 60 0 L 0 0 0 60" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="900" height="600" fill="url(#grid)"/>
+  <g>
+    <rect x="90" y="140" width="300" height="320" rx="8" fill="rgba(0,0,0,0.55)" stroke="#f0785e" stroke-width="2" opacity="0.9"/>
+    <rect x="130" y="182" width="220" height="150" rx="4" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
+    <g fill="#f0a35e">
+      <rect x="110" y="352" width="16" height="34" rx="2"/><rect x="134" y="352" width="16" height="34" rx="2"/><rect x="158" y="352" width="16" height="34" rx="2"/><rect x="182" y="352" width="16" height="34" rx="2"/><rect x="206" y="352" width="16" height="34" rx="2"/><rect x="230" y="352" width="16" height="34" rx="2"/><rect x="254" y="352" width="16" height="34" rx="2"/><rect x="278" y="352" width="16" height="34" rx="2"/><rect x="302" y="352" width="16" height="34" rx="2"/><rect x="326" y="352" width="16" height="34" rx="2"/><rect x="350" y="352" width="16" height="34" rx="2"/><rect x="374" y="352" width="16" height="34" rx="2"/>
+    </g>
+    <rect x="460" y="120" width="12" height="20" rx="2" fill="#f0785e" opacity="0.5"/><rect x="490" y="173" width="12" height="20" rx="2" fill="#f0785e" opacity="0.5"/><rect x="520" y="226" width="12" height="20" rx="2" fill="#f0785e" opacity="0.5"/><rect x="550" y="279" width="12" height="20" rx="2" fill="#f0785e" opacity="0.5"/><rect x="580" y="332" width="12" height="20" rx="2" fill="#f0785e" opacity="0.5"/><rect x="610" y="385" width="12" height="20" rx="2" fill="#f0785e" opacity="0.5"/><rect x="640" y="438" width="12" height="20" rx="2" fill="#f0785e" opacity="0.5"/><rect x="670" y="131" width="12" height="20" rx="2" fill="#f0785e" opacity="0.5"/><rect x="700" y="184" width="12" height="20" rx="2" fill="#f0785e" opacity="0.5"/><rect x="730" y="237" width="12" height="20" rx="2" fill="#f0785e" opacity="0.5"/>
+  </g>
+  <text x="640" y="320" font-family="'Arial Black', 'Helvetica Neue', sans-serif" font-weight="900" font-size="190" fill="#f0785e" opacity="0.9" text-anchor="middle" dominant-baseline="middle">▶</text>
+  <path d="M 32 32 v 26 M 32 32 h 26" fill="none" stroke="rgba(255,255,255,0.28)" stroke-width="2"/><path d="M 868 32 v 26 M 868 32 h 26" fill="none" stroke="rgba(255,255,255,0.28)" stroke-width="2"/><path d="M 32 568 v 26 M 32 568 h 26" fill="none" stroke="rgba(255,255,255,0.28)" stroke-width="2"/><path d="M 868 568 v 26 M 868 568 h 26" fill="none" stroke="rgba(255,255,255,0.28)" stroke-width="2"/>
+  <text x="56" y="536" font-family="'Courier New', monospace" font-size="22" letter-spacing="10" fill="rgba(255,255,255,0.75)">POV · SLICE</text>
+  <defs>
+    <filter id="noise">
+      <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.06"/></feComponentTransfer>
+    </filter>
+  </defs>
+  <rect width="900" height="600" filter="url(#noise)"/>
+  <defs>
+    <radialGradient id="vig" cx="50%" cy="45%" r="75%">
+      <stop offset="55%" stop-color="rgba(0,0,0,0)"/>
+      <stop offset="100%" stop-color="rgba(0,0,0,0.55)"/>
+    </radialGradient>
+  </defs>
+  <rect width="900" height="600" fill="url(#vig)"/>
+</svg>

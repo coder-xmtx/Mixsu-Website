@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="600" viewBox="0 0 900 600">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0e1116"/>
+      <stop offset="55%" stop-color="#141922"/>
+      <stop offset="100%" stop-color="#1b222e"/>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="600" fill="url(#bg)"/>
+  <defs>
+    <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+      <path d="M 60 0 L 0 0 0 60" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="900" height="600" fill="url(#grid)"/>
+  <g fill="none" stroke-width="1.4">
+    <ellipse cx="600" cy="280" rx="130" ry="170" stroke="#9fb4c8" opacity="0.55"/>
+    <ellipse cx="600" cy="280" rx="92" ry="120" stroke="#9fb4c8" opacity="0.35"/>
+    <path d="M 470 280 H 730 M 560 118 L 560 442 M 640 118 L 640 442" stroke="rgba(255,255,255,0.22)"/>
+    <circle cx="600" cy="180" r="58" stroke="#f0a35e" opacity="0.7"/>
+    <path d="M 600 238 V 320 M 600 320 L 556 392 M 600 320 L 648 388" stroke="#9fb4c8" opacity="0.6"/>
+  </g>
+  <text x="640" y="320" font-family="'Arial Black', 'Helvetica Neue', sans-serif" font-weight="900" font-size="190" fill="#9fb4c8" opacity="0.9" text-anchor="middle" dominant-baseline="middle">S</text>
+  <path d="M 32 32 v 26 M 32 32 h 26" fill="none" stroke="rgba(255,255,255,0.28)" stroke-width="2"/><path d="M 868 32 v 26 M 868 32 h 26" fill="none" stroke="rgba(255,255,255,0.28)" stroke-width="2"/><path d="M 32 568 v 26 M 32 568 h 26" fill="none" stroke="rgba(255,255,255,0.28)" stroke-width="2"/><path d="M 868 568 v 26 M 868 568 h 26" fill="none" stroke="rgba(255,255,255,0.28)" stroke-width="2"/>
+  <text x="56" y="536" font-family="'Courier New', monospace" font-size="22" letter-spacing="10" fill="rgba(255,255,255,0.75)">SCULPT STUDY</text>
+  <defs>
+    <filter id="noise">
+      <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.06"/></feComponentTransfer>
+    </filter>
+  </defs>
+  <rect width="900" height="600" filter="url(#noise)"/>
+  <defs>
+    <radialGradient id="vig" cx="50%" cy="45%" r="75%">
+      <stop offset="55%" stop-color="rgba(0,0,0,0)"/>
+      <stop offset="100%" stop-color="rgba(0,0,0,0.55)"/>
+    </radialGradient>
+  </defs>
+  <rect width="900" height="600" fill="url(#vig)"/>
+</svg>

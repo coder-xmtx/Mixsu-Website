@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="600" viewBox="0 0 900 600">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f141c"/>
+      <stop offset="55%" stop-color="#141d2a"/>
+      <stop offset="100%" stop-color="#1c2a3d"/>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="600" fill="url(#bg)"/>
+  <defs>
+    <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+      <path d="M 60 0 L 0 0 0 60" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="900" height="600" fill="url(#grid)"/>
+  <g>
+    
+      <g transform="rotate(-6 355 220)">
+        <rect x="300" y="150" width="110" height="140" rx="10" fill="rgba(12,17,25,0.92)" stroke="rgba(255,255,255,0.28)" stroke-width="1.6"/>
+        <rect x="314" y="166" width="82" height="54" rx="6" fill="#9b7fd6" opacity="0.55"/>
+        <rect x="314" y="236" width="58" height="8" rx="4" fill="rgba(255,255,255,0.3)"/>
+        <rect x="314" y="252" width="40" height="8" rx="4" fill="rgba(255,255,255,0.16)"/>
+      </g>
+      <g transform="rotate(4 415 240)">
+        <rect x="360" y="170" width="110" height="140" rx="10" fill="rgba(12,17,25,0.92)" stroke="#e9a35b" stroke-width="1.6"/>
+        <rect x="374" y="186" width="82" height="54" rx="6" fill="#e9a35b" opacity="0.55"/>
+        <rect x="374" y="256" width="58" height="8" rx="4" fill="rgba(255,255,255,0.3)"/>
+        <rect x="374" y="272" width="40" height="8" rx="4" fill="rgba(255,255,255,0.16)"/>
+      </g>
+      <g transform="rotate(-2 475 220)">
+        <rect x="420" y="150" width="110" height="140" rx="10" fill="rgba(12,17,25,0.92)" stroke="rgba(255,255,255,0.28)" stroke-width="1.6"/>
+        <rect x="434" y="166" width="82" height="54" rx="6" fill="#9b7fd6" opacity="0.55"/>
+        <rect x="434" y="236" width="58" height="8" rx="4" fill="rgba(255,255,255,0.3)"/>
+        <rect x="434" y="252" width="40" height="8" rx="4" fill="rgba(255,255,255,0.16)"/>
+      </g>
+      <g transform="rotate(7 535 260)">
+        <rect x="480" y="190" width="110" height="140" rx="10" fill="rgba(12,17,25,0.92)" stroke="rgba(255,255,255,0.28)" stroke-width="1.6"/>
+        <rect x="494" y="206" width="82" height="54" rx="6" fill="#9b7fd6" opacity="0.55"/>
+        <rect x="494" y="276" width="58" height="8" rx="4" fill="rgba(255,255,255,0.3)"/>
+        <rect x="494" y="292" width="40" height="8" rx="4" fill="rgba(255,255,255,0.16)"/>
+      </g>
+  </g>
+  <text x="640" y="320" font-family="'Arial Black', 'Helvetica Neue', sans-serif" font-weight="900" font-size="190" fill="#e9a35b" opacity="0.9" text-anchor="middle" dominant-baseline="middle">◧</text>
+  <path d="M 32 32 v 26 M 32 32 h 26" fill="none" stroke="rgba(255,255,255,0.28)" stroke-width="2"/><path d="M 868 32 v 26 M 868 32 h 26" fill="none" stroke="rgba(255,255,255,0.28)" stroke-width="2"/><path d="M 32 568 v 26 M 32 568 h 26" fill="none" stroke="rgba(255,255,255,0.28)" stroke-width="2"/><path d="M 868 568 v 26 M 868 568 h 26" fill="none" stroke="rgba(255,255,255,0.28)" stroke-width="2"/>
+  <text x="56" y="536" font-family="'Courier New', monospace" font-size="22" letter-spacing="10" fill="rgba(255,255,255,0.75)">MOTION CARDS</text>
+  <defs>
+    <filter id="noise">
+      <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.06"/></feComponentTransfer>
+    </filter>
+  </defs>
+  <rect width="900" height="600" filter="url(#noise)"/>
+  <defs>
+    <radialGradient id="vig" cx="50%" cy="45%" r="75%">
+      <stop offset="55%" stop-color="rgba(0,0,0,0)"/>
+      <stop offset="100%" stop-color="rgba(0,0,0,0.55)"/>
+    </radialGradient>
+  </defs>
+  <rect width="900" height="600" fill="url(#vig)"/>
+</svg>
