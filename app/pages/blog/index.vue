@@ -3,7 +3,6 @@
  * 博客首页：分类卡片 + 精选文章。
  */
 useSeoMeta({
-  title: "博客 — Mixsu Studio",
   description: "Mixsu 的博客：生活、JavaScript 与 Blender 的实践记录。",
 });
 

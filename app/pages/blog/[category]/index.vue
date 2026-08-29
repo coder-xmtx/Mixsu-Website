@@ -6,7 +6,7 @@ const route = useRoute();
 const category = route.params.category as string;
 
 if (!(category in BLOG_CATEGORIES)) {
-  throw createError({ statusCode: 404, statusMessage: "分类不存在" });
+  throw createError({ statusCode: 404, message: "分类不存在" });
 }
 
 const meta = computed(() => BLOG_CATEGORIES[category as BlogCategory]);
@@ -20,7 +20,6 @@ const { data: posts } = await useAsyncData(`blog-${category}`, () =>
 );
 
 useSeoMeta({
-  title: `${meta.value.label} — 博客 — Mixsu Studio`,
   description: meta.value.description,
 });
 </script>
@@ -71,7 +70,7 @@ useSeoMeta({
     </div>
 
     <Reveal v-if="!posts?.length" variant="fade" class="py-20 text-center">
-      <p class="hand-note text-2xl text-muted">这个分类还是空的……我会尽快补上</p>
+      <p class="text-sm text-muted">这个分类还没有文章。</p>
     </Reveal>
   </div>
 </template>

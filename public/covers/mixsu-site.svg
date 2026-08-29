@@ -23,7 +23,7 @@
     <rect x="140" y="314" width="200" height="8" rx="4" fill="rgba(255,255,255,0.16)"/>
     <rect x="380" y="240" width="110" height="84" rx="8" fill="none" stroke="#7fd6c2" stroke-width="1.5" opacity="0.7"/>
   </g>
-  <text x="640" y="320" font-family="'Arial Black', 'Helvetica Neue', sans-serif" font-weight="900" font-size="190" fill="#f0a35e" opacity="0.9" text-anchor="middle" dominant-baseline="middle"></></text>
+  <text x="640" y="320" font-family="'Arial Black', 'Helvetica Neue', sans-serif" font-weight="900" font-size="190" fill="#f0a35e" opacity="0.9" text-anchor="middle" dominant-baseline="middle" />
   <path d="M 32 32 v 26 M 32 32 h 26" fill="none" stroke="rgba(255,255,255,0.28)" stroke-width="2"/><path d="M 868 32 v 26 M 868 32 h 26" fill="none" stroke="rgba(255,255,255,0.28)" stroke-width="2"/><path d="M 32 568 v 26 M 32 568 h 26" fill="none" stroke="rgba(255,255,255,0.28)" stroke-width="2"/><path d="M 868 568 v 26 M 868 568 h 26" fill="none" stroke="rgba(255,255,255,0.28)" stroke-width="2"/>
   <text x="56" y="536" font-family="'Courier New', monospace" font-size="22" letter-spacing="10" fill="rgba(255,255,255,0.75)">MIXSU STUDIO</text>
   <defs>

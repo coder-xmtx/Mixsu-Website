@@ -59,36 +59,29 @@ watch(
 </script>
 
 <template>
-  <header
-    class="fixed inset-x-0 top-0 z-[100] transition-all duration-500"
-    :class="scrolled ? 'border-b border-line-soft bg-bg/80 backdrop-blur-md' : 'border-b border-transparent'"
-  >
+  <header class="fixed inset-x-0 top-0 z-100 transition-all duration-500"
+    :class="scrolled ? 'border-b border-line-soft bg-bg/80 backdrop-blur-md' : 'border-b border-transparent'">
     <div class="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 md:px-10">
       <!-- Logo -->
-      <NuxtLink
-        to="/"
-        data-cursor="hover"
-        class="group flex items-baseline gap-1 font-display text-xl font-extrabold tracking-tight text-text"
-      >
-        Mixsu
-        <span class="text-accent transition-transform duration-300 group-hover:rotate-180 inline-block">✦</span>
-      </NuxtLink>
+      <div class="flex items-center gap-2">
+        <img src="/favicon.svg" alt="logo">
+        <NuxtLink to="/" data-cursor="hover"
+          class="group flex items-baseline gap-1 font-display text-xl font-extrabold tracking-tight text-text">
+          <div class="text-transparent bg-clip-text bg-linear-to-l from-accent-strong to-accent">
+            Mixsu Studio
+          </div>
+        </NuxtLink>
+      </div>
 
       <!-- 桌面导航 -->
       <nav class="hidden items-center gap-1 md:flex">
-        <NuxtLink
-          v-for="link in links"
-          :key="link.to"
-          :to="link.to"
-          data-cursor="hover"
-          class="relative px-4 py-2 font-mono text-[13px] tracking-widest transition-colors duration-300"
-          :class="route.path === link.to ? 'text-accent' : 'text-muted hover:text-text'"
-        >
+        <NuxtLink v-for="link in links" :key="link.to" :to="link.to" data-cursor="hover"
+          class="relative font-bold px-4 py-2 font-mono text-[13px] tracking-widest transition-colors duration-300"
+          :class="route.path === link.to ? 'text-accent' : 'text-muted hover:text-text'">
           {{ link.label }}
           <span
             class="absolute bottom-0.5 left-1/2 size-1 -translate-x-1/2 rounded-full bg-accent transition-all duration-300"
-            :class="route.path === link.to ? 'opacity-100' : 'opacity-0 scale-0'"
-          />
+            :class="route.path === link.to ? 'opacity-100' : 'opacity-0 scale-0'" />
         </NuxtLink>
       </nav>
 
@@ -96,13 +89,10 @@ watch(
         <ThemeToggle />
 
         <!-- 移动端菜单按钮 -->
-        <button
-          type="button"
+        <button type="button"
           class="grid size-10 place-items-center rounded-full border border-line bg-surface text-muted transition-colors hover:text-text md:hidden"
-          :aria-label="menuOpen ? '关闭菜单' : '打开菜单'"
-          :aria-expanded="menuOpen"
-          @click="menuOpen ? closeMenu() : openMenu()"
-        >
+          :aria-label="menuOpen ? '关闭菜单' : '打开菜单'" :aria-expanded="menuOpen"
+          @click="menuOpen ? closeMenu() : openMenu()">
           <UIcon :name="menuOpen ? 'lucide:x' : 'lucide:menu'" class="size-5" />
         </button>
       </div>
@@ -111,37 +101,25 @@ watch(
     <!-- 移动端全屏菜单 -->
     <Teleport to="body">
       <Transition name="menu">
-        <div v-if="menuOpen" ref="menuEl" class="fixed inset-0 z-[105] flex flex-col bg-bg md:hidden">
+        <div v-if="menuOpen" ref="menuEl" class="fixed inset-0 z-105 flex flex-col bg-bg md:hidden">
           <div class="gridlines" aria-hidden="true" />
           <div class="flex h-16 items-center justify-between px-5">
             <span class="font-display text-xl font-extrabold">Mixsu ✦</span>
-            <button
-              type="button"
-              class="grid size-10 place-items-center rounded-full border border-line text-muted"
-              aria-label="关闭菜单"
-              @click="closeMenu"
-            >
+            <button type="button" class="grid size-10 place-items-center rounded-full border border-line text-muted"
+              aria-label="关闭菜单" @click="closeMenu">
               <UIcon name="lucide:x" class="size-5" />
             </button>
           </div>
           <nav class="relative flex flex-1 flex-col justify-center gap-2 px-8">
-            <NuxtLink
-              v-for="(link, i) in links"
-              :key="link.to"
-              :to="link.to"
-              data-menu-item
-              class="flex items-baseline gap-4 overflow-hidden py-3"
-              @click="closeMenu"
-            >
+            <NuxtLink v-for="(link, i) in links" :key="link.to" :to="link.to" data-menu-item
+              class="flex items-baseline gap-4 overflow-hidden py-3" @click="closeMenu">
               <span class="font-mono text-xs text-accent">0{{ i + 1 }}</span>
-              <span
-                class="font-display text-5xl font-bold tracking-tight"
-                :class="route.path === link.to ? 'text-accent' : 'text-text'"
-              >{{ link.label }}</span>
+              <span class="font-display text-5xl font-bold tracking-tight"
+                :class="route.path === link.to ? 'text-accent' : 'text-text'">{{ link.label }}</span>
             </NuxtLink>
           </nav>
           <div class="relative px-8 pb-10">
-            <p class="hand-note text-lg text-muted">欢迎光临我的小工作室 ✎</p>
+            <p class="font-mono text-xs tracking-[0.3em] text-faint">MIXSU STUDIO · 2026</p>
           </div>
         </div>
       </Transition>
@@ -154,11 +132,13 @@ watch(
 .menu-leave-active {
   transition: clip-path 0.5s cubic-bezier(0.83, 0, 0.17, 1), opacity 0.4s ease;
 }
+
 .menu-enter-from,
 .menu-leave-to {
   clip-path: circle(0% at 92% 8%);
   opacity: 0;
 }
+
 .menu-enter-to,
 .menu-leave-from {
   clip-path: circle(150% at 92% 8%);

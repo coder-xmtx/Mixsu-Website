@@ -72,10 +72,18 @@
   --color-accent-strong: var(--accent-strong);
   --color-accent-soft: var(--accent-soft);
 
-  --font-display: "Syne", "Noto Sans SC", ui-sans-serif, system-ui, sans-serif;
-  --font-sans: "Noto Sans SC", ui-sans-serif, system-ui, sans-serif;
-  --font-hand: "Ma Shan Zheng", "Noto Sans SC", cursive;
-  --font-mono: "JetBrains Mono", ui-monospace, "Cascadia Code", Menlo, Consolas, monospace;
+  /* 系统字体栈：无外部字体依赖；中文统一用现代黑体（苹方/雅黑） */
+  --font-display:
+    "Astron", "Poppins", ui-sans-serif, -apple-system, "Segoe UI",
+    "PingFang SC", "HarmonyOS Sans SC", "Microsoft YaHei", "Noto Sans SC",
+    sans-serif;
+  --font-sans:
+    ui-sans-serif, -apple-system, "Segoe UI", "PingFang SC",
+    "HarmonyOS Sans SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+  --font-hand: ui-serif, Georgia, "Songti SC", "SimSun", serif;
+  --font-mono:
+    ui-monospace, "Source Han Serif", "Cascadia Code", "SF Mono",
+    "JetBrains Mono", Consolas, monospace;
 }
 
 /* 自定义柔和橙主色（Nuxt UI 语义色） */
@@ -154,29 +162,73 @@ body {
   background-size: 160px 160px;
 }
 
-/* 不规则网格线背景（错位 + 淡出蒙版） */
+/* 不规则网格线背景：两层错位网格缓慢漂移，形成流动感 */
 .gridlines {
   position: fixed;
   inset: 0;
   z-index: 0;
   pointer-events: none;
+  overflow: hidden;
+  mask-image: radial-gradient(
+    ellipse 120% 90% at 50% 0%,
+    black 30%,
+    transparent 78%
+  );
+  -webkit-mask-image: radial-gradient(
+    ellipse 120% 90% at 50% 0%,
+    black 30%,
+    transparent 78%
+  );
+}
+
+.gridlines::before,
+.gridlines::after {
+  content: "";
+  position: absolute;
+  inset: -100%;
   background-image:
     linear-gradient(to right, var(--line-soft) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--line-soft) 1px, transparent 1px),
-    linear-gradient(to right, var(--line-soft) 1px, transparent 1px),
     linear-gradient(to bottom, var(--line-soft) 1px, transparent 1px);
+}
+
+/* 细网格层：较快、斜向漂移 */
+.gridlines::before {
   background-size:
     120px 120px,
-    120px 120px,
+    120px 120px;
+  background-position:
+    0 0,
+    0 0;
+  animation: grid-drift-a 46s linear infinite;
+}
+
+/* 粗网格层：较慢、反向漂移、错位起始 */
+.gridlines::after {
+  background-size:
     347px 347px,
     347px 347px;
   background-position:
-    0 0,
-    0 0,
     63px 47px,
     19px 83px;
-  mask-image: radial-gradient(ellipse 120% 90% at 50% 0%, black 30%, transparent 78%);
-  -webkit-mask-image: radial-gradient(ellipse 120% 90% at 50% 0%, black 30%, transparent 78%);
+  animation: grid-drift-b 83s linear infinite reverse;
+}
+
+@keyframes grid-drift-a {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(120px, 120px, 0);
+  }
+}
+
+@keyframes grid-drift-b {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(347px, 347px, 0);
+  }
 }
 
 /* ------------------------------------------------------------------ */
@@ -216,9 +268,10 @@ body {
   -webkit-text-stroke: 1px rgba(233, 238, 246, 0.55);
 }
 
-/* 手写体注释卡片 */
+/* 手写体注释卡片（斜体衬线，克制使用） */
 .hand-note {
   font-family: var(--font-hand);
+  font-style: italic;
   line-height: 1.4;
 }
 

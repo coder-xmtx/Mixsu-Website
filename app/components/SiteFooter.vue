@@ -14,9 +14,9 @@ const navLinks = [
 ];
 
 const socials = [
-  { label: "GitHub", href: "https://github.com" },
-  { label: "Bilibili", href: "https://www.bilibili.com" },
-  { label: "邮箱", href: "mailto:hello@mixsu.studio" },
+  { label: "GitHub", href: "https://github.com/coder-xmtx" },
+  { label: "Bilibili", href: "https://space.bilibili.com/1208877584" },
+  { label: "邮箱", href: "mailto:hello mail_xmtx@163.com" },
 ];
 
 const bigTitle = ref<HTMLElement | null>(null);
@@ -74,7 +74,6 @@ function scrollTop() {
           <p class="mt-3 max-w-xs text-sm leading-relaxed text-muted">
             一个爱剪片子、玩 Blender、写代码的人，把喜欢的东西都放在这里。
           </p>
-          <p class="hand-note mt-4 text-accent">谢谢你看到这里</p>
         </div>
 
         <div>

@@ -6,7 +6,7 @@ const route = useRoute();
 const category = route.params.category as string;
 
 if (!(category in BLOG_CATEGORIES)) {
-  throw createError({ statusCode: 404, statusMessage: "分类不存在" });
+  throw createError({ statusCode: 404, message: "分类不存在" });
 }
 
 const { data: post } = await useAsyncData(route.path, () =>
@@ -14,7 +14,7 @@ const { data: post } = await useAsyncData(route.path, () =>
 );
 
 if (!post.value) {
-  throw createError({ statusCode: 404, statusMessage: "文章不存在" });
+  throw createError({ statusCode: 404, message: "文章不存在" });
 }
 
 const { data: related } = await useAsyncData(`related-${route.path}`, () =>
@@ -30,7 +30,6 @@ const { data: related } = await useAsyncData(`related-${route.path}`, () =>
 const meta = computed(() => BLOG_CATEGORIES[category as BlogCategory]);
 
 useSeoMeta({
-  title: `${post.value!.title} — Mixsu Studio`,
   description: post.value!.description,
   ogType: "article",
 });
@@ -92,7 +91,7 @@ const readingTime = computed(() => estimateReadingMinutes(post.value?.body as ne
     <!-- 结尾 -->
     <footer class="mt-16 border-t border-line-soft pt-10">
       <div class="flex flex-wrap items-center justify-between gap-6">
-        <p class="hand-note text-xl text-muted">写于 {{ formatDate(post.date) }} · 谢谢阅读 ✦</p>
+        <p class="font-mono text-xs tracking-[0.25em] text-faint">写于 {{ formatDate(post.date) }}</p>
         <NuxtLink
           :to="`/blog/${category}`"
           data-cursor="hover"

@@ -20,41 +20,51 @@ let dotY: ((v: number) => void) | null = null;
 let ringX: ((v: number) => void) | null = null;
 let ringY: ((v: number) => void) | null = null;
 
-function onMove(e: MouseEvent) {
-  if (!visible) {
-    visible = true;
-    gsap.to([dotEl.value, ringEl.value], { autoAlpha: 1, duration: 0.25 });
+/** 显示光标：若尚未可见，先瞬间定位到当前鼠标位置再淡入 */
+function showAt(x: number, y: number) {
+  if (visible) {
+    dotX?.(x);
+    dotY?.(y);
+    ringX?.(x);
+    ringY?.(y);
+    return;
   }
-  dotX?.(e.clientX);
-  dotY?.(e.clientY);
-  ringX?.(e.clientX);
-  ringY?.(e.clientY);
+  visible = true;
+  gsap.set([dotEl.value, ringEl.value], { x, y });
+  gsap.to([dotEl.value, ringEl.value], { autoAlpha: 1, duration: 0.25, overwrite: "auto" });
+}
+
+function onMove(e: MouseEvent) {
+  showAt(e.clientX, e.clientY);
 }
 
 function onOver(e: MouseEvent) {
+  // 鼠标从窗口外滑入时 mouseover 同样触发：保证光标先出现
+  if (!visible) showAt(e.clientX, e.clientY);
+
   const target = (e.target as HTMLElement)?.closest?.(
     "a, button, [role='button'], input, textarea, select, [data-cursor='hover'], label, summary",
   );
   if (target) {
-    gsap.to(ringEl.value, { scale: 1.8, borderColor: "var(--accent)", duration: 0.35, ease: "power3.out" });
-    gsap.to(dotEl.value, { scale: 0.4, duration: 0.3 });
+    gsap.to(ringEl.value, { scale: 1.8, borderColor: "var(--accent)", duration: 0.35, ease: "power3.out", overwrite: "auto" });
+    gsap.to(dotEl.value, { scale: 0.4, duration: 0.3, overwrite: "auto" });
   } else {
-    gsap.to(ringEl.value, { scale: 1, borderColor: "var(--faint)", duration: 0.35, ease: "power3.out" });
-    gsap.to(dotEl.value, { scale: 1, duration: 0.3 });
+    gsap.to(ringEl.value, { scale: 1, borderColor: "var(--faint)", duration: 0.35, ease: "power3.out", overwrite: "auto" });
+    gsap.to(dotEl.value, { scale: 1, duration: 0.3, overwrite: "auto" });
   }
 }
 
 function onDown() {
-  gsap.to(ringEl.value, { scale: 0.8, duration: 0.2 });
+  gsap.to(ringEl.value, { scale: 0.8, duration: 0.2, overwrite: "auto" });
 }
 
 function onUp() {
-  gsap.to(ringEl.value, { scale: 1.8, duration: 0.3, ease: "back.out(2)" });
+  gsap.to(ringEl.value, { scale: 1.8, duration: 0.3, ease: "back.out(2)", overwrite: "auto" });
 }
 
 function onLeave() {
   visible = false;
-  gsap.to([dotEl.value, ringEl.value], { autoAlpha: 0, duration: 0.3 });
+  gsap.to([dotEl.value, ringEl.value], { autoAlpha: 0, duration: 0.3, overwrite: "auto" });
 }
 
 function setup() {
@@ -102,9 +112,17 @@ onUnmounted(() => cleanup?.());
 
 <template>
   <Teleport to="body">
-    <div v-if="enabled" ref="ringEl" class="pointer-events-none fixed inset-s-0 top-0 z-120 size-10 rounded-full border"
-      :style="{ borderColor: 'var(--faint)' }" />
-    <div v-if="enabled" ref="dotEl" class="pointer-events-none fixed inset-s-0 top-0 z-120 size-1.5 rounded-full"
-      :style="{ background: 'var(--accent)' }" />
+    <div
+      v-if="enabled"
+      ref="ringEl"
+      class="pointer-events-none fixed left-0 top-0 z-120 size-10 rounded-full border"
+      :style="{ borderColor: 'var(--faint)' }"
+    />
+    <div
+      v-if="enabled"
+      ref="dotEl"
+      class="pointer-events-none fixed left-0 top-0 z-120 size-1.5 rounded-full"
+      :style="{ background: 'var(--accent)' }"
+    />
   </Teleport>
 </template>

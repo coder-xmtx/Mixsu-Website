@@ -4,11 +4,9 @@
  */
 import { gsap } from "gsap";
 
-const props = defineProps<{ error: { statusCode?: number; statusMessage?: string } }>();
+const props = defineProps<{ error: { statusCode?: number; statusMessage?: string; message?: string } }>();
 
-useSeoMeta({
-  title: `${props.error.statusCode ?? "出错了"} — Mixsu Studio`,
-});
+// 标签页标题保持全局一致（nuxt.config 已固定）
 
 const el = ref<HTMLElement | null>(null);
 
@@ -41,10 +39,8 @@ const is404 = computed(() => (props.error.statusCode ?? 404) === 404);
     </h1>
 
     <p data-error-fade class="mt-6 max-w-md text-base leading-relaxed text-muted md:text-lg">
-      {{ is404 ? "这里什么都没有——可能是链接写错了，也可能是我把它藏得太好了。" : (error.statusMessage || "出了点问题。") }}
+      {{ is404 ? "这里什么都没有——可能是链接写错了，也可能是我把它藏得太好了。" : (error.message || "出了点问题。") }}
     </p>
-
-    <HandNote data-error-fade text="别慌，往回走走看" class="mt-4 text-xl md:text-2xl" />
 
     <div data-error-fade class="mt-10 flex flex-wrap items-center justify-center gap-4">
       <NuxtLink

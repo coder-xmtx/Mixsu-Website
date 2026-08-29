@@ -6,7 +6,6 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 useSeoMeta({
-  title: "作品 — Mixsu Studio",
   description: "Mixsu 的作品集：剪辑、Blender 与开发项目。",
 });
 
@@ -128,7 +127,7 @@ function applyFilter(key: "all" | ProjectCategory) {
     </div>
 
     <Reveal v-if="!filtered.length" variant="fade" class="py-20 text-center">
-      <p class="hand-note text-2xl text-muted">这个分类还在攒作品……先看看别的吧</p>
+      <p class="text-sm text-muted">这个分类还没有作品。</p>
     </Reveal>
   </div>
 </template>

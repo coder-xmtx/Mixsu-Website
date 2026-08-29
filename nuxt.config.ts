@@ -1,18 +1,13 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 
 import tailwindcss from "@tailwindcss/vite";
+import { provide } from "vue";
 
 export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
 
-  modules: [
-    "@nuxt/ui",
-    "@nuxt/content",
-    "@nuxt/fonts",
-    "@nuxt/icon",
-    "@pinia/nuxt",
-  ],
+  modules: ["@nuxt/ui", "@nuxt/content", "@nuxt/icon", "@pinia/nuxt"],
 
   css: ["~/assets/css/main.css"],
 
@@ -44,21 +39,45 @@ export default defineNuxtConfig({
     classSuffix: "",
   },
 
+  icon: {
+    clientBundle: {
+      icons: [
+        "lucide:arrow-down-right",
+        "lucide:arrow-left",
+        "lucide:arrow-right",
+        "lucide:arrow-up",
+        "lucide:arrow-up-right",
+        "lucide:asterisk",
+        "lucide:box",
+        "lucide:clapperboard",
+        "lucide:code-2",
+        "lucide:coffee",
+        "lucide:home",
+        "lucide:info",
+        "lucide:lightbulb",
+        "lucide:menu",
+        "lucide:moon",
+        "lucide:send",
+        "lucide:sun",
+        "lucide:terminal",
+        "lucide:triangle-alert",
+        "lucide:x",
+      ],
+    },
+  },
+
+  // @nuxt/ui 会启用 @nuxt/fonts；当前环境无法访问外部字体 CDN，
+  // 全站使用系统字体栈，因此移除所有远程字体 provider，避免启动时反复抓取。
+  // hooks: {
+  //   "fonts:providers": (providers: Record<string, unknown>) => {
+  //     for (const key of ["google", "googleicons", "bunny", "fontshare", "adobe"]) {
+  //       delete providers[key];
+  //     }
+  //   },
+  // },
+
   fonts: {
-    families: [
-      {
-        name: "Syne",
-        provider: "bunny",
-        weights: ["400", "500", "600", "700", "800"],
-      },
-      {
-        name: "Noto Sans SC",
-        provider: "bunny",
-        weights: ["300", "400", "500", "700"],
-      },
-      { name: "Ma Shan Zheng", provider: "bunny", weights: ["400"] },
-    ],
-    provider: "bunny",
+    provider: "local",
   },
 
   content: {

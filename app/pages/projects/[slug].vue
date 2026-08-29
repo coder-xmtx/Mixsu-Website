@@ -11,7 +11,7 @@ const { data: project } = await useAsyncData(route.path, () =>
 );
 
 if (!project.value) {
-  throw createError({ statusCode: 404, statusMessage: "项目不存在" });
+  throw createError({ statusCode: 404, message: "项目不存在" });
 }
 
 const { data: related } = await useAsyncData(`related-${route.path}`, () =>
@@ -27,7 +27,6 @@ const { data: related } = await useAsyncData(`related-${route.path}`, () =>
 const meta = computed(() => PROJECT_CATEGORIES[project.value!.category]);
 
 useSeoMeta({
-  title: `${project.value!.title} — Mixsu Studio`,
   description: project.value!.description,
 });
 

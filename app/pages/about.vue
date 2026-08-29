@@ -1,6 +1,5 @@
 <script setup lang="ts">
 useSeoMeta({
-  title: "关于 — Mixsu Studio",
   description: "关于 Mixsu：一个爱剪片子、玩 Blender、写代码的人。",
 });
 
@@ -66,7 +65,6 @@ const timeline = [
             联系我
             <UIcon name="lucide:send" class="size-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
           </a>
-          <HandNote text="不忙的时候回得很快" class="text-lg md:text-xl" />
         </Reveal>
       </div>
 
@@ -77,7 +75,6 @@ const timeline = [
           <div class="relative aspect-square overflow-hidden rounded-2xl border border-line bg-surface">
             <img src="/portrait.png" alt="Mixsu 的头像" class="size-full object-cover" />
           </div>
-          <HandNote text="本人，如假包换 ✦" class="absolute -bottom-5 right-2 z-10 text-xl md:text-2xl" :rotate="4" />
         </div>
       </div>
     </div>
@@ -161,9 +158,6 @@ const timeline = [
           hello@mixsu.studio
           <UIcon name="lucide:arrow-up-right" class="size-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
         </a>
-      </Reveal>
-      <Reveal variant="fade" :delay="0.4" class="mt-8">
-        <HandNote text="或者，先随便逛逛也行" class="text-lg text-muted md:text-xl" />
       </Reveal>
     </section>
   </div>
