@@ -65,16 +65,6 @@ export default defineNuxtConfig({
     },
   },
 
-  // @nuxt/ui 会启用 @nuxt/fonts；当前环境无法访问外部字体 CDN，
-  // 全站使用系统字体栈，因此移除所有远程字体 provider，避免启动时反复抓取。
-  // hooks: {
-  //   "fonts:providers": (providers: Record<string, unknown>) => {
-  //     for (const key of ["google", "googleicons", "bunny", "fontshare", "adobe"]) {
-  //       delete providers[key];
-  //     }
-  //   },
-  // },
-
   fonts: {
     provider: "local",
   },
