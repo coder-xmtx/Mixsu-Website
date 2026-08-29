@@ -16,7 +16,7 @@ const navLinks = [
 const socials = [
   { label: "GitHub", href: "https://github.com/coder-xmtx" },
   { label: "Bilibili", href: "https://space.bilibili.com/1208877584" },
-  { label: "邮箱", href: "mailto:hello mail_xmtx@163.com" },
+  { label: "邮箱", href: "mailto:mail_xmtx@163.com" },
 ];
 
 const bigTitle = ref<HTMLElement | null>(null);

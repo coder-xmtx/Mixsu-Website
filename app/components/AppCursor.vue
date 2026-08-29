@@ -11,7 +11,10 @@ const ringEl = ref<HTMLElement | null>(null);
 const isFine = useFinePointer();
 const reduceMotion = usePrefersReducedMotion();
 
-const enabled = computed(() => isFine.value && !reduceMotion.value);
+// 首屏在服务端和客户端都先渲染为 false，挂载后再开启，
+// 避免 useFinePointer 的 matchMedia 在两端结果不一致导致水合 mismatch。
+const mounted = ref(false);
+const enabled = computed(() => mounted.value && isFine.value && !reduceMotion.value);
 
 let cleanup: (() => void) | null = null;
 let visible = false;
@@ -95,8 +98,11 @@ function setup() {
   };
 }
 
-onMounted(() => {
+onMounted(async () => {
+  mounted.value = true;
+  await nextTick();
   setup();
+
   watch(enabled, (v) => {
     if (v) {
       nextTick(setup);

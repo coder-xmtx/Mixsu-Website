@@ -4,6 +4,7 @@
  */
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Flip } from "gsap/Flip";
 
 useSeoMeta({
   description: "Mixsu 的作品集：剪辑、Blender 与开发项目。",

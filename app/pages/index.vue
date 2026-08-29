@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { gsap } from "gsap";
 
+
 useSeoMeta({
   // 标签页标题保持全局一致（nuxt.config 已固定），这里只维护 description
   description: "Mixsu 的个人数字工作室：剪辑作品、Blender 创作与技术文章。",
@@ -45,7 +46,7 @@ onMounted(() => {
         ease: "power4.inOut",
       }, 0.35)
       .from("[data-hero-desc]", { autoAlpha: 0, y: 20, duration: 0.7 }, 1.0)
-      .from("[data-hero-cta]", { autoAlpha: 0, y: 16, duration: 0.6, stagger: 0.08 }, 1.1)
+      .from("[data-hero-cta]", { autoAlpha: 0, y: 16, duration: 0.6, stagger: 0.08, clearProps: "all" }, 1.1)
       .from("[data-hero-meta]", { autoAlpha: 0, y: 14, duration: 0.6 }, 1.2)
       .from("[data-hero-sweep]", { scaleX: 0, transformOrigin: "left center", duration: 0.7, ease: "power3.inOut" }, 0.7)
       .from("[data-hero-hint]", { autoAlpha: 0, duration: 0.8 }, 1.5);
@@ -114,7 +115,7 @@ const marqueeItems = [
     <!-- ============ HERO ============ -->
     <section ref="heroRef" class="relative flex min-h-screen flex-col justify-center overflow-hidden pt-24 pb-16">
       <!-- 右上角橙色氛围光 -->
-      <div class="pointer-events-none absolute -top-40 right-[-10%] size-[34rem] rounded-full opacity-60 blur-[120px]"
+      <div class="pointer-events-none absolute -top-40 right-[-10%] size-136 rounded-full opacity-60 blur-[120px]"
         :style="{ background: 'radial-gradient(circle, var(--accent-glow), transparent 70%)' }" aria-hidden="true" />
 
       <div class="mx-auto grid w-full max-w-7xl items-center gap-14 px-5 md:px-10 lg:grid-cols-12">
