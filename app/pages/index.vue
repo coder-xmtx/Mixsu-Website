@@ -274,7 +274,7 @@ const marqueeItems = [
       </Reveal>
       <Reveal variant="up" :delay="0.15" class="mt-8">
         <div class="flex flex-wrap items-center gap-8">
-          <a href="mailto:hello@mixsu.studio" data-cursor="hover"
+          <a href="mailto:mail_xmtx@163.com" data-cursor="hover"
             class="group inline-flex items-center gap-3 rounded-full border border-accent/60 px-8 py-4 font-mono text-sm tracking-widest text-accent transition-all duration-300 hover:bg-accent hover:text-bg hover:shadow-[0_0_40px_var(--accent-glow)]">
             给我写信
             <UIcon name="lucide:send"

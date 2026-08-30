@@ -72,18 +72,19 @@
   --color-accent-strong: var(--accent-strong);
   --color-accent-soft: var(--accent-soft);
 
-  /* 系统字体栈：无外部字体依赖；中文统一用现代黑体（苹方/雅黑） */
+  /* 系统字体栈：无外部字体依赖*/
   --font-display:
     "Astron", "Poppins", ui-sans-serif, -apple-system, "Segoe UI",
     "PingFang SC", "HarmonyOS Sans SC", "Microsoft YaHei", "Noto Sans SC",
     sans-serif;
   --font-sans:
-    ui-sans-serif, -apple-system, "Segoe UI", "PingFang SC",
-    "HarmonyOS Sans SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+    "HarmonyOS Sans SC", ui-sans-serif, -apple-system, "Segoe UI",
+    "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
   --font-hand: ui-serif, Georgia, "Songti SC", "SimSun", serif;
   --font-mono:
     ui-monospace, "Source Han Serif", "Cascadia Code", "SF Mono",
     "JetBrains Mono", Consolas, monospace;
+  --font-code: "JetBrains Mono";
 }
 
 /* 自定义柔和橙主色（Nuxt UI 语义色） */

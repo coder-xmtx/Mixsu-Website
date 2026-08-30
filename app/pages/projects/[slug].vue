@@ -53,10 +53,8 @@ onMounted(() => {
   <div v-if="project" class="mx-auto max-w-5xl px-5 pt-28 md:px-10 md:pt-32">
     <!-- 返回 -->
     <Reveal variant="fade">
-      <NuxtLink
-        to="/projects"
-        class="group inline-flex items-center gap-2 font-mono text-xs tracking-[0.25em] text-faint transition-colors hover:text-accent"
-      >
+      <NuxtLink to="/projects"
+        class="group inline-flex items-center gap-2 font-mono text-xs tracking-[0.25em] text-faint transition-colors hover:text-accent">
         <UIcon name="lucide:arrow-left" class="size-3.5 transition-transform duration-300 group-hover:-translate-x-1" />
         返回作品集
       </NuxtLink>
@@ -65,7 +63,8 @@ onMounted(() => {
     <!-- 头部 -->
     <header ref="headRef" class="mt-8">
       <div data-detail-fade class="flex flex-wrap items-center gap-3">
-        <span class="inline-flex items-center gap-1.5 rounded-full border border-accent/50 bg-accent-soft px-3 py-1 font-mono text-[11px] tracking-widest text-accent">
+        <span
+          class="inline-flex items-center gap-1.5 rounded-full border border-accent/50 bg-accent-soft px-3 py-1 font-mono text-[11px] tracking-widest text-accent">
           <UIcon :name="meta.icon" class="size-3.5" />
           {{ meta.label }}
         </span>
@@ -87,12 +86,7 @@ onMounted(() => {
 
       <!-- 封面 -->
       <div data-detail-cover class="relative mt-10 overflow-hidden rounded-2xl border border-line">
-        <img
-          v-if="project.cover"
-          :src="project.cover"
-          :alt="project.title"
-          class="aspect-[3/2] w-full object-cover"
-        />
+        <img v-if="project.cover" :src="project.cover" :alt="project.title" class="aspect-3/2 w-full object-cover" />
       </div>
     </header>
 
@@ -103,17 +97,12 @@ onMounted(() => {
 
     <!-- 链接 -->
     <div v-if="project.links?.length" class="mt-12 flex flex-wrap gap-3 border-t border-line-soft pt-8">
-      <a
-        v-for="link in project.links"
-        :key="link.label"
-        :href="link.url"
-        target="_blank"
-        rel="noopener noreferrer"
+      <a v-for="link in project.links" :key="link.label" :href="link.url" target="_blank" rel="noopener noreferrer"
         data-cursor="hover"
-        class="group inline-flex items-center gap-2 rounded-full border border-line px-5 py-2.5 font-mono text-sm tracking-widest text-text transition-all duration-300 hover:border-accent hover:text-accent"
-      >
+        class="group inline-flex items-center gap-2 rounded-full border border-line px-5 py-2.5 font-mono text-sm tracking-widest text-text transition-all duration-300 hover:border-accent hover:text-accent">
         {{ link.label }}
-        <UIcon name="lucide:arrow-up-right" class="size-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+        <UIcon name="lucide:arrow-up-right"
+          class="size-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
       </a>
     </div>
 
@@ -123,18 +112,9 @@ onMounted(() => {
         <h2 class="font-display text-2xl font-bold tracking-tight text-text">同类作品</h2>
       </Reveal>
       <div class="mt-8 grid gap-8 md:grid-cols-2">
-        <ProjectCard
-          v-for="(item, i) in related"
-          :key="item.path"
-          :title="item.title"
-          :description="item.description"
-          :date="item.date"
-          :category="item.category"
-          :tags="item.tags"
-          :cover="item.cover"
-          :to="item.path"
-          :index="i + 1"
-        />
+        <ProjectCard v-for="(item, i) in related" :key="item.path" :title="item.title" :description="item.description"
+          :date="item.date" :category="item.category" :tags="item.tags" :cover="item.cover" :to="item.path"
+          :index="i + 1" />
       </div>
     </section>
   </div>
