@@ -63,14 +63,6 @@ onMounted(() => {
       },
     });
 
-    // 头像呼吸感：轻微上下浮动，避免静止呆板
-    gsap.to("[data-hero-portrait]", {
-      y: -10,
-      duration: 3,
-      ease: "sine.inOut",
-      repeat: -1,
-      yoyo: true,
-    });
   }, root);
 
   onUnmounted(() => ctx.revert());
@@ -137,13 +129,13 @@ const marqueeItems = [
           </p>
 
           <SplitHeading text="MIXSU" as="h1"
-            class="font-display text-[clamp(3.8rem,12vw,8.5rem)] font-extrabold leading-[0.92] tracking-tight text-text" />
+            class="font-display text-[clamp(3.8rem,12vw,8.5rem)] font-extrabold leading-[0.92] tracking-tight title-flow" />
 
           <!-- 第二行：描边 STUDIO + 橙色扫线 -->
           <div class="mt-2 flex items-center gap-5 md:mt-3 md:gap-7">
             <span data-hero-sweep class="block h-1.5 w-10 bg-accent md:w-14" aria-hidden="true" />
             <SplitHeading text="STUDIO" as="p" :delay="0.3"
-              class="font-display text-[clamp(2.4rem,7.5vw,5.4rem)] font-extrabold leading-none tracking-[0.08em] text-stroke" />
+              class="font-display text-[clamp(2.4rem,7.5vw,5.4rem)] font-bold leading-none tracking-[0.08em] text-stroke" />
           </div>
 
           <div class="mt-7">
@@ -222,7 +214,7 @@ const marqueeItems = [
         <p data-manifesto-line>好的作品不是炫技，</p>
         <p data-manifesto-line>而是让人愿意停下来。</p>
         <p data-manifesto-line>节奏感，来自克制。</p>
-        <p data-manifesto-line class="text-accent">手艺人，值得一个像样的舞台。</p>
+        <p data-manifesto-line class="text-accent">设计与审美，依然需要鲜活注入。</p>
       </div>
       <p class="mt-12 font-mono text-sm tracking-[0.25em] text-faint">—— 我的创作信条</p>
     </section>
@@ -237,16 +229,11 @@ const marqueeItems = [
       </div>
 
       <div class="mt-14 grid gap-x-8 gap-y-16 md:grid-cols-2">
-        <template v-for="(project, i) in featuredProjects" :key="project.path">
-          <ProjectCard v-if="i === 0" :title="project.title" :description="project.description" :date="project.date"
+        <div v-for="(project, i) in featuredProjects" :key="project.path" :class="['h-full', i > 0 ? 'md:mt-24' : '']">
+          <ProjectCard :title="project.title" :description="project.description" :date="project.date"
             :category="project.category" :tags="project.tags" :cover="project.cover" :to="project.path"
             :featured="project.featured" :index="i" />
-          <div v-else class="md:mt-24">
-            <ProjectCard :title="project.title" :description="project.description" :date="project.date"
-              :category="project.category" :tags="project.tags" :cover="project.cover" :to="project.path"
-              :featured="project.featured" :index="i" />
-          </div>
-        </template>
+        </div>
       </div>
     </section>
 

@@ -2,7 +2,6 @@
 /**
  * 页脚：大字标语 + 导航/联系 + 返回顶部。
  */
-import { gsap } from "gsap";
 
 const year = new Date().getFullYear();
 
@@ -19,34 +18,6 @@ const socials = [
   { label: "邮箱", href: "mailto:mail_xmtx@163.com" },
 ];
 
-const bigTitle = ref<HTMLElement | null>(null);
-
-onMounted(() => {
-  const el = bigTitle.value;
-  if (!el) return;
-
-  const ctx = gsap.context(() => {
-    // 大字标语随滚动轻微上移/淡出
-    gsap.fromTo(
-      el,
-      { yPercent: 40, autoAlpha: 0.35 },
-      {
-        yPercent: 0,
-        autoAlpha: 1,
-        ease: "none",
-        scrollTrigger: {
-          trigger: el,
-          start: "top bottom",
-          end: "bottom bottom",
-          scrub: 0.6,
-        },
-      },
-    );
-  }, el);
-
-  onUnmounted(() => ctx.revert());
-});
-
 function scrollTop() {
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
@@ -56,13 +27,12 @@ function scrollTop() {
   <footer class="relative z-10 mt-32 overflow-hidden border-t border-line-soft bg-bg-soft">
     <div class="mx-auto max-w-7xl px-5 pt-16 md:px-10">
       <!-- 大字标语 -->
-      <div ref="bigTitle" class="overflow-hidden">
-        <p
-          class="select-none font-display text-[clamp(3rem,11vw,9rem)] font-extrabold leading-[0.95] tracking-tight text-stroke">
+      <div class="overflow-hidden">
+        <p class="select-none font-display text-[clamp(3rem,11vw,9rem)] leading-[0.95] tracking-tight text-stroke">
           MIXSU
         </p>
         <p
-          class="select-none font-display text-[clamp(3rem,11vw,9rem)] font-extrabold leading-[0.95] tracking-tight text-stroke mt-[-0.06em]">
+          class="select-none font-display text-[clamp(3rem,11vw,9rem)] leading-[0.95] tracking-tight text-stroke mt-[-0.06em]">
           STUDIO
         </p>
       </div>

@@ -84,7 +84,9 @@
   --font-mono:
     ui-monospace, "Source Han Serif", "Cascadia Code", "SF Mono",
     "JetBrains Mono", Consolas, monospace;
-  --font-code: "JetBrains Mono";
+  --font-code:
+    "JetBrains Mono", ui-monospace, "Cascadia Code", "SF Mono", Consolas,
+    monospace;
 }
 
 /* 自定义柔和橙主色（Nuxt UI 语义色） */
@@ -269,6 +271,32 @@ body {
   -webkit-text-stroke: 1px rgba(233, 238, 246, 0.55);
 }
 
+/* 大标题流动渐变（首页 MIXSU）：
+   必须逐字（data-char）应用背景裁剪。background-clip: text 作用于
+   SplitHeading 的外层容器时，对嵌套 span 不可靠，会导致文字完全不可见。 */
+.title-flow [data-char] {
+  background-image: linear-gradient(
+    100deg,
+    var(--accent-strong) 30%,
+    var(--accent) 50%,
+    var(--accent-strong) 70%
+  );
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: title-flow 3.5s ease-in-out infinite;
+}
+@keyframes title-flow {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
 /* 手写体注释卡片（斜体衬线，克制使用） */
 .hand-note {
   font-family: var(--font-hand);
@@ -414,18 +442,22 @@ body {
 }
 
 .prose-content blockquote {
-  @apply border-accent bg-surface;
-  border-left-width: 3px;
+  border-left: 3px solid var(--accent);
   border-radius: 0 0.75rem 0.75rem 0;
+  background: var(--surface);
   padding: 1em 1.4em;
   color: var(--muted);
 }
 .prose-content blockquote p {
   color: var(--muted);
+  margin: 0;
+}
+.prose-content blockquote p + p {
+  margin-top: 0.6em;
 }
 
 .prose-content code {
-  font-family: var(--font-mono);
+  font-family: var(--font-code);
   font-size: 0.86em;
   background: var(--accent-soft);
   color: var(--accent-strong);
@@ -443,6 +475,7 @@ body {
   line-height: 1.7;
 }
 .prose-content pre code {
+  font-family: var(--font-code);
   background: transparent;
   color: inherit;
   padding: 0;

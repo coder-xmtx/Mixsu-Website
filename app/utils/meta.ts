@@ -6,7 +6,7 @@ export const BLOG_CATEGORIES = {
     label: "生活",
     en: "Life",
     icon: "lucide:coffee",
-    description: "随笔、年度回顾、工作台——关于生活的一切碎碎念。",
+    description: "关于生活的一切碎碎念。",
   },
   javascript: {
     label: "JavaScript",
@@ -18,7 +18,7 @@ export const BLOG_CATEGORIES = {
     label: "Blender",
     en: "Blender",
     icon: "lucide:box",
-    description: "建模、灯光、几何节点——3D 创作路上的坑与心得。",
+    description: "3D 创作路上的坑与心得。",
   },
 } as const;
 

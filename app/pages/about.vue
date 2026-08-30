@@ -7,29 +7,27 @@ const skills = [
   {
     title: "剪辑",
     icon: "lucide:clapperboard",
-    years: "6 年",
-    items: ["Premiere Pro", "DaVinci Resolve", "混剪 / 卡点", "调色", "声音设计"],
+    years: "2 年",
+    items: ["Premiere Pro", "DaVinci Resolve", "混剪 / 卡点", "调色"],
   },
   {
     title: "3D / Blender",
     icon: "lucide:box",
-    years: "3 年",
-    items: ["建模", "几何节点", "雕刻", "灯光 / 渲染", "Cycles"],
+    years: "1 个月",
+    items: ["建模", "灯光 / 渲染", "Cycles"],
   },
   {
     title: "开发",
     icon: "lucide:terminal",
-    years: "4 年",
+    years: "1 年",
     items: ["Vue / Nuxt", "TypeScript", "GSAP 动效", "Tailwind CSS", "Node.js"],
   },
 ];
 
 const timeline = [
-  { year: "2019", text: "开始自学剪辑，从给朋友剪婚礼视频起家" },
-  { year: "2021", text: "入坑 Blender，被「一个球能变成任何东西」震撼" },
-  { year: "2022", text: "开始写前端，发现代码和剪辑一样，都是节奏的艺术" },
-  { year: "2024", text: "第一次把剪辑、3D 和代码结合：做了一支全 CG 预告片" },
-  { year: "2026", text: "Mixsu Studio 上线，所有作品终于有了一个家" },
+  { year: "2024", text: "高考结束，踏入大学" },
+  { year: "2025", text: "不断摸索，累积经验，探索前沿技术栈" },
+  { year: "2026", text: "借助 DSH，Mixsu Studio 上线" },
 ];
 </script>
 
@@ -43,7 +41,7 @@ const timeline = [
         <Reveal variant="up" :delay="0.25" class="mt-8">
           <div class="space-y-5 text-base leading-relaxed text-muted md:text-lg">
             <p>
-              我是 Mixsu，一名独立创作者。白天写前端，晚上剪片子，周末把时间交给 Blender。
+              我是 Mixsu，也可叫我小明同学，是一名独立创作者，喜欢创作、实践，目前正在累积自己的技术栈。
               我相信好的作品来自持续的小练习，而不是偶尔的大爆发。
             </p>
             <p>
@@ -76,7 +74,7 @@ const timeline = [
 
     <!-- 技能 -->
     <section class="mt-32">
-      <SectionHeading index="01" kicker="Skills" title="我会的" description="三根支柱，一个底座：持续学习。" />
+      <SectionHeading index="01" kicker="Skills" title="我会的" description="好好学习，天天向上" />
 
       <div class="mt-14 grid gap-6 md:grid-cols-3">
         <Reveal v-for="(skill, i) in skills" :key="skill.title" variant="up" :delay="i * 0.12" :y-offset="40"
@@ -106,11 +104,11 @@ const timeline = [
       <SectionHeading index="02" kicker="Timeline" title="走过的路" description="每一个转折点，都始于一次「试试看」。" />
 
       <div class="relative mt-14 max-w-2xl">
-        <span class="absolute bottom-2 left-[7px] top-2 w-px bg-line" aria-hidden="true" />
+        <span class="absolute bottom-2 left-1.75 top-2 w-px bg-line" aria-hidden="true" />
         <div class="space-y-10">
           <Reveal v-for="(item, i) in timeline" :key="item.year" variant="left" :delay="i * 0.06" :y-offset="24">
             <div class="relative flex items-start gap-6 pl-8">
-              <span class="absolute left-0 top-2 size-[15px] rounded-full border-2 border-accent bg-bg"
+              <span class="absolute left-0 top-2 size-3.75 rounded-full border-2 border-accent bg-bg"
                 aria-hidden="true" />
               <div>
                 <p class="font-mono text-sm tracking-[0.2em] text-accent">{{ item.year }}</p>

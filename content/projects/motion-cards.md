@@ -49,5 +49,3 @@ function refreshLayout() {
 - 筛选 / 排序 / 增删全场景覆盖
 - 进出场动画可单独配置
 - SSR 安全，无布局抖动
-
-> 工具：Vue 3 · GSAP Flip · TypeScript

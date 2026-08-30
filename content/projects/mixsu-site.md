@@ -13,14 +13,14 @@ featured: true
 role: 设计 / 开发
 links:
   - label: 源码
-    url: https://github.com
-  - label: 在线预览
-    url: /
+    url: https://github.com/coder-xmtx/Mixsu-Website
 ---
 
 # Mixsu Studio（本站）
 
 你现在看到的这个网站，本身就是我最新的作品。它的目标是：像一个有手工感的数字工作室，而不是模板后台。
+
+**【目前正在迭代，尚未完成开发】**
 
 ## 技术栈
 
@@ -44,5 +44,3 @@ links:
 - 自定义光标只在精确指针设备上启用，触屏完全不受影响
 - 所有动画尊重 `prefers-reduced-motion`
 - 全文支持亮/暗双主题，CSS 变量驱动，无闪烁
-
-> 状态：持续迭代中
