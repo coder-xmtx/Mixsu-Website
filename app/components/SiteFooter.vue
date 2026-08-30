@@ -62,43 +62,50 @@ function scrollTop() {
           MIXSU
         </p>
         <p
-          class="select-none font-display text-[clamp(3rem,11vw,9rem)] font-extrabold leading-[0.95] tracking-tight text-stroke -mt-[0.06em]">
+          class="select-none font-display text-[clamp(3rem,11vw,9rem)] font-extrabold leading-[0.95] tracking-tight text-stroke mt-[-0.06em]">
           STUDIO
         </p>
       </div>
 
       <!-- 信息区 -->
-      <div class="mt-14 grid gap-10 border-t border-line-soft py-12 md:grid-cols-3">
+      <div class="mt-14 grid gap-10 border-t border-line-soft py-12 md:grid-cols-2">
         <div>
-          <p class="font-display text-lg font-bold">Mixsu Studio ✦</p>
-          <p class="mt-3 max-w-xs text-sm leading-relaxed text-muted">
-            一个爱剪片子、玩 Blender、写代码的人，把喜欢的东西都放在这里。
+          <p class="font-display text-lg font-bold">Mixsu Studio</p>
+          <p class="mt-3 max-w-xs text-sm leading-relaxed text-muted opacity-60">
+            一个爱剪片子、玩 Blender、写代码的人。
+          </p>
+          <p class="mt-3 max-w-xs text-sm leading-relaxed text-muted opacity-60">
+            我们不会放弃对艺术的追求。
           </p>
         </div>
 
-        <div>
-          <p class="font-mono text-xs tracking-[0.25em] text-faint uppercase">导航</p>
-          <ul class="mt-4 space-y-2.5">
-            <li v-for="link in navLinks" :key="link.to">
-              <NuxtLink :to="link.to" data-cursor="hover"
-                class="link-underline text-sm text-muted transition-colors hover:text-text">
-                {{ link.label }}
-              </NuxtLink>
-            </li>
-          </ul>
+        <div class="flex gap-x-30">
+
+          <div>
+            <p class="font-mono text-xs tracking-[0.25em] text-faint uppercase">导航</p>
+            <ul class="mt-4 space-y-2.5">
+              <li v-for="link in navLinks" :key="link.to">
+                <NuxtLink :to="link.to" data-cursor="hover"
+                  class="link-underline text-sm text-muted transition-colors hover:text-text">
+                  {{ link.label }}
+                </NuxtLink>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <p class="font-mono text-xs tracking-[0.25em] text-faint uppercase">联系</p>
+            <ul class="mt-4 space-y-2.5">
+              <li v-for="s in socials" :key="s.label">
+                <a :href="s.href" target="_blank" rel="noopener noreferrer" data-cursor="hover"
+                  class="link-underline text-sm text-muted transition-colors hover:text-text">
+                  {{ s.label }}
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
 
-        <div>
-          <p class="font-mono text-xs tracking-[0.25em] text-faint uppercase">联系</p>
-          <ul class="mt-4 space-y-2.5">
-            <li v-for="s in socials" :key="s.label">
-              <a :href="s.href" target="_blank" rel="noopener noreferrer" data-cursor="hover"
-                class="link-underline text-sm text-muted transition-colors hover:text-text">
-                {{ s.label }}
-              </a>
-            </li>
-          </ul>
-        </div>
       </div>
 
       <!-- 底部条 -->

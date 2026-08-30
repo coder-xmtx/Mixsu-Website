@@ -24,5 +24,5 @@ onMounted(() => {
 </script>
 
 <template>
-  <div ref="bar" class="fixed inset-x-0 top-0 z-[110] h-[2px] origin-left" :style="{ background: 'var(--accent)' }" />
+  <div ref="bar" class="fixed inset-x-0 top-0 z-110 h-0.5 origin-left" :style="{ background: 'var(--accent)' }" />
 </template>

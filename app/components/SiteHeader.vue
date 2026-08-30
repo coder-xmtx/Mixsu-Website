@@ -114,7 +114,7 @@ watch(
             <NuxtLink v-for="(link, i) in links" :key="link.to" :to="link.to" data-menu-item
               class="flex items-baseline gap-4 overflow-hidden py-3" @click="closeMenu">
               <span class="font-mono text-xs text-accent">0{{ i + 1 }}</span>
-              <span class="font-display text-5xl font-bold tracking-tight"
+              <span class="font-display text-3xl font-bold tracking-tight"
                 :class="route.path === link.to ? 'text-accent' : 'text-text'">{{ link.label }}</span>
             </NuxtLink>
           </nav>

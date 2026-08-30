@@ -38,12 +38,8 @@ const timeline = [
     <!-- 头部 -->
     <div class="grid items-center gap-14 lg:grid-cols-12">
       <div class="lg:col-span-7">
-        <SectionHeading
-          index="03"
-          kicker="About"
-          title="关于我"
-          description="一个同时热爱三件事的人：剪辑、3D 和写代码。它们在我这里不是三个技能，而是一种东西——把想法做成作品的能力。"
-        />
+        <SectionHeading index="03" kicker="About" title="关于我"
+          description="一个同时热爱三件事的人：剪辑、3D 和写代码。它们在我这里不是三个技能，而是一种东西——把想法做成作品的能力。" />
         <Reveal variant="up" :delay="0.25" class="mt-8">
           <div class="space-y-5 text-base leading-relaxed text-muted md:text-lg">
             <p>
@@ -57,13 +53,11 @@ const timeline = [
           </div>
         </Reveal>
         <Reveal variant="up" :delay="0.35" class="mt-8 flex items-center gap-6">
-          <a
-            href="mailto:hello@mixsu.studio"
-            data-cursor="hover"
-            class="group inline-flex items-center gap-2.5 rounded-full bg-accent px-7 py-3.5 font-mono text-sm tracking-widest text-bg transition-all duration-300 hover:shadow-[0_0_36px_var(--accent-glow)]"
-          >
+          <a href="mailto:mail_xmtx@163.com" data-cursor="hover"
+            class="group inline-flex items-center gap-2.5 rounded-full bg-accent px-7 py-3.5 font-mono text-sm tracking-widest text-bg transition-all duration-300 hover:shadow-[0_0_36px_var(--accent-glow)]">
             联系我
-            <UIcon name="lucide:send" class="size-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+            <UIcon name="lucide:send"
+              class="size-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
           </a>
         </Reveal>
       </div>
@@ -71,7 +65,8 @@ const timeline = [
       <!-- 头像 -->
       <div class="relative lg:col-span-5">
         <div class="relative mx-auto max-w-xs">
-          <div class="absolute inset-0 -translate-x-4 translate-y-4 rounded-2xl border border-accent/50" aria-hidden="true" />
+          <div class="absolute inset-0 -translate-x-4 translate-y-4 rounded-2xl border border-accent/50"
+            aria-hidden="true" />
           <div class="relative aspect-square overflow-hidden rounded-2xl border border-line bg-surface">
             <img src="/portrait.png" alt="Mixsu 的头像" class="size-full object-cover" />
           </div>
@@ -84,15 +79,10 @@ const timeline = [
       <SectionHeading index="01" kicker="Skills" title="我会的" description="三根支柱，一个底座：持续学习。" />
 
       <div class="mt-14 grid gap-6 md:grid-cols-3">
-        <Reveal
-          v-for="(skill, i) in skills"
-          :key="skill.title"
-          variant="up"
-          :delay="i * 0.12"
-          :y-offset="40"
-          class="h-full"
-        >
-          <div class="flex h-full flex-col rounded-2xl border border-line bg-surface p-7 transition-colors duration-500 hover:border-accent/40">
+        <Reveal v-for="(skill, i) in skills" :key="skill.title" variant="up" :delay="i * 0.12" :y-offset="40"
+          class="h-full">
+          <div
+            class="flex h-full flex-col rounded-2xl border border-line bg-surface p-7 transition-colors duration-500 hover:border-accent/40">
             <div class="flex items-center justify-between">
               <span class="inline-flex items-center gap-2.5 font-display text-xl font-bold text-text">
                 <UIcon :name="skill.icon" class="size-5 text-accent" />
@@ -101,11 +91,8 @@ const timeline = [
               <span class="font-mono text-xs text-accent">{{ skill.years }}</span>
             </div>
             <div class="mt-5 flex flex-wrap gap-2">
-              <span
-                v-for="item in skill.items"
-                :key="item"
-                class="rounded-full border border-line-soft px-3 py-1 text-xs text-muted"
-              >
+              <span v-for="item in skill.items" :key="item"
+                class="rounded-full border border-line-soft px-3 py-1 text-xs text-muted">
                 {{ item }}
               </span>
             </div>
@@ -123,10 +110,8 @@ const timeline = [
         <div class="space-y-10">
           <Reveal v-for="(item, i) in timeline" :key="item.year" variant="left" :delay="i * 0.06" :y-offset="24">
             <div class="relative flex items-start gap-6 pl-8">
-              <span
-                class="absolute left-0 top-2 size-[15px] rounded-full border-2 border-accent bg-bg"
-                aria-hidden="true"
-              />
+              <span class="absolute left-0 top-2 size-[15px] rounded-full border-2 border-accent bg-bg"
+                aria-hidden="true" />
               <div>
                 <p class="font-mono text-sm tracking-[0.2em] text-accent">{{ item.year }}</p>
                 <p class="mt-1.5 text-sm leading-relaxed text-muted md:text-base">{{ item.text }}</p>
@@ -146,17 +131,15 @@ const timeline = [
       </Reveal>
       <Reveal variant="up" :delay="0.15" class="mt-6">
         <p class="mx-auto max-w-md text-base leading-relaxed text-muted">
-          无论是合作项目、约稿，还是单纯想聊聊剪辑和 3D，都欢迎来信。
+          无论是合作项目，还是单纯想聊聊剪辑和 3D，都欢迎来信。
         </p>
       </Reveal>
       <Reveal variant="up" :delay="0.25" class="mt-10">
-        <a
-          href="mailto:hello@mixsu.studio"
-          data-cursor="hover"
-          class="group inline-flex items-center gap-2.5 rounded-full bg-accent px-8 py-4 font-mono text-sm tracking-widest text-bg transition-all duration-300 hover:shadow-[0_0_40px_var(--accent-glow)]"
-        >
-          hello@mixsu.studio
-          <UIcon name="lucide:arrow-up-right" class="size-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+        <a href="mailto:mail_xmtx@163.com" data-cursor="hover"
+          class="group inline-flex items-center gap-2.5 rounded-full bg-accent px-8 py-4 font-mono text-sm tracking-widest text-bg transition-all duration-300 hover:shadow-[0_0_40px_var(--accent-glow)]">
+          mailto:mail_xmtx@163.com
+          <UIcon name="lucide:arrow-up-right"
+            class="size-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
         </a>
       </Reveal>
     </section>
