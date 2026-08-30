@@ -7,6 +7,16 @@ import { Flip } from "gsap/Flip";
  * 之前注册逻辑放在 composables/useGsap.ts 里，但该文件从未被 import，
  * 导致 ScrollTrigger / Flip 一直没注册，所有 scrollTrigger 动画都失效。
  */
-export default defineNuxtPlugin(() => {
-  gsap.registerPlugin(ScrollTrigger, Flip);
+export default defineNuxtPlugin({
+  name: "gsap",
+  setup() {
+    gsap.registerPlugin(ScrollTrigger, Flip);
+  },
+  hooks: {
+    // 路由切换、新页面加载完成后文档高度已变化，
+    // 刷新所有 ScrollTrigger（进度条、Reveal 等）以重新计算 start/end/max。
+    "page:finish": () => {
+      requestAnimationFrame(() => ScrollTrigger.refresh());
+    },
+  },
 });

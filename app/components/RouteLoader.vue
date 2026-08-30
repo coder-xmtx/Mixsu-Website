@@ -4,7 +4,7 @@
  * 覆盖住旧页面 → 新页面就绪 → 加载页从底部滑出。
  *
  * 实现：router.beforeEach 等待滑入动画完成后再放行导航；
- * router.afterEach 触发滑出。
+ * nuxtApp.hook('page:finish') 在页面加载完成后触发滑出。
  */
 import { gsap } from "gsap";
 
@@ -74,29 +74,29 @@ onMounted(() => {
   const overlay = overlayEl.value;
   if (!overlay) return;
 
+  const nuxtApp = useNuxtApp();
+  const router = useRouter();
+
   ctx = gsap.context(() => {
     gsap.set(overlay, { yPercent: 100, display: "none" });
   }, overlay);
 
-  const router = useRouter();
-
   removeGuard = router.beforeEach(async (to, from) => {
     if (busy) return true;
-    busy = true;
 
     // 同一路由（锚点/重复点击）不做过渡
-    if (from.path === to.path) {
-      busy = false;
-      return true;
-    }
+    if (from.path === to.path) return true;
 
+    busy = true;
     currentName.value = targetName(to.path);
     await animateIn();
     busy = false;
     return true;
   });
 
-  router.afterEach(() => {
+  // 关键：等新页面真正加载完成（Suspense 解析完）再滑出。
+  // 之前用 afterEach 会在页面 async 数据还没回来时就提前放完过渡。
+  nuxtApp.hook("page:finish", () => {
     animateOut();
   });
 });

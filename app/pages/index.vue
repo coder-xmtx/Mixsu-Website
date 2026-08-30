@@ -62,6 +62,15 @@ onMounted(() => {
         scrub: 0.8,
       },
     });
+
+    // 头像呼吸感：轻微上下浮动，避免静止呆板
+    gsap.to("[data-hero-portrait]", {
+      y: -10,
+      duration: 3,
+      ease: "sine.inOut",
+      repeat: -1,
+      yoyo: true,
+    });
   }, root);
 
   onUnmounted(() => ctx.revert());
@@ -193,7 +202,7 @@ const marqueeItems = [
       </div>
 
       <!-- 滚动提示 -->
-      <div data-hero-hint class="absolute bottom-7 left-1/2 -translate-x-1/2">
+      <div data-hero-hint class="absolute bottom-7 left-1/2 -translate-x-1/2 hidden md:block">
         <div class="flex flex-col items-center gap-2 font-mono text-[10px] tracking-[0.3em] text-faint">
           <span>SCROLL</span>
           <span class="block h-10 w-px overflow-hidden bg-line">

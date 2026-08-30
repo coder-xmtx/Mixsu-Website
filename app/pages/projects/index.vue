@@ -52,24 +52,18 @@ function applyFilter(key: "all" | ProjectCategory) {
     active.value = key;
     nextTick(() => {
       Flip.from(state, {
-        duration: 0.55,
-        ease: "power3.inOut",
-        absolute: true,
+        duration: 0.5,
+        ease: "power2.inOut",
+        // 新增卡片淡入上移；不再叠加整组 fromTo + absolute，
+        // 避免与 Flip 自身的位移动画冲突造成卡顿。
+        onEnter: (els: Element[]) =>
+          gsap.fromTo(
+            els,
+            { autoAlpha: 0, y: 24 },
+            { autoAlpha: 1, y: 0, duration: 0.4, stagger: 0.05, ease: "power2.out" },
+          ),
         onComplete: () => ScrollTrigger.refresh(),
       });
-      gsap.fromTo(
-        grid.querySelectorAll("[data-proj]"),
-        { autoAlpha: 0, scale: 0.985 },
-        {
-          autoAlpha: 1,
-          scale: 1,
-          duration: 0.45,
-          stagger: 0.045,
-          delay: 0.05,
-          clearProps: "all",
-          onComplete: () => ScrollTrigger.refresh(),
-        },
-      );
     });
   } else {
     active.value = key;
