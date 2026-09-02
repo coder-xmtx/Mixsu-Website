@@ -3,6 +3,7 @@ title: 我的工作台：够用就好
 description: 一张桌子、一台电脑、一盏暖灯。聊聊我的极简工作台配置，以及为什么工具不是重点。
 date: 2026-08-30
 category: life
+cover: /covers/blog-my-desk.svg
 tags:
   - 桌面
   - 工具

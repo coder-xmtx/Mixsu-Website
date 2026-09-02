@@ -3,6 +3,7 @@ title: 为什么我的渲染看起来很假 (AI writing)
 description: 不是采样不够，不是模型不细——是光的方向、色温和衰减出卖了你。一次针对「假感」的系统排查。
 date: 2025-09-15
 category: blender
+cover: /covers/blog-golden-hour.svg
 tags:
   - Blender
   - 灯光

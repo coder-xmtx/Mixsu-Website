@@ -1,6 +1,7 @@
 <script setup lang="ts">
 /**
- * 博客文章卡片：行内式列表项，用于分类页与首页精选。
+ * 博客文章卡片（Version 2）：行内列表项 + 可选 16:9 缩略图。
+ * 用于分类页与首页精选。
  */
 import type { BlogCategory } from "~/utils/meta";
 
@@ -12,10 +13,12 @@ const props = withDefaults(
     category: BlogCategory;
     tags?: string[];
     to: string;
+    cover?: string;
     index?: number;
   }>(),
   {
     tags: () => [],
+    cover: "",
     index: 0,
   },
 );
@@ -24,14 +27,19 @@ const meta = computed(() => BLOG_CATEGORIES[props.category]);
 </script>
 
 <template>
-  <Reveal variant="up" :delay="Math.min(index * 0.08, 0.3)" :y-offset="40">
+  <Reveal variant="wipe" :delay="Math.min(index * 0.08, 0.3)" :duration="0.7">
     <NuxtLink :to="to" data-cursor="hover"
-      class="group grid gap-3 border-b border-line-soft py-6 transition-colors duration-300 hover:border-accent/40 md:grid-cols-[120px_1fr_auto] md:items-baseline">
-      <span class="font-mono text-xs text-faint">{{ formatDate(date) }}</span>
+      class="group grid gap-4 border-b border-line-soft py-6 transition-colors duration-300 hover:border-accent/40 md:grid-cols-[240px_1fr_auto] md:items-center">
+      <!-- 16:9 缩略图 -->
+      <div v-if="cover" class="cut-corner-sm shadow-hard-sm relative aspect-video overflow-hidden border border-line bg-surface">
+        <img :src="cover" :alt="title" loading="lazy"
+          class="size-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.05]" />
+      </div>
 
       <div>
+        <span class="font-mono text-xs text-faint">{{ formatDate(date) }}</span>
         <h3
-          class="font-display text-xl tracking-tight text-text transition-colors duration-300 group-hover:text-accent md:text-xl">
+          class="mt-1 font-title text-xl tracking-wide text-text transition-colors duration-300 group-hover:text-accent">
           {{ title }}
         </h3>
         <p class="mt-1.5 line-clamp-1 text-sm text-muted">{{ description }}</p>
@@ -39,7 +47,7 @@ const meta = computed(() => BLOG_CATEGORIES[props.category]);
 
       <div class="flex items-center gap-3 md:justify-end">
         <span
-          class="inline-flex items-center gap-1.5 rounded-full border border-line px-2.5 py-1 font-mono text-[11px] tracking-widest text-muted">
+          class="cut-corner-sm inline-flex items-center gap-1.5 border border-line px-2.5 py-1 font-mono text-[11px] tracking-widest text-muted transition-colors duration-300 group-hover:border-accent/50 group-hover:text-accent">
           <UIcon :name="meta.icon" class="size-3 text-accent" />
           {{ meta.label }}
         </span>

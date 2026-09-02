@@ -1,7 +1,8 @@
 <script setup lang="ts">
 /**
- * 无限滚动跑马灯：内容复制两份，GSAP 以匀速循环平移。
- * 悬停时暂停。
+ * 无限滚动跑马灯（Version 2）：
+ * 支持整体倾斜（skew），中英混排——拉丁字形走 Philosopher、中文走标题黑；
+ * 分隔符用斜线，营造「电影胶片字幕条」感。悬停暂停。
  */
 import { gsap } from "gsap";
 
@@ -11,12 +12,14 @@ const props = withDefaults(
     speed?: number; // px/s
     reverse?: boolean;
     separator?: string;
+    skew?: boolean;
     className?: string;
   }>(),
   {
     speed: 60,
     reverse: false,
-    separator: "✦",
+    separator: "///",
+    skew: false,
     className: "",
   },
 );
@@ -50,19 +53,17 @@ onUnmounted(() => {
 
 <template>
   <div class="overflow-hidden" :class="className">
-    <div ref="track" class="flex w-max items-center whitespace-nowrap will-change-transform">
-      <template v-for="group in 2" :key="group">
-        <span
-          v-for="(item, i) in items"
-          :key="`${group}-${i}`"
-          class="flex items-center gap-6 px-3"
-        >
-          <span class="font-display text-2xl font-bold tracking-wide uppercase md:text-4xl">
-            {{ item }}
+    <div class="w-[110%] -translate-x-[5%]" :class="skew ? 'skew-band' : ''">
+      <div ref="track" class="flex w-max items-center whitespace-nowrap will-change-transform">
+        <template v-for="group in 2" :key="group">
+          <span v-for="(item, i) in items" :key="`${group}-${i}`" class="flex items-center gap-8 px-4">
+            <span class="text-deco text-2xl tracking-wide md:text-4xl">
+              {{ item }}
+            </span>
+            <span class="font-mono text-sm text-accent">{{ separator }}</span>
           </span>
-          <UIcon name="lucide:asterisk" class="size-4 text-accent" />
-        </span>
-      </template>
+        </template>
+      </div>
     </div>
   </div>
 </template>

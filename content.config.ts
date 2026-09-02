@@ -30,6 +30,7 @@ export default defineContentConfig({
         category: z.enum(["life", "javascript", "blender"]),
         tags: z.array(z.string()).default([]),
         pinned: z.boolean().default(false),
+        cover: z.string().optional(),
       }),
     }),
   },

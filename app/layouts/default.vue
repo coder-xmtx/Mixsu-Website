@@ -5,6 +5,7 @@
     <NoiseOverlay />
     <ScrollProgress />
     <AppCursor />
+    <SideRails />
 
     <!-- 头部 -->
     <SiteHeader />

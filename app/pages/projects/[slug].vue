@@ -1,6 +1,6 @@
 <script setup lang="ts">
 /**
- * 项目详情页。
+ * 项目详情页（Version 2）：锐利角标 + 斜切封面 + 硬阴影。
  */
 import { gsap } from "gsap";
 
@@ -37,13 +37,19 @@ onMounted(() => {
   if (!root) return;
   const ctx = gsap.context(() => {
     gsap.from("[data-detail-fade]", { autoAlpha: 0, y: 26, duration: 0.8, ease: "power3.out", stagger: 0.1 });
-    gsap.from("[data-detail-cover]", {
-      autoAlpha: 0,
-      scale: 1.04,
-      duration: 1,
-      ease: "power3.out",
-      delay: 0.15,
-    });
+    // 外层包一层再动画 clipPath，避免与 .cut-corner-lg 的 clip-path 冲突
+    gsap.fromTo(
+      "[data-detail-cover]",
+      { autoAlpha: 0, clipPath: "polygon(100% 0%, 100% 100%, 72% 100%, 100% 0%)" },
+      {
+        autoAlpha: 1,
+        clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+        duration: 0.9,
+        ease: "power3.inOut",
+        delay: 0.15,
+        clearProps: "clipPath",
+      },
+    );
   }, root);
   onUnmounted(() => ctx.revert());
 });
@@ -64,7 +70,7 @@ onMounted(() => {
     <header ref="headRef" class="mt-8">
       <div data-detail-fade class="flex flex-wrap items-center gap-3">
         <span
-          class="inline-flex items-center gap-1.5 rounded-full border border-accent/50 bg-accent-soft px-3 py-1 font-mono text-[11px] tracking-widest text-accent">
+          class="cut-corner-sm inline-flex items-center gap-1.5 border border-accent/50 bg-accent-soft px-3 py-1 font-mono text-[11px] tracking-widest text-accent">
           <UIcon :name="meta.icon" class="size-3.5" />
           {{ meta.label }}
         </span>
@@ -72,7 +78,7 @@ onMounted(() => {
         <span v-if="project.role" class="font-mono text-xs text-faint">· {{ project.role }}</span>
       </div>
 
-      <h1 data-detail-fade class="mt-5 font-display text-4xl font-extrabold tracking-tight text-text md:text-6xl">
+      <h1 data-detail-fade class="mt-5 font-title text-4xl tracking-wide text-text md:text-6xl">
         {{ project.title }}
       </h1>
 
@@ -85,8 +91,13 @@ onMounted(() => {
       </div>
 
       <!-- 封面 -->
-      <div data-detail-cover class="relative mt-10 overflow-hidden rounded-2xl border border-line">
-        <img v-if="project.cover" :src="project.cover" :alt="project.title" class="aspect-3/2 w-full object-cover" />
+      <div data-detail-cover class="relative mt-10">
+        <div class="cut-corner-lg shadow-hard relative border border-line">
+          <img v-if="project.cover" :src="project.cover" :alt="project.title" class="aspect-3/2 w-full object-cover" />
+          <div v-else class="hatch aspect-3/2 grid w-full place-items-center">
+            <span class="font-display text-7xl font-extrabold text-stroke">{{ project.title.slice(0, 1) }}</span>
+          </div>
+        </div>
       </div>
     </header>
 
@@ -99,7 +110,7 @@ onMounted(() => {
     <div v-if="project.links?.length" class="mt-12 flex flex-wrap gap-3 border-t border-line-soft pt-8">
       <a v-for="link in project.links" :key="link.label" :href="link.url" target="_blank" rel="noopener noreferrer"
         data-cursor="hover"
-        class="group inline-flex items-center gap-2 rounded-full border border-line px-5 py-2.5 font-mono text-sm tracking-widest text-text transition-all duration-300 hover:border-accent hover:text-accent">
+        class="cut-corner-sm sweep group inline-flex items-center gap-2 border border-line px-5 py-2.5 font-mono text-sm tracking-widest text-text transition-all duration-300 hover:border-accent hover:text-accent">
         {{ link.label }}
         <UIcon name="lucide:arrow-up-right"
           class="size-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -109,7 +120,10 @@ onMounted(() => {
     <!-- 相关项目 -->
     <section v-if="related?.length" class="mt-20">
       <Reveal variant="fade">
-        <h2 class="font-display text-2xl font-bold tracking-tight text-text">同类作品</h2>
+        <h2 class="flex items-center gap-3 font-title text-2xl tracking-wide text-text">
+          <span class="h-1 w-8 -skew-x-12 bg-accent" />
+          同类作品
+        </h2>
       </Reveal>
       <div class="mt-8 grid gap-8 md:grid-cols-2">
         <ProjectCard v-for="(item, i) in related" :key="item.path" :title="item.title" :description="item.description"

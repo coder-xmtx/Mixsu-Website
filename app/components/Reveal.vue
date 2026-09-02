@@ -8,13 +8,14 @@
  *  - right  : 从右侧滑入
  *  - zoom   : 缩放淡入
  *  - clip   : 从上向下揭开（适合标题）
+ *  - wipe   : 斜向裁切擦入（Version 2 凌厉风，适合卡片/图片）
  */
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const props = withDefaults(
   defineProps<{
-    variant?: "up" | "fade" | "left" | "right" | "zoom" | "clip";
+    variant?: "up" | "fade" | "left" | "right" | "zoom" | "clip" | "wipe";
     delay?: number;
     duration?: number;
     yOffset?: number;
@@ -77,6 +78,12 @@ onMounted(() => {
     case "clip":
       fromVars.clipPath = "inset(0 0 100% 0)";
       toVars.clipPath = "inset(0 0 0% 0)";
+      break;
+    case "wipe":
+      fromVars.autoAlpha = 0;
+      fromVars.clipPath = "polygon(100% 0%, 100% 100%, 72% 100%, 100% 0%)";
+      toVars.autoAlpha = 1;
+      toVars.clipPath = "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)";
       break;
     default:
       fromVars.autoAlpha = 0;

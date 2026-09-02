@@ -21,7 +21,7 @@ const { data: latestPosts } = await useAsyncData("home-latest-posts", () =>
   queryCollection("blog")
     .order("date", "DESC")
     .limit(3)
-    .select("title", "description", "date", "category", "tags", "path")
+    .select("title", "description", "date", "category", "tags", "cover", "path")
     .all(),
 );
 
@@ -38,17 +38,17 @@ onMounted(() => {
     const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
     tl.from("[data-hero-kicker]", { autoAlpha: 0, y: 24, duration: 0.7 }, 0.15)
-      .from("[data-hero-portrait]", {
-        autoAlpha: 0,
-        clipPath: "inset(0 0 100% 0)",
-        rotate: -8,
-        duration: 1.1,
-        ease: "power4.inOut",
-      }, 0.35)
+      .fromTo(
+        "[data-hero-portrait]",
+        { autoAlpha: 0, clipPath: "inset(0 0 100% 0)", x: 30 },
+        { autoAlpha: 1, clipPath: "inset(0 0 0% 0)", x: 0, duration: 1.1, ease: "power4.inOut", clearProps: "clipPath" },
+        0.35,
+      )
       .from("[data-hero-desc]", { autoAlpha: 0, y: 20, duration: 0.7 }, 1.0)
       .from("[data-hero-cta]", { autoAlpha: 0, y: 16, duration: 0.6, stagger: 0.08, clearProps: "all" }, 1.1)
       .from("[data-hero-meta]", { autoAlpha: 0, y: 14, duration: 0.6 }, 1.2)
       .from("[data-hero-sweep]", { scaleX: 0, transformOrigin: "left center", duration: 0.7, ease: "power3.inOut" }, 0.7)
+      .from("[data-hero-deco]", { autoAlpha: 0, scale: 0.6, duration: 0.7, stagger: 0.08, ease: "back.out(2)" }, 0.9)
       .from("[data-hero-hint]", { autoAlpha: 0, duration: 0.8 }, 1.5);
 
     // 头像轻微视差
@@ -116,16 +116,24 @@ const marqueeItems = [
     <!-- ============ HERO ============ -->
     <section ref="heroRef" class="relative flex min-h-screen flex-col justify-center overflow-hidden pt-24 pb-16">
       <!-- 右上角橙色氛围光 -->
-      <div class="pointer-events-none absolute -top-40 right-[-10%] size-136 rounded-full opacity-60 blur-[120px]"
+      <div class="pointer-events-none absolute -top-40 right-[-10%] size-136 opacity-60 blur-[120px]"
         :style="{ background: 'radial-gradient(circle, var(--accent-glow), transparent 70%)' }" aria-hidden="true" />
+      <!-- 左下斜向排线块 -->
+      <div class="hatch-accent pointer-events-none absolute bottom-24 left-[-4%] size-64 -skew-x-12 opacity-50"
+        aria-hidden="true" />
+      <!-- 角落 + 装饰 -->
+      <span data-hero-deco class="pointer-events-none absolute left-5 top-24 font-mono text-lg text-faint/70 md:left-10">+</span>
+      <span data-hero-deco class="pointer-events-none absolute right-5 top-28 rotate-45 font-mono text-sm text-accent/70 md:right-10">◆</span>
+      <span data-hero-deco class="pointer-events-none absolute bottom-28 left-1/2 hidden font-mono text-sm text-faint/70 md:block">+</span>
 
       <div class="mx-auto grid w-full max-w-7xl items-center gap-14 px-5 md:px-10 lg:grid-cols-12">
         <!-- 左：文字 -->
         <div class="relative lg:col-span-7">
           <p data-hero-kicker class="mb-6 flex items-center gap-3 font-mono text-xs tracking-[0.3em] text-muted">
-            <span class="size-2 animate-pulse rounded-full bg-accent" />
+            <span class="size-2 animate-pulse bg-accent" />
             HELLO, I'M MIXSU
-            <span class="hidden h-px w-14 bg-line sm:block" />
+            <span class="hidden h-px w-14 -skew-x-12 bg-line sm:block" />
+            <span class="hidden font-mono text-[10px] tracking-[0.25em] text-faint lg:inline">// CN · WUHAN</span>
           </p>
 
           <SplitHeading text="MIXSU" as="h1"
@@ -133,7 +141,7 @@ const marqueeItems = [
 
           <!-- 第二行：描边 STUDIO + 橙色扫线 -->
           <div class="mt-2 flex items-center gap-5 md:mt-3 md:gap-7">
-            <span data-hero-sweep class="block h-1.5 w-10 bg-accent md:w-14" aria-hidden="true" />
+            <span data-hero-sweep class="block h-2 w-10 -skew-x-12 bg-accent md:w-16" aria-hidden="true" />
             <SplitHeading text="STUDIO" as="p" :delay="0.3"
               class="font-display text-[clamp(2.4rem,7.5vw,5.4rem)] font-bold leading-none tracking-[0.08em] text-stroke" />
           </div>
@@ -147,21 +155,23 @@ const marqueeItems = [
 
           <div class="mt-9 flex flex-wrap items-center gap-4">
             <NuxtLink data-hero-cta to="/projects" data-cursor="hover"
-              class="group inline-flex items-center gap-2.5 rounded-full bg-accent px-7 py-3.5 font-mono text-sm tracking-widest text-bg transition-all duration-300 hover:shadow-[0_0_36px_var(--accent-glow)]">
+              class="cut-corner-sm sweep group inline-flex items-center gap-2.5 bg-accent px-7 py-3.5 font-mono text-sm tracking-widest text-bg transition-all duration-300 hover:shadow-[0_0_36px_var(--accent-glow)]">
               查看作品
               <UIcon name="lucide:arrow-right" class="size-4 transition-transform duration-300 group-hover:rotate-45" />
             </NuxtLink>
             <NuxtLink data-hero-cta to="/blog" data-cursor="hover"
-              class="group inline-flex items-center gap-2.5 rounded-full border border-line px-7 py-3.5 font-mono text-sm tracking-widest text-text transition-colors duration-300 hover:border-accent/60 hover:text-accent">
+              class="cut-corner-sm sweep group inline-flex items-center gap-2.5 border border-line px-7 py-3.5 font-mono text-sm tracking-widest text-text transition-colors duration-300 hover:border-accent/60 hover:text-accent">
               阅读博客
               <UIcon name="lucide:arrow-right"
                 class="size-4 transition-transform duration-300 group-hover:translate-x-1" />
             </NuxtLink>
           </div>
 
-          <div data-hero-meta class="mt-10 flex flex-wrap gap-x-8 gap-y-2 font-mono text-xs text-faint">
+          <div data-hero-meta class="mt-10 flex flex-wrap items-center gap-x-6 gap-y-2 font-mono text-xs text-faint">
             <span>✂ 剪辑 2 年</span>
+            <UIcon name="lucide:slash" class="size-3 text-line" />
             <span>◈ Blender 1 个月</span>
+            <UIcon name="lucide:slash" class="size-3 text-line" />
             <span>&lt;/&gt; 前端 1 年</span>
           </div>
         </div>
@@ -169,24 +179,31 @@ const marqueeItems = [
         <!-- 右：头像 -->
         <div class="relative lg:col-span-5">
           <div class="relative mx-auto max-w-sm">
-            <!-- 错位底框 -->
-            <div class="absolute inset-0 translate-x-4 translate-y-4 rounded-2xl border border-accent/50"
+            <!-- 错位排线底框（锐利） -->
+            <div class="hatch-accent absolute inset-0 translate-x-4 translate-y-4 border border-accent/40"
               aria-hidden="true" />
-            <div data-hero-portrait
-              class="relative aspect-square overflow-hidden rounded-2xl border border-line bg-surface">
-              <img src="/portrait.png" alt="Mixsu 的头像" class="size-full object-cover" />
-              <!-- 底部渐变 -->
-              <div class="absolute inset-x-0 bottom-0 h-24 bg-linear-to-t from-bg/70 to-transparent"
-                aria-hidden="true" />
+            <!-- 外层负责入场动画（避免 GSAP clipPath 与 .cut-corner-lg 冲突） -->
+            <div data-hero-portrait class="relative">
+              <div class="cut-corner-lg shadow-hard relative aspect-square border border-line bg-surface">
+                <img src="/portrait.png" alt="Mixsu 的头像" class="size-full object-cover" />
+                <!-- 底部渐变 -->
+                <div class="absolute inset-x-0 bottom-0 h-24 bg-linear-to-t from-bg/70 to-transparent"
+                  aria-hidden="true" />
+                <!-- 顶部斜切角标 -->
+                <span
+                  class="absolute left-0 top-0 border-b border-r border-line bg-bg/85 px-3 py-1.5 font-mono text-[10px] tracking-[0.3em] text-accent backdrop-blur">
+                  PORTRAIT/01
+                </span>
+              </div>
             </div>
 
-            <!-- 漂浮标签 -->
+            <!-- 漂浮标签（方形斜切） -->
             <span
-              class="absolute -right-3 top-8 z-10 rotate-6 rounded-full border border-line bg-surface px-3.5 py-1.5 font-mono text-xs text-muted shadow-md backdrop-blur md:-right-6">
-              INFJ✨
+              class="cut-corner-sm absolute -right-3 top-8 z-10 rotate-6 border border-line bg-surface px-3.5 py-1.5 font-mono text-xs text-muted shadow-md backdrop-blur md:-right-6">
+              INFJ ✦
             </span>
             <span
-              class="absolute -left-2 bottom-16 z-10 -rotate-3 rounded-full border border-line bg-surface px-3.5 py-1.5 font-mono text-xs text-muted shadow-md backdrop-blur md:-left-5">
+              class="cut-corner-sm absolute -left-2 bottom-16 z-10 -rotate-3 border border-line bg-surface px-3.5 py-1.5 font-mono text-xs text-muted shadow-md backdrop-blur md:-left-5">
               \(￣︶￣*\))
             </span>
           </div>
@@ -194,7 +211,7 @@ const marqueeItems = [
       </div>
 
       <!-- 滚动提示 -->
-      <div data-hero-hint class="absolute bottom-7 left-1/2 -translate-x-1/2 hidden md:block">
+      <div data-hero-hint class="absolute bottom-7 left-1/2 hidden -translate-x-1/2 md:block">
         <div class="flex flex-col items-center gap-2 font-mono text-[10px] tracking-[0.3em] text-faint">
           <span>SCROLL</span>
           <span class="block h-10 w-px overflow-hidden bg-line">
@@ -204,20 +221,38 @@ const marqueeItems = [
       </div>
     </section>
 
-    <!-- ============ 跑马灯 ============ -->
-    <Marquee :items="marqueeItems" :speed="50" class="border-y border-line-soft py-5 text-muted" />
+    <!-- ============ 跑马灯（斜切胶片条） ============ -->
+    <div class="relative">
+      <Marquee :items="marqueeItems" :speed="50" :skew="true"
+        class="border-y border-line-soft bg-surface/60 py-5 text-muted backdrop-blur" />
+    </div>
 
     <!-- ============ Manifesto（滚动叙事） ============ -->
     <section ref="manifestoRef" class="mx-auto max-w-5xl px-5 py-32 md:px-10 md:py-44">
-      <p class="mb-10 font-mono text-xs tracking-[0.3em] text-accent">/ MANIFESTO</p>
-      <div class="space-y-6 font-display text-3xl font-bold leading-snug tracking-tight text-text md:text-5xl">
+      <p class="text-deco mb-10 flex items-center gap-3 text-sm italic tracking-[0.25em] text-accent">
+        <span class="h-px w-10 -skew-x-12 bg-accent" />
+        / MANIFESTO
+      </p>
+      <div class="space-y-6 font-title text-3xl tracking-wide leading-snug text-text md:text-5xl">
         <p data-manifesto-line>好的作品不是炫技，</p>
         <p data-manifesto-line>而是让人愿意停下来。</p>
         <p data-manifesto-line>节奏感，来自克制。</p>
         <p data-manifesto-line class="text-accent">设计与审美，依然需要鲜活注入。</p>
       </div>
-      <p class="mt-12 font-mono text-sm tracking-[0.25em] text-faint">—— 我的创作信条</p>
+      <p class="mt-12 flex items-center gap-3 font-mono text-sm tracking-[0.25em] text-faint">
+        <span class="h-2 w-8 -skew-x-12 bg-accent/60" />
+        —— 我的创作信条
+      </p>
     </section>
+
+    <!-- ============ 斜切分隔 ============ -->
+    <div class="mx-auto max-w-7xl px-5 md:px-10" aria-hidden="true">
+      <div class="flex items-center gap-4">
+        <span class="h-1.5 w-20 -skew-x-12 bg-accent" />
+        <span class="font-mono text-[10px] tracking-[0.4em] text-faint">SELECTED/01</span>
+        <span class="h-px flex-1 -skew-x-12 bg-line" />
+      </div>
+    </div>
 
     <!-- ============ 精选作品 ============ -->
     <section class="mx-auto max-w-7xl px-5 py-16 md:px-10">
@@ -248,27 +283,8 @@ const marqueeItems = [
 
       <div class="mt-10">
         <PostCard v-for="(post, i) in latestPosts" :key="post.path" :title="post.title" :description="post.description"
-          :date="post.date" :category="post.category" :tags="post.tags" :to="post.path" :index="i" />
+          :date="post.date" :category="post.category" :tags="post.tags" :cover="post.cover" :to="post.path" :index="i" />
       </div>
-    </section>
-
-    <!-- ============ 联系 CTA ============ -->
-    <section class="mx-auto max-w-7xl px-5 py-28 md:px-10">
-      <Reveal variant="clip">
-        <h2 class="font-display text-4xl font-extrabold leading-tight tracking-tight text-text md:text-6xl">
-          有想一起做的事？
-        </h2>
-      </Reveal>
-      <Reveal variant="up" :delay="0.15" class="mt-8">
-        <div class="flex flex-wrap items-center gap-8">
-          <a href="mailto:mail_xmtx@163.com" data-cursor="hover"
-            class="group inline-flex items-center gap-3 rounded-full border border-accent/60 px-8 py-4 font-mono text-sm tracking-widest text-accent transition-all duration-300 hover:bg-accent hover:text-bg hover:shadow-[0_0_40px_var(--accent-glow)]">
-            给我写信
-            <UIcon name="lucide:send"
-              class="size-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
-          </a>
-        </div>
-      </Reveal>
     </section>
   </div>
 </template>

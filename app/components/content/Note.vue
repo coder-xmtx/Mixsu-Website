@@ -5,7 +5,7 @@
 </script>
 
 <template>
-  <aside class="not-prose my-6 flex gap-3 rounded-xl border border-line bg-surface p-4">
+  <aside class="not-prose cut-corner-sm my-6 flex gap-3 border border-line border-l-4 border-l-accent bg-surface p-4">
     <UIcon name="lucide:info" class="mt-0.5 size-4 shrink-0 text-accent" />
     <div class="text-sm leading-relaxed text-muted">
       <slot mdc-unwrap="p" />

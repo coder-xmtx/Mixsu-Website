@@ -82,13 +82,13 @@ function applyFilter(key: "all" | ProjectCategory) {
 
     <!-- 分类筛选 -->
     <Reveal variant="fade" :delay="0.2" class="mt-12">
-      <div class="flex flex-wrap gap-2">
+      <div class="flex flex-wrap gap-3">
         <button
           v-for="tab in tabs"
           :key="tab.key"
           type="button"
           data-cursor="hover"
-          class="group inline-flex items-center gap-2 rounded-full border px-5 py-2.5 font-mono text-sm tracking-widest transition-all duration-300"
+          class="cut-corner-sm sweep group inline-flex items-center gap-2 border px-5 py-2.5 font-mono text-sm tracking-widest transition-all duration-300"
           :class="
             active === tab.key
               ? 'border-accent bg-accent text-bg'
@@ -96,6 +96,7 @@ function applyFilter(key: "all" | ProjectCategory) {
           "
           @click="applyFilter(tab.key)"
         >
+          <span class="text-[10px] opacity-70">/</span>
           {{ tab.label }}
           <span class="text-[11px]" :class="active === tab.key ? 'text-bg/70' : 'text-faint'">{{ tab.count }}</span>
         </button>

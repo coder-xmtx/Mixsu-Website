@@ -1,6 +1,6 @@
 <script setup lang="ts">
 /**
- * 文章详情页。
+ * 文章详情页（Version 2）：16:9 斜切大图 + 锐利排版。
  */
 const route = useRoute();
 const category = route.params.category as string;
@@ -23,7 +23,7 @@ const { data: related } = await useAsyncData(`related-${route.path}`, () =>
     .where("path", "<>", route.path)
     .order("date", "DESC")
     .limit(3)
-    .select("title", "description", "date", "category", "path")
+    .select("title", "description", "date", "category", "cover", "path")
     .all(),
 );
 
@@ -55,7 +55,8 @@ const readingTime = computed(() => estimateReadingMinutes(post.value?.body as ne
     <header class="mt-10">
       <Reveal variant="fade">
         <div class="flex flex-wrap items-center gap-3">
-          <span class="inline-flex items-center gap-1.5 rounded-full border border-accent/50 bg-accent-soft px-3 py-1 font-mono text-[11px] tracking-widest text-accent">
+          <span
+            class="cut-corner-sm inline-flex items-center gap-1.5 border border-accent/50 bg-accent-soft px-3 py-1 font-mono text-[11px] tracking-widest text-accent">
             <UIcon :name="meta.icon" class="size-3.5" />
             {{ meta.label }}
           </span>
@@ -65,7 +66,7 @@ const readingTime = computed(() => estimateReadingMinutes(post.value?.body as ne
       </Reveal>
 
       <Reveal variant="clip" :delay="0.08">
-        <h1 class="mt-6 font-display text-3xl font-extrabold leading-tight tracking-tight text-text md:text-5xl">
+        <h1 class="mt-6 font-title text-3xl tracking-wide leading-tight text-text md:text-5xl">
           {{ post.title }}
         </h1>
       </Reveal>
@@ -76,6 +77,17 @@ const readingTime = computed(() => estimateReadingMinutes(post.value?.body as ne
 
       <Reveal v-if="post.tags?.length" variant="fade" :delay="0.22" class="mt-6 flex flex-wrap gap-2">
         <span v-for="tag in post.tags" :key="tag" class="tag-chip">{{ tag }}</span>
+      </Reveal>
+
+      <!-- 16:9 大图 -->
+      <Reveal v-if="post.cover" variant="wipe" :delay="0.2" :duration="0.9" class="mt-10">
+        <div class="cut-corner-lg shadow-hard relative overflow-hidden border border-line">
+          <img :src="post.cover" :alt="post.title" class="aspect-video w-full object-cover" />
+          <span
+            class="absolute left-0 top-0 border-b border-r border-line bg-bg/85 px-3 py-1.5 font-mono text-[10px] tracking-[0.3em] text-accent backdrop-blur">
+            COVER · 16:9
+          </span>
+        </div>
       </Reveal>
 
       <Reveal variant="fade" :delay="0.25">
@@ -95,7 +107,7 @@ const readingTime = computed(() => estimateReadingMinutes(post.value?.body as ne
         <NuxtLink
           :to="`/blog/${category}`"
           data-cursor="hover"
-          class="group inline-flex items-center gap-2 rounded-full border border-line px-5 py-2.5 font-mono text-xs tracking-widest text-muted transition-colors duration-300 hover:border-accent hover:text-accent"
+          class="cut-corner-sm sweep group inline-flex items-center gap-2 border border-line px-5 py-2.5 font-mono text-xs tracking-widest text-muted transition-colors duration-300 hover:border-accent hover:text-accent"
         >
           同分类更多文章
           <UIcon name="lucide:arrow-right" class="size-3.5 transition-transform duration-300 group-hover:translate-x-1" />
@@ -104,7 +116,10 @@ const readingTime = computed(() => estimateReadingMinutes(post.value?.body as ne
 
       <!-- 相关文章 -->
       <div v-if="related?.length" class="mt-12">
-        <p class="font-mono text-xs tracking-[0.25em] text-faint">继续阅读</p>
+        <p class="flex items-center gap-3 font-mono text-xs tracking-[0.25em] text-faint">
+          <span class="h-px w-6 -skew-x-12 bg-accent" />
+          继续阅读
+        </p>
         <div class="mt-4">
           <PostCard
             v-for="(item, i) in related"
@@ -113,6 +128,7 @@ const readingTime = computed(() => estimateReadingMinutes(post.value?.body as ne
             :description="item.description"
             :date="item.date"
             :category="item.category"
+            :cover="item.cover"
             :to="item.path"
             :index="i"
           />

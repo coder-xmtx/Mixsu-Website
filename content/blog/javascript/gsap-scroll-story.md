@@ -3,6 +3,7 @@ title: 用 GSAP ScrollTrigger 讲一个滚动故事
 description: 滚动不是打断阅读的干扰，而是叙事的一部分。用 ScrollTrigger 的 scrub 与 pin，把页面变成一段可以「播放」的故事。
 date: 2026-02-22
 category: javascript
+cover: /covers/blog-gsap-scroll.svg
 tags:
   - GSAP
   - ScrollTrigger

@@ -16,7 +16,7 @@ const { data: pinnedPosts } = await useAsyncData("blog-pinned", () =>
   queryCollection("blog")
     .where("pinned", "=", true)
     .order("date", "DESC")
-    .select("title", "description", "date", "category", "tags", "path")
+    .select("title", "description", "date", "category", "tags", "cover", "path")
     .all(),
 );
 
@@ -48,7 +48,7 @@ const categoryKeys = Object.keys(BLOG_CATEGORIES) as BlogCategory[];
       </div>
       <div class="mt-8">
         <PostCard v-for="(post, i) in pinnedPosts" :key="post.path" :title="post.title" :description="post.description"
-          :date="post.date" :category="post.category" :tags="post.tags" :to="post.path" :index="i" />
+          :date="post.date" :category="post.category" :tags="post.tags" :cover="post.cover" :to="post.path" :index="i" />
       </div>
     </section>
   </div>

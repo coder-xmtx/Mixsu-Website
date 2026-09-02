@@ -1,7 +1,7 @@
 <script setup lang="ts">
 /**
- * 自定义光标：小圆点 + 跟随环，悬停可交互元素时放大。
- * 仅桌面精确指针设备启用；触屏设备完全不渲染。
+ * 自定义光标（Version 2）：方形准星点 + 菱形跟随环，悬停可交互元素时
+ * 放大并旋转 45°。仅桌面精确指针设备启用；触屏设备完全不渲染。
  * 启用后会给 <html> 加 .custom-cursor 以隐藏原生光标。
  */
 import { gsap } from "gsap";
@@ -22,6 +22,7 @@ let dotX: ((v: number) => void) | null = null;
 let dotY: ((v: number) => void) | null = null;
 let ringX: ((v: number) => void) | null = null;
 let ringY: ((v: number) => void) | null = null;
+let ringRot: ((v: number) => void) | null = null;
 
 /** 显示光标：若尚未可见，先瞬间定位到当前鼠标位置再淡入 */
 function showAt(x: number, y: number) {
@@ -49,20 +50,20 @@ function onOver(e: MouseEvent) {
     "a, button, [role='button'], input, textarea, select, [data-cursor='hover'], label, summary",
   );
   if (target) {
-    gsap.to(ringEl.value, { scale: 1.8, borderColor: "var(--accent)", duration: 0.35, ease: "power3.out", overwrite: "auto" });
+    gsap.to(ringEl.value, { scale: 1.9, rotation: 45, borderColor: "var(--accent)", duration: 0.35, ease: "power3.out", overwrite: "auto" });
     gsap.to(dotEl.value, { scale: 0.4, duration: 0.3, overwrite: "auto" });
   } else {
-    gsap.to(ringEl.value, { scale: 1, borderColor: "var(--faint)", duration: 0.35, ease: "power3.out", overwrite: "auto" });
+    gsap.to(ringEl.value, { scale: 1, rotation: 0, borderColor: "var(--faint)", duration: 0.35, ease: "power3.out", overwrite: "auto" });
     gsap.to(dotEl.value, { scale: 1, duration: 0.3, overwrite: "auto" });
   }
 }
 
 function onDown() {
-  gsap.to(ringEl.value, { scale: 0.8, duration: 0.2, overwrite: "auto" });
+  gsap.to(ringEl.value, { scale: 0.7, rotation: 90, duration: 0.2, overwrite: "auto" });
 }
 
 function onUp() {
-  gsap.to(ringEl.value, { scale: 1.8, duration: 0.3, ease: "back.out(2)", overwrite: "auto" });
+  gsap.to(ringEl.value, { scale: 1.9, rotation: 45, duration: 0.3, ease: "back.out(2)", overwrite: "auto" });
 }
 
 function onLeave() {
@@ -118,16 +119,18 @@ onUnmounted(() => cleanup?.());
 
 <template>
   <Teleport to="body">
+    <!-- 菱形跟随环（方形旋转 45°） -->
     <div
       v-if="enabled"
       ref="ringEl"
-      class="pointer-events-none fixed left-0 top-0 z-120 size-10 rounded-full border"
+      class="pointer-events-none fixed left-0 top-0 z-120 size-7 rotate-45 border"
       :style="{ borderColor: 'var(--faint)' }"
     />
+    <!-- 方形准星点 -->
     <div
       v-if="enabled"
       ref="dotEl"
-      class="pointer-events-none fixed left-0 top-0 z-120 size-1.5 rounded-full"
+      class="pointer-events-none fixed left-0 top-0 z-120 size-2"
       :style="{ background: 'var(--accent)' }"
     />
   </Teleport>

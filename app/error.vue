@@ -1,6 +1,6 @@
 <script setup lang="ts">
 /**
- * 错误页：404 及其他错误。
+ * 错误页（Version 2）：404 及其他错误，凌厉斜切风。
  */
 import { gsap } from "gsap";
 
@@ -26,11 +26,15 @@ const is404 = computed(() => (props.error.statusCode ?? 404) === 404);
   <div ref="el"
     class="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-5 text-center">
     <div
-      class="pointer-events-none absolute top-1/3 left-1/2 size-112 -translate-x-1/2 rounded-full opacity-50 blur-[120px]"
+      class="pointer-events-none absolute top-1/3 left-1/2 size-112 -translate-x-1/2 opacity-50 blur-[120px]"
       :style="{ background: 'radial-gradient(circle, var(--accent-glow), transparent 70%)' }" aria-hidden="true" />
+    <div class="hatch-accent pointer-events-none absolute inset-x-[-10%] top-1/3 h-24 -skew-y-2 opacity-30"
+      aria-hidden="true" />
 
-    <p data-error-fade class="font-mono text-xs tracking-[0.4em] text-accent">
+    <p data-error-fade class="flex items-center gap-3 font-mono text-xs tracking-[0.4em] text-accent">
+      <span class="h-px w-8 -skew-x-12 bg-accent" />
       {{ is404 ? "ERROR 404" : `ERROR ${error.statusCode ?? "?"}` }}
+      <span class="h-px w-8 -skew-x-12 bg-accent" />
     </p>
 
     <h1 data-error-fade
@@ -44,12 +48,12 @@ const is404 = computed(() => (props.error.statusCode ?? 404) === 404);
 
     <div data-error-fade class="mt-10 flex flex-wrap items-center justify-center gap-4">
       <NuxtLink to="/" data-cursor="hover"
-        class="group inline-flex items-center gap-2.5 rounded-full bg-accent px-7 py-3.5 font-mono text-sm tracking-widest text-bg transition-all duration-300 hover:shadow-[0_0_36px_var(--accent-glow)]">
+        class="cut-corner-sm sweep group inline-flex items-center gap-2.5 bg-accent px-7 py-3.5 font-mono text-sm tracking-widest text-bg transition-all duration-300 hover:shadow-[0_0_36px_var(--accent-glow)]">
         回到首页
         <UIcon name="lucide:home" class="size-4" />
       </NuxtLink>
       <NuxtLink to="/blog" data-cursor="hover"
-        class="inline-flex items-center gap-2.5 rounded-full border border-line px-7 py-3.5 font-mono text-sm tracking-widest text-text transition-colors duration-300 hover:border-accent/60 hover:text-accent">
+        class="cut-corner-sm sweep inline-flex items-center gap-2.5 border border-line px-7 py-3.5 font-mono text-sm tracking-widest text-text transition-colors duration-300 hover:border-accent/60 hover:text-accent">
         去博客逛逛
       </NuxtLink>
     </div>

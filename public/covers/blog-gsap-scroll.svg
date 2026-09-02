@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#11161f"/>
+      <stop offset="55%" stop-color="#182030"/>
+      <stop offset="100%" stop-color="#212c42"/>
+    </linearGradient>
+  </defs>
+  <rect width="1280" height="720" fill="url(#bg)"/>
+  <defs>
+    <pattern id="grid" width="72" height="72" patternUnits="userSpaceOnUse" patternTransform="skewX(-8)">
+      <path d="M 72 0 L 0 0 0 72" fill="none" stroke="rgba(255,255,255,0.055)" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1280" height="720" fill="url(#grid)"/>
+  <g>
+    <path d="M 120 640 C 60 520 240 470 180 330 C 140 230 30 250 60 120" fill="none" stroke="#f0a35e" stroke-width="4" opacity="0.85"/>
+    <path d="M 120 640 C 60 520 240 470 180 330 C 140 230 30 250 60 120" fill="none" stroke="transparent"/>
+    <rect x="90" y="620" width="30" height="10" fill="#f0a35e" opacity="0.85" transform="rotate(-18 90 620)"/><rect x="136" y="562" width="30" height="10" fill="#7fd6c2" opacity="0.78" transform="rotate(-18 136 562)"/><rect x="182" y="504" width="30" height="10" fill="#f0a35e" opacity="0.71" transform="rotate(-18 182 504)"/><rect x="228" y="446" width="30" height="10" fill="#7fd6c2" opacity="0.6399999999999999" transform="rotate(-18 228 446)"/><rect x="274" y="388" width="30" height="10" fill="#f0a35e" opacity="0.57" transform="rotate(-18 274 388)"/><rect x="320" y="330" width="30" height="10" fill="#7fd6c2" opacity="0.49999999999999994" transform="rotate(-18 320 330)"/><rect x="366" y="272" width="30" height="10" fill="#f0a35e" opacity="0.42999999999999994" transform="rotate(-18 366 272)"/><rect x="412" y="214" width="30" height="10" fill="#7fd6c2" opacity="0.35999999999999993" transform="rotate(-18 412 214)"/><rect x="458" y="156" width="30" height="10" fill="#f0a35e" opacity="0.2899999999999999" transform="rotate(-18 458 156)"/>
+  </g>
+  <g>
+    <text x="1020" y="540" font-family="'Arial Black','Microsoft YaHei','PingFang SC',sans-serif" font-weight="900" font-size="300" fill="#f0a35e" opacity="0.92" text-anchor="middle" dominant-baseline="middle">滚</text>
+    <text x="1020" y="660" font-family="'Courier New',monospace" font-size="34" letter-spacing="14" fill="rgba(255,255,255,0.8)" text-anchor="middle">SCROLL</text>
+  </g>
+  <path d="M 30 30 v 34 M 30 30 h 34" fill="none" stroke="rgba(255,255,255,0.32)" stroke-width="2.5"/><path d="M 1250 30 v 34 M 1250 30 h 34" fill="none" stroke="rgba(255,255,255,0.32)" stroke-width="2.5"/><path d="M 30 690 v 34 M 30 690 h 34" fill="none" stroke="rgba(255,255,255,0.32)" stroke-width="2.5"/><path d="M 1250 690 v 34 M 1250 690 h 34" fill="none" stroke="rgba(255,255,255,0.32)" stroke-width="2.5"/>
+  <g>
+    <path d="M 0 624 L 470 624 L 540 702 L 0 702 Z" fill="rgba(8,10,16,0.88)"/>
+    <path d="M 540 702 H 470" stroke="#f0a35e" stroke-width="3"/>
+    <text x="36" y="672" font-family="'Courier New',monospace" font-size="22" letter-spacing="6" fill="#7fd6c2">JAVASCRIPT · GSAP SCROLLTRIGGER</text>
+  </g>
+  <defs>
+    <filter id="noise">
+      <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.055"/></feComponentTransfer>
+    </filter>
+  </defs>
+  <rect width="1280" height="720" filter="url(#noise)"/>
+  <defs>
+    <radialGradient id="vig" cx="50%" cy="45%" r="80%">
+      <stop offset="55%" stop-color="rgba(0,0,0,0)"/>
+      <stop offset="100%" stop-color="rgba(0,0,0,0.6)"/>
+    </radialGradient>
+  </defs>
+  <rect width="1280" height="720" fill="url(#vig)"/>
+</svg>

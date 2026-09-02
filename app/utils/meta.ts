@@ -7,18 +7,21 @@ export const BLOG_CATEGORIES = {
     en: "Life",
     icon: "lucide:coffee",
     description: "关于生活的一切碎碎念。",
+    cover: "/covers/blog-cat-life.svg",
   },
   javascript: {
     label: "JavaScript",
     en: "JavaScript",
     icon: "lucide:code-2",
     description: "Nuxt、Vue、GSAP 与前端工程化的实践笔记。",
+    cover: "/covers/blog-cat-javascript.svg",
   },
   blender: {
     label: "Blender",
     en: "Blender",
     icon: "lucide:box",
     description: "3D 创作路上的坑与心得。",
+    cover: "/covers/blog-cat-blender.svg",
   },
 } as const;
 

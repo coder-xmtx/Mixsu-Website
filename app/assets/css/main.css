@@ -2,9 +2,78 @@
 @import "@nuxt/ui";
 
 /* ------------------------------------------------------------------ */
-/*  Mixsu Studio Design Tokens                                        */
+/*  Mixsu Studio Design Tokens — Version 2                            */
+/*  凌厉风格：零圆角、斜切角、硬阴影、斜向条纹、锐利网格               */
 /*  暗色优先：深灰蓝底 + 柔和橙强调；亮色为暖纸色，同一套语义变量     */
 /* ------------------------------------------------------------------ */
+
+/* ---------------------------- 字体声明 ---------------------------- */
+
+@font-face {
+  font-family: "Astron";
+  src: url("/fonts/Astron.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Astron";
+  src: url("/fonts/Astron-Bold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "YouSheBiaoTiHei";
+  src: url("/fonts/YouSheBiaoTiHei.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Source Han Serif";
+  src: url("/fonts/Source%20Han%20Serif.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Philosopher";
+  src: url("/fonts/Philosopher-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Philosopher";
+  src: url("/fonts/Philosopher-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("/fonts/JetBrains%20Mono.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "HarmonyOS Sans SC";
+  src: url("/fonts/HarmonyOS%20Sans%20SC.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ---------------------------- 颜色变量 ---------------------------- */
 
 :root {
   color-scheme: light;
@@ -14,8 +83,8 @@
   --bg-soft: #ede8dc;
   --surface: #fbf9f3;
   --elevated: #ffffff;
-  --line: rgba(28, 34, 44, 0.14);
-  --line-soft: rgba(28, 34, 44, 0.08);
+  --line: rgba(28, 34, 44, 0.22);
+  --line-soft: rgba(28, 34, 44, 0.11);
 
   /* text */
   --text: #1d232d;
@@ -30,6 +99,9 @@
 
   --selection: rgba(199, 106, 30, 0.25);
   --noise-opacity: 0.05;
+
+  /* 硬阴影用色 */
+  --shadow-line: rgba(28, 34, 44, 0.16);
 }
 
 .dark {
@@ -40,8 +112,8 @@
   --bg-soft: #12161e;
   --surface: #161b24;
   --elevated: #1c2330;
-  --line: rgba(233, 238, 246, 0.1);
-  --line-soft: rgba(233, 238, 246, 0.05);
+  --line: rgba(233, 238, 246, 0.14);
+  --line-soft: rgba(233, 238, 246, 0.07);
 
   /* text — 暖白 */
   --text: #e9ebee;
@@ -56,7 +128,11 @@
 
   --selection: rgba(240, 163, 94, 0.28);
   --noise-opacity: 0.06;
+
+  --shadow-line: rgba(0, 0, 0, 0.55);
 }
+
+/* ---------------------------- 字体 token ---------------------------- */
 
 @theme inline {
   --color-bg: var(--bg);
@@ -72,18 +148,35 @@
   --color-accent-strong: var(--accent-strong);
   --color-accent-soft: var(--accent-soft);
 
-  /* 系统字体栈：无外部字体依赖*/
+  /* 装饰性大字：Astron（MIXSU STUDIO 品牌字） */
   --font-display:
-    "Astron", "Poppins", ui-sans-serif, -apple-system, "Segoe UI",
-    "PingFang SC", "HarmonyOS Sans SC", "Microsoft YaHei", "Noto Sans SC",
-    sans-serif;
+    "Astron", "Philosopher", "YouSheBiaoTiHei", ui-sans-serif,
+    "HarmonyOS Sans SC", sans-serif;
+
+  /* 中文标题：优设标题黑 */
+  --font-title:
+    "YouSheBiaoTiHei", "HarmonyOS Sans SC", "Source Han Serif", sans-serif;
+
+  /* 中文正文：思源宋体 */
+  --font-body:
+    "Source Han Serif", "HarmonyOS Sans SC", Georgia, "Songti SC", "SimSun",
+    serif;
   --font-sans:
-    "HarmonyOS Sans SC", ui-sans-serif, -apple-system, "Segoe UI",
-    "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
-  --font-hand: ui-serif, Georgia, "Songti SC", "SimSun", serif;
+    "Source Han Serif", "HarmonyOS Sans SC", Georgia, "Songti SC", "SimSun",
+    serif;
+
+  /* 装饰性英文：Philosopher（拉丁字形走 Philosopher，中文自动回退标题黑） */
+  --font-deco:
+    "Philosopher", "YouSheBiaoTiHei", "Source Han Serif", "Songti SC", serif;
+
+  /* 手写注释 */
+  --font-hand:
+    "Philosopher", ui-serif, Georgia, "Songti SC", "SimSun", serif;
+
+  /* 代码与编号：JetBrains Mono */
   --font-mono:
-    ui-monospace, "Source Han Serif", "Cascadia Code", "SF Mono",
-    "JetBrains Mono", Consolas, monospace;
+    "JetBrains Mono", ui-monospace, "Cascadia Code", "SF Mono", Consolas,
+    monospace;
   --font-code:
     "JetBrains Mono", ui-monospace, "Cascadia Code", "SF Mono", Consolas,
     monospace;
@@ -125,21 +218,21 @@ body {
   color: var(--text);
 }
 
-/* 细滚动条 */
+/* 方形滚动条 */
 ::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+  width: 12px;
+  height: 12px;
 }
 ::-webkit-scrollbar-track {
   background: var(--bg);
+  border-left: 1px solid var(--line-soft);
 }
 ::-webkit-scrollbar-thumb {
   background: var(--line);
-  border-radius: 8px;
-  border: 2px solid var(--bg);
+  border: 3px solid var(--bg);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--faint);
+  background: var(--accent);
 }
 
 /* 自定义光标时隐藏原生光标（仅精确指针设备） */
@@ -235,27 +328,241 @@ body {
 }
 
 /* ------------------------------------------------------------------ */
-/*  页面过渡                                                            */
+/*  凌厉风工具类                                                       */
+/* ------------------------------------------------------------------ */
+
+/* 斜切角（clip-path）。clip-path 会裁掉外阴影，
+   需要硬阴影时请把 drop-shadow 加在同一元素上（.shadow-hard）。 */
+
+/* 双角斜切：切右上 + 左下 */
+.cut-corner {
+  clip-path: polygon(
+    0 0,
+    calc(100% - 16px) 0,
+    100% 16px,
+    100% 100%,
+    16px 100%,
+    0 calc(100% - 16px)
+  );
+}
+
+.cut-corner-sm {
+  clip-path: polygon(
+    0 0,
+    calc(100% - 9px) 0,
+    100% 9px,
+    100% 100%,
+    9px 100%,
+    0 calc(100% - 9px)
+  );
+}
+
+.cut-corner-lg {
+  clip-path: polygon(
+    0 0,
+    calc(100% - 26px) 0,
+    100% 26px,
+    100% 100%,
+    26px 100%,
+    0 calc(100% - 26px)
+  );
+}
+
+/* 单角斜切 */
+.cut-tr {
+  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 0 100%);
+}
+.cut-bl {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 14px 100%, 0 calc(100% - 14px));
+}
+.cut-br {
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% calc(100% - 14px),
+    calc(100% - 14px) 100%,
+    0 100%
+  );
+}
+
+/* 硬阴影：跟随 clip-path 形状的实色偏移投影 */
+.shadow-hard {
+  filter: drop-shadow(8px 8px 0 var(--shadow-line));
+  transition: filter 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.shadow-hard-sm {
+  filter: drop-shadow(5px 5px 0 var(--shadow-line));
+  transition: filter 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.shadow-hard-accent {
+  filter: drop-shadow(8px 8px 0 var(--accent-soft));
+}
+
+/* 斜向条纹（45° 细密排线） */
+.hatch {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    var(--line-soft) 0px,
+    var(--line-soft) 1px,
+    transparent 1px,
+    transparent 9px
+  );
+}
+.hatch-accent {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    var(--accent-soft) 0px,
+    var(--accent-soft) 1px,
+    transparent 1px,
+    transparent 9px
+  );
+}
+
+/* 倾斜色块条 */
+.skew-band {
+  transform: skewY(-1.6deg);
+}
+
+/* 按钮扫光：悬停时一道斜向高光扫过 */
+.sweep {
+  position: relative;
+  overflow: hidden;
+}
+.sweep::after {
+  content: "";
+  position: absolute;
+  top: -20%;
+  bottom: -20%;
+  left: -30%;
+  width: 34%;
+  background: linear-gradient(
+    100deg,
+    transparent,
+    rgba(255, 255, 255, 0.35),
+    transparent
+  );
+  transform: translateX(-160%) skewX(-18deg);
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+}
+.sweep:hover::after {
+  transform: translateX(480%) skewX(-18deg);
+}
+.dark .sweep::after {
+  background: linear-gradient(
+    100deg,
+    transparent,
+    rgba(255, 255, 255, 0.16),
+    transparent
+  );
+}
+
+/* 导航项：悬停时斜向底纹滑入 */
+.nav-item {
+  position: relative;
+  isolation: isolate;
+}
+.nav-item::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: var(--accent-soft);
+  transform: scaleX(0) skewX(-14deg);
+  transform-origin: left center;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.nav-item:hover::before {
+  transform: scaleX(1) skewX(-14deg);
+  transform-origin: right center;
+}
+
+/* 斜切下划线（hover 扫入） */
+.slash-underline {
+  position: relative;
+}
+.slash-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  height: 2px;
+  width: 100%;
+  background: currentColor;
+  transform: scaleX(0) skewX(-30deg);
+  transform-origin: right;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.slash-underline:hover::after {
+  transform: scaleX(1) skewX(-30deg);
+  transform-origin: left;
+}
+
+/* 角标（L 形四角刻度） */
+.corner-ticks {
+  position: relative;
+}
+.corner-ticks::before,
+.corner-ticks::after {
+  content: "";
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  pointer-events: none;
+  transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.corner-ticks::before {
+  top: 6px;
+  left: 6px;
+  border-top: 1px solid var(--faint);
+  border-left: 1px solid var(--faint);
+}
+.corner-ticks::after {
+  right: 6px;
+  bottom: 6px;
+  border-right: 1px solid var(--faint);
+  border-bottom: 1px solid var(--faint);
+}
+.corner-ticks:hover::before {
+  border-color: var(--accent);
+  top: 2px;
+  left: 2px;
+}
+.corner-ticks:hover::after {
+  border-color: var(--accent);
+  right: 2px;
+  bottom: 2px;
+}
+
+/* ------------------------------------------------------------------ */
+/*  页面过渡：斜向裁切擦除（对角线锋面前进）                            */
 /* ------------------------------------------------------------------ */
 
 .page-enter-active,
 .page-leave-active {
   transition:
-    opacity 0.38s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.38s cubic-bezier(0.22, 1, 0.36, 1),
-    filter 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+    clip-path 0.55s cubic-bezier(0.77, 0, 0.18, 1),
+    opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.55s cubic-bezier(0.77, 0, 0.18, 1);
+  will-change: clip-path, transform, opacity;
+}
+
+/* 两个端点都显式写成 polygon，保证可插值（none ↔ polygon 不参与过渡） */
+.page-enter-to,
+.page-leave-from {
+  clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
 }
 
 .page-enter-from {
+  clip-path: polygon(100% 0%, 100% 100%, 72% 100%, 100% 0%);
+  transform: translateX(2.5%);
   opacity: 0;
-  transform: translateY(26px);
-  filter: blur(4px);
 }
 
 .page-leave-to {
+  clip-path: polygon(0% 0%, 0% 100%, 28% 100%, 0% 0%);
+  transform: translateX(-2.5%);
   opacity: 0;
-  transform: translateY(-14px);
-  filter: blur(3px);
 }
 
 /* ------------------------------------------------------------------ */
@@ -297,16 +604,25 @@ body {
   }
 }
 
-/* 手写体注释卡片（斜体衬线，克制使用） */
+/* 手写体注释（Philosopher 斜体衬线，克制使用） */
 .hand-note {
   font-family: var(--font-hand);
   font-style: italic;
   line-height: 1.4;
+  letter-spacing: 0.02em;
 }
 
 /* 标签 */
 .tag-chip {
-  @apply inline-flex items-center gap-1.5 rounded-full border border-line px-3 py-1 text-xs tracking-wide text-muted transition-colors duration-300;
+  @apply inline-flex items-center gap-1.5 border border-line px-3 py-1 text-xs tracking-wide text-muted transition-colors duration-300;
+  clip-path: polygon(
+    0 0,
+    calc(100% - 7px) 0,
+    100% 7px,
+    100% 100%,
+    7px 100%,
+    0 calc(100% - 7px)
+  );
 }
 .tag-chip:hover {
   @apply border-accent/60 text-accent;
@@ -333,12 +649,18 @@ body {
   transform-origin: left;
 }
 
+/* 中英混排装饰词：拉丁走 Philosopher，中文走优设标题黑 */
+.text-deco {
+  font-family: var(--font-deco);
+}
+
 /* ------------------------------------------------------------------ */
 /*  博客正文排版                                                        */
 /* ------------------------------------------------------------------ */
 
 .prose-content {
   @apply text-text;
+  font-family: var(--font-body);
   font-size: 1.0625rem;
   line-height: 1.95;
   letter-spacing: 0.02em;
@@ -352,8 +674,9 @@ body {
 .prose-content h2,
 .prose-content h3,
 .prose-content h4 {
-  @apply font-display font-semibold text-text;
-  letter-spacing: 0.01em;
+  @apply font-normal text-text;
+  font-family: var(--font-title);
+  letter-spacing: 0.02em;
   scroll-margin-top: 6rem;
 }
 
@@ -367,8 +690,19 @@ body {
 .prose-content h2 {
   font-size: 1.45rem;
   margin-top: 2.4em;
-  padding-left: 0.75rem;
-  border-left: 3px solid var(--accent);
+  padding-left: 0.9rem;
+  position: relative;
+}
+.prose-content h2::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.1em;
+  bottom: 0.1em;
+  width: 4px;
+  background: var(--accent);
+  transform: skewY(-18deg);
+  transform-origin: top;
 }
 
 .prose-content h3 {
@@ -419,9 +753,9 @@ body {
   padding-left: 0.25em;
 }
 .prose-content ul li::before {
-  content: "→";
+  content: "▸";
   position: absolute;
-  left: -1.1em;
+  left: -1.05em;
   color: var(--accent);
   font-family: var(--font-mono);
   font-size: 0.85em;
@@ -442,11 +776,11 @@ body {
 }
 
 .prose-content blockquote {
-  border-left: 3px solid var(--accent);
-  border-radius: 0 0.75rem 0.75rem 0;
+  border-left: 4px solid var(--accent);
   background: var(--surface);
   padding: 1em 1.4em;
   color: var(--muted);
+  position: relative;
 }
 .prose-content blockquote p {
   color: var(--muted);
@@ -462,30 +796,27 @@ body {
   background: var(--accent-soft);
   color: var(--accent-strong);
   padding: 0.15em 0.45em;
-  border-radius: 0.35rem;
   white-space: nowrap;
 }
 
 .prose-content pre {
   @apply bg-surface border-line;
   border: 1px solid var(--line);
-  border-radius: 0.9rem;
   padding: 1.2rem 1.4rem;
   overflow-x: auto;
   line-height: 1.7;
+  box-shadow: 6px 6px 0 var(--line-soft);
 }
 .prose-content pre code {
   font-family: var(--font-code);
   background: transparent;
   color: inherit;
   padding: 0;
-  border-radius: 0;
   white-space: pre;
   font-size: 0.85rem;
 }
 
 .prose-content img {
-  border-radius: 1rem;
   border: 1px solid var(--line-soft);
 }
 
@@ -508,8 +839,8 @@ body {
 }
 .prose-content th {
   background: var(--surface);
-  font-family: var(--font-display);
-  font-weight: 600;
+  font-family: var(--font-title);
+  font-weight: 400;
 }
 
 /* ------------------------------------------------------------------ */

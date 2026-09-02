@@ -1,6 +1,6 @@
 <script setup lang="ts">
 /**
- * 分类文章列表页。
+ * 分类文章列表页（Version 2）：16:9 斜切横幅 + 带缩略图的文章列表。
  */
 const route = useRoute();
 const category = route.params.category as string;
@@ -15,12 +15,31 @@ const { data: posts } = await useAsyncData(`blog-${category}`, () =>
   queryCollection("blog")
     .where("category", "=", category)
     .order("date", "DESC")
-    .select("title", "description", "date", "category", "tags", "path")
+    .select("title", "description", "date", "category", "tags", "cover", "path")
     .all(),
 );
 
 useSeoMeta({
   description: meta.value.description,
+});
+
+const bannerRef = ref<HTMLElement | null>(null);
+
+/* 横幅入场：斜向裁切擦入 */
+onMounted(() => {
+  const root = bannerRef.value;
+  if (!root || usePrefersReducedMotion().value) return;
+
+  const { gsap } = useGsap();
+  const ctx = gsap.context(() => {
+    gsap.fromTo(
+      root,
+      { autoAlpha: 0, clipPath: "polygon(100% 0%, 100% 100%, 72% 100%, 100% 0%)" },
+      { autoAlpha: 1, clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)", duration: 0.9, ease: "power3.inOut", delay: 0.1, clearProps: "clipPath" },
+    );
+  }, root);
+
+  onUnmounted(() => ctx.revert());
 });
 </script>
 
@@ -45,7 +64,7 @@ useSeoMeta({
           </p>
         </Reveal>
         <Reveal variant="clip" :delay="0.08">
-          <h1 class="mt-4 font-display text-5xl font-extrabold tracking-tight text-text md:text-7xl">
+          <h1 class="mt-4 font-title text-5xl tracking-wide text-text md:text-7xl">
             {{ meta.label }}
           </h1>
         </Reveal>
@@ -53,6 +72,21 @@ useSeoMeta({
       <Reveal variant="up" :delay="0.2">
         <p class="max-w-xs text-sm leading-relaxed text-muted">{{ meta.description }}</p>
       </Reveal>
+    </div>
+
+    <!-- 16:9 分类横幅 -->
+    <div ref="bannerRef" class="mt-12">
+      <div class="cut-corner-lg shadow-hard relative overflow-hidden border border-line bg-surface">
+        <img :src="meta.cover" :alt="`${meta.label} 分类横幅`" class="aspect-video w-full object-cover" />
+        <span
+          class="absolute left-0 top-0 border-b border-r border-line bg-bg/85 px-3 py-1.5 font-mono text-[10px] tracking-[0.3em] text-accent backdrop-blur">
+          CATEGORY/{{ meta.en.toUpperCase() }}
+        </span>
+        <span
+          class="absolute bottom-0 right-0 border-l border-t border-line bg-bg/85 px-3 py-1.5 font-mono text-[10px] tracking-[0.3em] text-faint backdrop-blur">
+          WIDE · 16:9
+        </span>
+      </div>
     </div>
 
     <div class="mt-14">
@@ -64,6 +98,7 @@ useSeoMeta({
         :date="post.date"
         :category="post.category"
         :tags="post.tags"
+        :cover="post.cover"
         :to="post.path"
         :index="i"
       />

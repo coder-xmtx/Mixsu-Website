@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#10141b"/>
+      <stop offset="55%" stop-color="#151c28"/>
+      <stop offset="100%" stop-color="#1f2838"/>
+    </linearGradient>
+  </defs>
+  <rect width="1280" height="720" fill="url(#bg)"/>
+  <defs>
+    <pattern id="grid" width="72" height="72" patternUnits="userSpaceOnUse" patternTransform="skewX(-8)">
+      <path d="M 72 0 L 0 0 0 72" fill="none" stroke="rgba(255,255,255,0.055)" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1280" height="720" fill="url(#grid)"/>
+  <g>
+    <rect x="120" y="180" width="440" height="320" fill="rgba(10,14,22,0.85)" stroke="#f0a35e" stroke-width="2.5"/>
+    <path d="M 120 180 L 168 180 L 120 228 Z" fill="#7fd6c2" opacity="0.8"/>
+    <line x1="140" y1="252" x2="540" y2="252" stroke="rgba(255,255,255,0.18)" stroke-width="2"/>
+    <rect x="160" y="292" width="160" height="16" fill="#f0a35e" opacity="0.75"/>
+    <rect x="160" y="330" width="240" height="10" fill="rgba(255,255,255,0.22)"/>
+    <rect x="160" y="356" width="190" height="10" fill="rgba(255,255,255,0.16)"/>
+    <rect x="160" y="382" width="220" height="10" fill="rgba(255,255,255,0.16)"/>
+    <rect x="380" y="292" width="140" height="100" fill="none" stroke="#7fd6c2" stroke-width="2" opacity="0.75"/>
+    <path d="M 380 292 L 420 292 L 380 332 Z" fill="#7fd6c2" opacity="0.5"/>
+  </g>
+  <g>
+    <text x="1020" y="540" font-family="'Arial Black','Microsoft YaHei','PingFang SC',sans-serif" font-weight="900" font-size="300" fill="#f0a35e" opacity="0.92" text-anchor="middle" dominant-baseline="middle">N</text>
+    <text x="1020" y="660" font-family="'Courier New',monospace" font-size="34" letter-spacing="14" fill="rgba(255,255,255,0.8)" text-anchor="middle">NUXT·4</text>
+  </g>
+  <path d="M 30 30 v 34 M 30 30 h 34" fill="none" stroke="rgba(255,255,255,0.32)" stroke-width="2.5"/><path d="M 1250 30 v 34 M 1250 30 h 34" fill="none" stroke="rgba(255,255,255,0.32)" stroke-width="2.5"/><path d="M 30 690 v 34 M 30 690 h 34" fill="none" stroke="rgba(255,255,255,0.32)" stroke-width="2.5"/><path d="M 1250 690 v 34 M 1250 690 h 34" fill="none" stroke="rgba(255,255,255,0.32)" stroke-width="2.5"/>
+  <g>
+    <path d="M 0 624 L 470 624 L 540 702 L 0 702 Z" fill="rgba(8,10,16,0.88)"/>
+    <path d="M 540 702 H 470" stroke="#f0a35e" stroke-width="3"/>
+    <text x="36" y="672" font-family="'Courier New',monospace" font-size="22" letter-spacing="6" fill="#7fd6c2">JAVASCRIPT · NUXT CONTENT</text>
+  </g>
+  <defs>
+    <filter id="noise">
+      <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.055"/></feComponentTransfer>
+    </filter>
+  </defs>
+  <rect width="1280" height="720" filter="url(#noise)"/>
+  <defs>
+    <radialGradient id="vig" cx="50%" cy="45%" r="80%">
+      <stop offset="55%" stop-color="rgba(0,0,0,0)"/>
+      <stop offset="100%" stop-color="rgba(0,0,0,0.6)"/>
+    </radialGradient>
+  </defs>
+  <rect width="1280" height="720" fill="url(#vig)"/>
+</svg>

@@ -3,6 +3,7 @@ title: 用 Nuxt 4 + Nuxt Content 搭一个自己的博客
 description: 从零搭建这个网站的完整记录：内容集合、类型安全查询、MDC 组件与部署前的所有细节。
 date: 2026-01-18
 category: javascript
+cover: /covers/blog-nuxt4.svg
 tags:
   - Nuxt
   - Nuxt Content
