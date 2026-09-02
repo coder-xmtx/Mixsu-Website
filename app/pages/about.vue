@@ -134,8 +134,8 @@ const timeline = [
       </Reveal>
       <Reveal variant="up" :delay="0.25" class="mt-10">
         <a href="mailto:mail_xmtx@163.com" data-cursor="hover"
-          class="group inline-flex items-center gap-2.5 rounded-full bg-accent px-8 py-4 font-mono text-sm tracking-widest text-bg transition-all duration-300 hover:shadow-[0_0_40px_var(--accent-glow)]">
-          mailto:mail_xmtx@163.com
+          class="group inline-flex items-center gap-2.5 rounded-full bg-accent px-8 py-4 font-mono text-xs md:text-sm tracking-widest text-bg transition-all duration-300 hover:shadow-[0_0_40px_var(--accent-glow)]">
+          mail_xmtx@163.com
           <UIcon name="lucide:arrow-up-right"
             class="size-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
         </a>
