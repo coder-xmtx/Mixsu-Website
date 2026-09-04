@@ -25,7 +25,7 @@ function toggle() {
 <template>
   <button
     type="button"
-    class="cut-corner-sm group relative grid size-10 place-items-center border border-line bg-surface text-muted transition-colors duration-300 hover:border-accent/60 hover:text-accent"
+    class="cut-corner-sm cut-outline group relative grid size-10 place-items-center bg-surface text-muted transition-colors duration-300 hover:text-accent hover:[--cut-line:var(--accent)]"
     :aria-label="isDark ? '切换到亮色模式' : '切换到暗色模式'"
     @click="toggle"
   >

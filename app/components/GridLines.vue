@@ -1,4 +1,6 @@
 <template>
-  <!-- 不规则网格线背景（错位网格 + 径向淡出蒙版） -->
-  <div class="gridlines" aria-hidden="true" />
+  <!-- 45° 斜向织网背景 + 周期性扫过的斜向光束 -->
+  <div class="gridlines" aria-hidden="true">
+    <span class="grid-beam" />
+  </div>
 </template>

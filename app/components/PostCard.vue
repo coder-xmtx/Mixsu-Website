@@ -1,6 +1,6 @@
 <script setup lang="ts">
 /**
- * 博客文章卡片（Version 2）：行内列表项 + 可选 16:9 缩略图。
+ * 博客文章卡片（Version 3）：行内列表项 + 可选 21:9 宽幅缩略图。
  * 用于分类页与首页精选。
  */
 import type { BlogCategory } from "~/utils/meta";
@@ -29,9 +29,9 @@ const meta = computed(() => BLOG_CATEGORIES[props.category]);
 <template>
   <Reveal variant="wipe" :delay="Math.min(index * 0.08, 0.3)" :duration="0.7">
     <NuxtLink :to="to" data-cursor="hover"
-      class="group grid gap-4 border-b border-line-soft py-6 transition-colors duration-300 hover:border-accent/40 md:grid-cols-[240px_1fr_auto] md:items-center">
-      <!-- 16:9 缩略图 -->
-      <div v-if="cover" class="cut-corner-sm shadow-hard-sm relative aspect-video overflow-hidden border border-line bg-surface">
+      class="group grid gap-4 border-b border-line-soft py-6 transition-colors duration-300 hover:border-accent/40 md:grid-cols-[320px_1fr_auto] md:items-center">
+      <!-- 21:9 宽幅缩略图 -->
+      <div v-if="cover" class="cut-corner-sm shadow-hard-sm relative aspect-[21/9] overflow-hidden bg-surface outline-1 -outline-offset-1 outline-line">
         <img :src="cover" :alt="title" loading="lazy"
           class="size-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.05]" />
       </div>
@@ -42,12 +42,12 @@ const meta = computed(() => BLOG_CATEGORIES[props.category]);
           class="mt-1 font-title text-xl tracking-wide text-text transition-colors duration-300 group-hover:text-accent">
           {{ title }}
         </h3>
-        <p class="mt-1.5 line-clamp-1 text-sm text-muted">{{ description }}</p>
+        <p class="mt-1.5 line-clamp-2 text-sm text-muted">{{ description }}</p>
       </div>
 
       <div class="flex items-center gap-3 md:justify-end">
         <span
-          class="cut-corner-sm inline-flex items-center gap-1.5 border border-line px-2.5 py-1 font-mono text-[11px] tracking-widest text-muted transition-colors duration-300 group-hover:border-accent/50 group-hover:text-accent">
+          class="cut-corner-sm cut-outline inline-flex items-center gap-1.5 px-2.5 py-1 font-mono text-[11px] tracking-widest text-muted transition-colors duration-300 group-hover:text-accent group-hover:[--cut-line:var(--accent)]">
           <UIcon :name="meta.icon" class="size-3 text-accent" />
           {{ meta.label }}
         </span>

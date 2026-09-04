@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="549" viewBox="0 0 1280 549">
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0%" stop-color="#11161f"/>
@@ -6,26 +6,26 @@
       <stop offset="100%" stop-color="#212c42"/>
     </linearGradient>
   </defs>
-  <rect width="1280" height="720" fill="url(#bg)"/>
+  <rect width="1280" height="549" fill="url(#bg)"/>
   <defs>
     <pattern id="grid" width="72" height="72" patternUnits="userSpaceOnUse" patternTransform="skewX(-8)">
       <path d="M 72 0 L 0 0 0 72" fill="none" stroke="rgba(255,255,255,0.055)" stroke-width="1"/>
     </pattern>
   </defs>
-  <rect width="1280" height="720" fill="url(#grid)"/>
+  <rect width="1280" height="549" fill="url(#grid)"/>
   <g transform="skewX(-14)">
-    <rect x="520" y="-80" width="90" height="880" fill="#f0a35e" opacity="0.16"/><rect x="660" y="-80" width="40" height="880" fill="#f0a35e" opacity="0.34"/><rect x="900" y="-80" width="180" height="880" fill="#f0a35e" opacity="0.08"/>
-    <rect x="1010" y="-80" width="14" height="880" fill="#7fd6c2" opacity="0.5"/>
+    <rect x="520" y="-80" width="90" height="709" fill="#f0a35e" opacity="0.16"/><rect x="660" y="-80" width="40" height="709" fill="#f0a35e" opacity="0.34"/><rect x="900" y="-80" width="180" height="709" fill="#f0a35e" opacity="0.08"/>
+    <rect x="1010" y="-80" width="14" height="709" fill="#7fd6c2" opacity="0.5"/>
   </g>
   <g>
-    <text x="1020" y="540" font-family="'Arial Black','Microsoft YaHei','PingFang SC',sans-serif" font-weight="900" font-size="300" fill="#f0a35e" opacity="0.92" text-anchor="middle" dominant-baseline="middle">代</text>
-    <text x="1020" y="660" font-family="'Courier New',monospace" font-size="34" letter-spacing="14" fill="rgba(255,255,255,0.8)" text-anchor="middle">JS</text>
+    <text x="1000" y="399" font-family="'Arial Black','Microsoft YaHei','PingFang SC',sans-serif" font-weight="900" font-size="240" fill="#f0a35e" opacity="0.92" text-anchor="middle" dominant-baseline="middle">代</text>
+    <text x="1000" y="504" font-family="'Courier New',monospace" font-size="30" letter-spacing="14" fill="rgba(255,255,255,0.8)" text-anchor="middle">JS</text>
   </g>
-  <path d="M 30 30 v 34 M 30 30 h 34" fill="none" stroke="rgba(255,255,255,0.32)" stroke-width="2.5"/><path d="M 1250 30 v 34 M 1250 30 h 34" fill="none" stroke="rgba(255,255,255,0.32)" stroke-width="2.5"/><path d="M 30 690 v 34 M 30 690 h 34" fill="none" stroke="rgba(255,255,255,0.32)" stroke-width="2.5"/><path d="M 1250 690 v 34 M 1250 690 h 34" fill="none" stroke="rgba(255,255,255,0.32)" stroke-width="2.5"/>
+  <path d="M 30 30 v 34 M 30 30 h 34" fill="none" stroke="rgba(255,255,255,0.32)" stroke-width="2.5"/><path d="M 1250 30 v 34 M 1250 30 h 34" fill="none" stroke="rgba(255,255,255,0.32)" stroke-width="2.5"/><path d="M 30 519 v 34 M 30 519 h 34" fill="none" stroke="rgba(255,255,255,0.32)" stroke-width="2.5"/><path d="M 1250 519 v 34 M 1250 519 h 34" fill="none" stroke="rgba(255,255,255,0.32)" stroke-width="2.5"/>
   <g>
-    <path d="M 0 624 L 470 624 L 540 702 L 0 702 Z" fill="rgba(8,10,16,0.88)"/>
-    <path d="M 540 702 H 470" stroke="#f0a35e" stroke-width="3"/>
-    <text x="36" y="672" font-family="'Courier New',monospace" font-size="22" letter-spacing="6" fill="#7fd6c2">JAVASCRIPT · 技术笔记</text>
+    <path d="M 0 453 L 470 453 L 540 531 L 0 531 Z" fill="rgba(8,10,16,0.88)"/>
+    <path d="M 540 531 H 470" stroke="#f0a35e" stroke-width="3"/>
+    <text x="36" y="501" font-family="'Courier New',monospace" font-size="22" letter-spacing="6" fill="#7fd6c2">JAVASCRIPT · 技术笔记</text>
   </g>
   <defs>
     <filter id="noise">
@@ -34,12 +34,12 @@
       <feComponentTransfer><feFuncA type="linear" slope="0.055"/></feComponentTransfer>
     </filter>
   </defs>
-  <rect width="1280" height="720" filter="url(#noise)"/>
+  <rect width="1280" height="549" filter="url(#noise)"/>
   <defs>
     <radialGradient id="vig" cx="50%" cy="45%" r="80%">
       <stop offset="55%" stop-color="rgba(0,0,0,0)"/>
       <stop offset="100%" stop-color="rgba(0,0,0,0.6)"/>
     </radialGradient>
   </defs>
-  <rect width="1280" height="720" fill="url(#vig)"/>
+  <rect width="1280" height="549" fill="url(#vig)"/>
 </svg>

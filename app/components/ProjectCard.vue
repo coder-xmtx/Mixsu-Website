@@ -65,7 +65,7 @@ const meta = computed(() => PROJECT_CATEGORIES[props.category]);
         <p class="line-clamp-2 text-sm leading-relaxed text-muted">{{ description }}</p>
         <div v-if="tags.length" class="mt-2 flex flex-wrap gap-1.5 pt-2">
           <span v-for="tag in tags.slice(0, 3)" :key="tag"
-            class="cut-corner-sm border border-line-soft px-2.5 py-0.5 font-mono text-[11px] text-faint">
+            class="cut-corner-sm cut-outline px-2.5 py-0.5 font-mono text-[11px] text-faint">
             {{ tag }}
           </span>
         </div>

@@ -56,7 +56,7 @@ const readingTime = computed(() => estimateReadingMinutes(post.value?.body as ne
       <Reveal variant="fade">
         <div class="flex flex-wrap items-center gap-3">
           <span
-            class="cut-corner-sm inline-flex items-center gap-1.5 border border-accent/50 bg-accent-soft px-3 py-1 font-mono text-[11px] tracking-widest text-accent">
+            class="cut-corner-sm cut-outline cut-line-accent inline-flex items-center gap-1.5 bg-accent-soft px-3 py-1 font-mono text-[11px] tracking-widest text-accent">
             <UIcon :name="meta.icon" class="size-3.5" />
             {{ meta.label }}
           </span>
@@ -82,10 +82,10 @@ const readingTime = computed(() => estimateReadingMinutes(post.value?.body as ne
       <!-- 16:9 大图 -->
       <Reveal v-if="post.cover" variant="wipe" :delay="0.2" :duration="0.9" class="mt-10">
         <div class="cut-corner-lg shadow-hard relative overflow-hidden border border-line">
-          <img :src="post.cover" :alt="post.title" class="aspect-video w-full object-cover" />
+          <img :src="post.cover" :alt="post.title" class="aspect-[21/9] w-full object-cover" />
           <span
             class="absolute left-0 top-0 border-b border-r border-line bg-bg/85 px-3 py-1.5 font-mono text-[10px] tracking-[0.3em] text-accent backdrop-blur">
-            COVER · 16:9
+            COVER · 21:9
           </span>
         </div>
       </Reveal>
@@ -107,7 +107,7 @@ const readingTime = computed(() => estimateReadingMinutes(post.value?.body as ne
         <NuxtLink
           :to="`/blog/${category}`"
           data-cursor="hover"
-          class="cut-corner-sm sweep group inline-flex items-center gap-2 border border-line px-5 py-2.5 font-mono text-xs tracking-widest text-muted transition-colors duration-300 hover:border-accent hover:text-accent"
+          class="cut-corner-sm cut-outline sweep group inline-flex items-center gap-2 px-5 py-2.5 font-mono text-xs tracking-widest text-muted transition-colors duration-300 hover:text-accent hover:[--cut-line:var(--accent)]"
         >
           同分类更多文章
           <UIcon name="lucide:arrow-right" class="size-3.5 transition-transform duration-300 group-hover:translate-x-1" />

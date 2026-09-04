@@ -53,11 +53,11 @@ onUnmounted(() => {
 
 <template>
   <div class="overflow-hidden" :class="className">
-    <div class="w-[110%] -translate-x-[5%]" :class="skew ? 'skew-band' : ''">
+    <div class="w-[110%] translate-x-[-5%]" :class="skew ? 'skew-band' : ''">
       <div ref="track" class="flex w-max items-center whitespace-nowrap will-change-transform">
         <template v-for="group in 2" :key="group">
           <span v-for="(item, i) in items" :key="`${group}-${i}`" class="flex items-center gap-8 px-4">
-            <span class="text-deco text-2xl tracking-wide md:text-4xl">
+            <span class="font-display text-2xl tracking-wide md:text-4xl">
               {{ item }}
             </span>
             <span class="font-mono text-sm text-accent">{{ separator }}</span>

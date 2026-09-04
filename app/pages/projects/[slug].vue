@@ -70,7 +70,7 @@ onMounted(() => {
     <header ref="headRef" class="mt-8">
       <div data-detail-fade class="flex flex-wrap items-center gap-3">
         <span
-          class="cut-corner-sm inline-flex items-center gap-1.5 border border-accent/50 bg-accent-soft px-3 py-1 font-mono text-[11px] tracking-widest text-accent">
+          class="cut-corner-sm cut-outline cut-line-accent inline-flex items-center gap-1.5 bg-accent-soft px-3 py-1 font-mono text-[11px] tracking-widest text-accent">
           <UIcon :name="meta.icon" class="size-3.5" />
           {{ meta.label }}
         </span>
@@ -110,7 +110,7 @@ onMounted(() => {
     <div v-if="project.links?.length" class="mt-12 flex flex-wrap gap-3 border-t border-line-soft pt-8">
       <a v-for="link in project.links" :key="link.label" :href="link.url" target="_blank" rel="noopener noreferrer"
         data-cursor="hover"
-        class="cut-corner-sm sweep group inline-flex items-center gap-2 border border-line px-5 py-2.5 font-mono text-sm tracking-widest text-text transition-all duration-300 hover:border-accent hover:text-accent">
+        class="cut-corner-sm cut-outline sweep group inline-flex items-center gap-2 px-5 py-2.5 font-mono text-sm tracking-widest text-text transition-all duration-300 hover:text-accent hover:[--cut-line:var(--accent)]">
         {{ link.label }}
         <UIcon name="lucide:arrow-up-right"
           class="size-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />

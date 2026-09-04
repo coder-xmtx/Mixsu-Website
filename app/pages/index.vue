@@ -30,30 +30,34 @@ const { data: latestPosts } = await useAsyncData("home-latest-posts", () =>
 const heroRef = ref<HTMLElement | null>(null);
 const reduceMotion = usePrefersReducedMotion();
 
-onMounted(() => {
+let heroCtx: gsap.Context | null = null;
+
+function playHero() {
   const root = heroRef.value;
   if (!root || reduceMotion.value) return;
 
-  const ctx = gsap.context(() => {
+  heroCtx = gsap.context(() => {
     const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
-    tl.from("[data-hero-kicker]", { autoAlpha: 0, y: 24, duration: 0.7 }, 0.15)
+    tl.from("[data-hero-kicker]", { autoAlpha: 0, y: 24, duration: 0.7 }, 0.1)
       .fromTo(
         "[data-hero-portrait]",
         { autoAlpha: 0, clipPath: "inset(0 0 100% 0)", x: 30 },
         { autoAlpha: 1, clipPath: "inset(0 0 0% 0)", x: 0, duration: 1.1, ease: "power4.inOut", clearProps: "clipPath" },
-        0.35,
+        0.3,
       )
-      .from("[data-hero-desc]", { autoAlpha: 0, y: 20, duration: 0.7 }, 1.0)
-      .from("[data-hero-cta]", { autoAlpha: 0, y: 16, duration: 0.6, stagger: 0.08, clearProps: "all" }, 1.1)
-      .from("[data-hero-meta]", { autoAlpha: 0, y: 14, duration: 0.6 }, 1.2)
-      .from("[data-hero-sweep]", { scaleX: 0, transformOrigin: "left center", duration: 0.7, ease: "power3.inOut" }, 0.7)
-      .from("[data-hero-deco]", { autoAlpha: 0, scale: 0.6, duration: 0.7, stagger: 0.08, ease: "back.out(2)" }, 0.9)
-      .from("[data-hero-hint]", { autoAlpha: 0, duration: 0.8 }, 1.5);
+      .from("[data-hero-reticle]", { autoAlpha: 0, scale: 0.85, duration: 1, ease: "power3.out" }, 0.5)
+      .from("[data-hero-desc]", { autoAlpha: 0, y: 20, duration: 0.7 }, 0.9)
+      .from("[data-hero-cta]", { autoAlpha: 0, y: 16, duration: 0.6, stagger: 0.08, clearProps: "all" }, 1.0)
+      .from("[data-hero-meta]", { autoAlpha: 0, y: 14, duration: 0.6 }, 1.1)
+      .from("[data-hero-sweep]", { scaleX: 0, transformOrigin: "left center", duration: 0.7, ease: "power3.inOut" }, 0.6)
+      .from("[data-hero-deco]", { autoAlpha: 0, scale: 0.6, duration: 0.7, stagger: 0.08, ease: "back.out(2)" }, 0.8)
+      .from("[data-hero-tc]", { autoAlpha: 0, x: 12, duration: 0.6 }, 1.2)
+      .from("[data-hero-hint]", { autoAlpha: 0, duration: 0.8 }, 1.4);
 
     // 头像轻微视差
     gsap.to("[data-hero-portrait]", {
-      yPercent: -6,
+      yPercent: -8,
       ease: "none",
       scrollTrigger: {
         trigger: root,
@@ -62,13 +66,38 @@ onMounted(() => {
         scrub: 0.8,
       },
     });
-
   }, root);
+}
 
-  onUnmounted(() => ctx.revert());
+/**
+ * Hero 入场与 BootLoader 揭幕协同：等 boot:done（字体就绪、开场动画播放）
+ * 再开始，否则入场动画全被遮罩盖住。SPA 内部导航时 boot 早已完成，直接播放。
+ */
+onMounted(() => {
+  const w = window as unknown as { __bootDone?: boolean };
+  if (w.__bootDone) {
+    playHero();
+    return;
+  }
+
+  let started = false;
+  const start = () => {
+    if (started) return;
+    started = true;
+    playHero();
+  };
+  window.addEventListener("boot:done", start, { once: true });
+  // 兜底：3.5s 后无论如何都开始（例如 BootLoader 被移除/异常）
+  const fallback = setTimeout(start, 3500);
+
+  onUnmounted(() => {
+    clearTimeout(fallback);
+    window.removeEventListener("boot:done", start);
+    heroCtx?.revert();
+  });
 });
 
-/* ---------------- Manifesto 滚动叙事 ---------------- */
+/* ---------------- Manifesto 滚动叙事 + SVG 描线 ---------------- */
 
 const manifestoRef = ref<HTMLElement | null>(null);
 
@@ -94,6 +123,23 @@ onMounted(() => {
         },
       },
     );
+
+    // SVG 竖线随滚动画出
+    const path = root.querySelector<SVGPathElement>("[data-manifesto-path]");
+    if (path) {
+      const len = path.getTotalLength();
+      gsap.set(path, { strokeDasharray: len, strokeDashoffset: len });
+      gsap.to(path, {
+        strokeDashoffset: 0,
+        ease: "none",
+        scrollTrigger: {
+          trigger: root,
+          start: "top 70%",
+          end: "bottom 45%",
+          scrub: 1,
+        },
+      });
+    }
   }, root);
 
   onUnmounted(() => ctx.revert());
@@ -109,12 +155,14 @@ const marqueeItems = [
   "写作 Writing",
   "设计 Design",
 ];
+
+const marqueeItemsAlt = ["CUT", "RENDER", "SHIP", "PLAY", "LOOP", "REPEAT"];
 </script>
 
 <template>
   <div>
-    <!-- ============ HERO ============ -->
-    <section ref="heroRef" class="relative flex min-h-screen flex-col justify-center overflow-hidden pt-24 pb-16">
+    <!-- ============ HERO：标题压头像的叠层构图 ============ -->
+    <section ref="heroRef" class="relative min-h-screen overflow-hidden pt-24 pb-10">
       <!-- 右上角橙色氛围光 -->
       <div class="pointer-events-none absolute -top-40 right-[-10%] size-136 opacity-60 blur-[120px]"
         :style="{ background: 'radial-gradient(circle, var(--accent-glow), transparent 70%)' }" aria-hidden="true" />
@@ -122,97 +170,133 @@ const marqueeItems = [
       <div class="hatch-accent pointer-events-none absolute bottom-24 left-[-4%] size-64 -skew-x-12 opacity-50"
         aria-hidden="true" />
       <!-- 角落 + 装饰 -->
-      <span data-hero-deco class="pointer-events-none absolute left-5 top-24 font-mono text-lg text-faint/70 md:left-10">+</span>
-      <span data-hero-deco class="pointer-events-none absolute right-5 top-28 rotate-45 font-mono text-sm text-accent/70 md:right-10">◆</span>
-      <span data-hero-deco class="pointer-events-none absolute bottom-28 left-1/2 hidden font-mono text-sm text-faint/70 md:block">+</span>
+      <span data-hero-deco
+        class="pointer-events-none absolute left-5 top-24 z-30 font-mono text-lg text-faint/70 md:left-10">+</span>
+      <span data-hero-deco
+        class="pointer-events-none absolute right-5 top-28 z-30 rotate-45 font-mono text-sm text-accent/70 md:right-10">◆</span>
 
-      <div class="mx-auto grid w-full max-w-7xl items-center gap-14 px-5 md:px-10 lg:grid-cols-12">
-        <!-- 左：文字 -->
-        <div class="relative lg:col-span-7">
-          <p data-hero-kicker class="mb-6 flex items-center gap-3 font-mono text-xs tracking-[0.3em] text-muted">
-            <span class="size-2 animate-pulse bg-accent" />
-            HELLO, I'M MIXSU
-            <span class="hidden h-px w-14 -skew-x-12 bg-line sm:block" />
-            <span class="hidden font-mono text-[10px] tracking-[0.25em] text-faint lg:inline">// CN · WUHAN</span>
-          </p>
+      <div class="mx-auto max-w-[1560px] px-5 md:px-10">
+        <div class="relative grid items-center gap-10 lg:h-[calc(100vh-9rem)] lg:grid-cols-12">
+          <!-- 幽灵编号（压在大标题后面） -->
+          <span
+            class="pointer-events-none absolute -top-16 left-[-1%] z-0 hidden select-none font-display text-[19rem] font-extrabold leading-none text-stroke opacity-25 lg:block"
+            aria-hidden="true">
+            01
+          </span>
 
-          <SplitHeading text="MIXSU" as="h1"
-            class="font-display text-[clamp(3.8rem,12vw,8.5rem)] font-extrabold leading-[0.92] tracking-tight title-flow" />
-
-          <!-- 第二行：描边 STUDIO + 橙色扫线 -->
-          <div class="mt-2 flex items-center gap-5 md:mt-3 md:gap-7">
-            <span data-hero-sweep class="block h-2 w-10 -skew-x-12 bg-accent md:w-16" aria-hidden="true" />
-            <SplitHeading text="STUDIO" as="p" :delay="0.3"
-              class="font-display text-[clamp(2.4rem,7.5vw,5.4rem)] font-bold leading-none tracking-[0.08em] text-stroke" />
-          </div>
-
-          <div class="mt-7">
-            <p data-hero-desc class="max-w-lg text-base leading-relaxed text-muted md:text-lg">
-              一个爱剪片子、玩 Blender、写代码的人。
-              这里是我的数字工作室 —— 有作品、有文章、有一点不切实际的浪漫。
+          <!-- 左：文字区（z-20，压在头像上） -->
+          <div class="relative z-20 lg:col-span-9">
+            <p data-hero-kicker
+              class="mb-6 flex items-center gap-3 font-mono text-xs leading-none tracking-[0.3em] text-muted">
+              <span class="size-2 shrink-0 animate-pulse bg-accent" />
+              HELLO, I'M MIXSU
+              <span class="hidden h-px w-14 -skew-x-12 bg-line sm:block" />
+              <span class="hidden font-mono text-[10px] tracking-[0.25em] text-faint lg:inline">// CN · GUANGZHOU</span>
             </p>
+
+            <SplitHeading text="MIXSU" as="h1"
+              class="font-display text-[clamp(3.6rem,11.5vw,9rem)] font-extrabold leading-[0.92] tracking-tight title-flow" />
+
+            <!-- 第二行：描边 STUDIO + 橙色扫线 -->
+            <div class="mt-2 flex items-center gap-5 md:mt-3 md:gap-7">
+              <span data-hero-sweep class="block h-2 w-10 -skew-x-12 bg-accent md:w-16" aria-hidden="true" />
+              <SplitHeading text="STUDIO" as="p" :delay="0.25"
+                class="font-display text-[clamp(2.2rem,7vw,5rem)] font-bold leading-none tracking-[0.08em] text-stroke" />
+            </div>
+
+            <div class="mt-7">
+              <p data-hero-desc class="max-w-lg text-base leading-relaxed text-muted md:text-lg">
+                一个爱剪片子、玩 Blender、写代码的人。
+                这里是我的数字工作室 —— 有作品、有文章、有一点不切实际的浪漫。
+              </p>
+            </div>
+
+            <div class="mt-9 flex flex-wrap items-center gap-4">
+              <NuxtLink data-hero-cta to="/projects" data-cursor="hover"
+                class="cut-corner-sm sweep group inline-flex items-center gap-2.5 bg-accent px-7 py-3.5 font-display text-sm leading-none tracking-widest text-bg transition-all duration-300 hover:shadow-[0_0_36px_var(--accent-glow)]">
+                查看作品
+                <UIcon name="lucide:arrow-right"
+                  class="size-4 shrink-0 transition-transform duration-300 group-hover:rotate-45" />
+              </NuxtLink>
+              <NuxtLink data-hero-cta to="/blog" data-cursor="hover"
+                class="cut-corner-sm cut-outline sweep group inline-flex items-center gap-2.5 px-7 py-3.5 font-display text-sm leading-none tracking-widest text-text transition-colors duration-300 hover:text-accent hover:[--cut-line:var(--accent)]">
+                阅读博客
+                <UIcon name="lucide:arrow-right"
+                  class="size-4 shrink-0 transition-transform duration-300 group-hover:translate-x-1" />
+              </NuxtLink>
+            </div>
+
+            <div data-hero-meta
+              class="mt-10 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-xs leading-none text-faint">
+              <span>✂ 剪辑 2 年</span>
+              <span class="text-accent/60">/</span>
+              <span>◈ Blender 1 个月</span>
+              <span class="text-accent/60">/</span>
+              <span>&lt;/&gt; 前端 1 年</span>
+            </div>
           </div>
 
-          <div class="mt-9 flex flex-wrap items-center gap-4">
-            <NuxtLink data-hero-cta to="/projects" data-cursor="hover"
-              class="cut-corner-sm sweep group inline-flex items-center gap-2.5 bg-accent px-7 py-3.5 font-mono text-sm tracking-widest text-bg transition-all duration-300 hover:shadow-[0_0_36px_var(--accent-glow)]">
-              查看作品
-              <UIcon name="lucide:arrow-right" class="size-4 transition-transform duration-300 group-hover:rotate-45" />
-            </NuxtLink>
-            <NuxtLink data-hero-cta to="/blog" data-cursor="hover"
-              class="cut-corner-sm sweep group inline-flex items-center gap-2.5 border border-line px-7 py-3.5 font-mono text-sm tracking-widest text-text transition-colors duration-300 hover:border-accent/60 hover:text-accent">
-              阅读博客
-              <UIcon name="lucide:arrow-right"
-                class="size-4 transition-transform duration-300 group-hover:translate-x-1" />
-            </NuxtLink>
-          </div>
+          <!-- 右：倾斜头像面板（z-10，被标题压住左上角） -->
+          <div
+            class="relative z-10 mx-auto mt-6 w-full max-w-xs lg:col-span-3 lg:col-start-10 lg:-ml-28 lg:mt-0 lg:max-w-none">
+            <div data-hero-portrait class="relative rotate-[1.6deg]">
+              <!-- SVG 准星装饰 -->
+              <svg data-hero-reticle class="pointer-events-none absolute -inset-10 z-0 text-accent/50"
+                viewBox="0 0 200 200" fill="none" aria-hidden="true">
+                <circle class="reticle-ring" cx="100" cy="100" r="97" stroke="currentColor" stroke-width="1" />
+                <circle cx="100" cy="100" r="72" stroke="currentColor" stroke-width="0.5" opacity="0.55" />
+                <g class="spin-slow">
+                  <path d="M100 0 v18 M100 182 v18 M0 100 h18 M182 100 h18" stroke="currentColor" stroke-width="1.6" />
+                </g>
+                <g opacity="0.5">
+                  <path
+                    d="M30 30 h10 M30 30 v10 M170 30 h-10 M170 30 v10 M30 170 h10 M30 170 v-10 M170 170 h-10 M170 170 v-10"
+                    stroke="currentColor" stroke-width="1" />
+                </g>
+              </svg>
 
-          <div data-hero-meta class="mt-10 flex flex-wrap items-center gap-x-6 gap-y-2 font-mono text-xs text-faint">
-            <span>✂ 剪辑 2 年</span>
-            <UIcon name="lucide:slash" class="size-3 text-line" />
-            <span>◈ Blender 1 个月</span>
-            <UIcon name="lucide:slash" class="size-3 text-line" />
-            <span>&lt;/&gt; 前端 1 年</span>
-          </div>
-        </div>
-
-        <!-- 右：头像 -->
-        <div class="relative lg:col-span-5">
-          <div class="relative mx-auto max-w-sm">
-            <!-- 错位排线底框（锐利） -->
-            <div class="hatch-accent absolute inset-0 translate-x-4 translate-y-4 border border-accent/40"
-              aria-hidden="true" />
-            <!-- 外层负责入场动画（避免 GSAP clipPath 与 .cut-corner-lg 冲突） -->
-            <div data-hero-portrait class="relative">
+              <!-- 错位排线底框（锐利） -->
+              <div class="hatch-accent absolute inset-0 translate-x-4 translate-y-4 border border-accent/40"
+                aria-hidden="true" />
               <div class="cut-corner-lg shadow-hard relative aspect-square border border-line bg-surface">
                 <img src="/portrait.png" alt="Mixsu 的头像" class="size-full object-cover" />
                 <!-- 底部渐变 -->
                 <div class="absolute inset-x-0 bottom-0 h-24 bg-linear-to-t from-bg/70 to-transparent"
                   aria-hidden="true" />
-                <!-- 顶部斜切角标 -->
+                <!-- 顶部角标 -->
                 <span
-                  class="absolute left-0 top-0 border-b border-r border-line bg-bg/85 px-3 py-1.5 font-mono text-[10px] tracking-[0.3em] text-accent backdrop-blur">
+                  class="absolute left-0 top-0 border-b border-r border-line bg-bg/85 px-3 py-1.5 font-mono text-[10px] leading-none tracking-[0.3em] text-accent backdrop-blur">
                   PORTRAIT/01
                 </span>
               </div>
-            </div>
 
-            <!-- 漂浮标签（方形斜切） -->
-            <span
-              class="cut-corner-sm absolute -right-3 top-8 z-10 rotate-6 border border-line bg-surface px-3.5 py-1.5 font-mono text-xs text-muted shadow-md backdrop-blur md:-right-6">
-              INFJ ✦
+              <!-- 漂浮标签（方形斜切） -->
+              <span
+                class="cut-corner-sm cut-outline absolute -right-3 top-8 z-10 rotate-6 bg-surface px-3.5 py-1.5 font-mono text-xs leading-none text-muted shadow-md backdrop-blur md:-right-6">
+                INFJ ✦
+              </span>
+              <span
+                class="cut-corner-sm cut-outline absolute -left-2 bottom-16 z-10 -rotate-3 bg-surface px-3.5 py-1.5 font-mono text-xs leading-none text-muted shadow-md backdrop-blur md:-left-5">
+                \(￣︶￣*\))
+              </span>
+            </div>
+          </div>
+
+          <!-- 右上时码（桌面） -->
+          <div data-hero-tc
+            class="absolute right-8 top-4 z-30 hidden flex-col items-end gap-1.5 font-mono text-[10px] leading-none tracking-[0.25em] text-faint lg:flex">
+            <span class="flex items-center gap-2 text-red-400/90">
+              <span class="size-1.5 animate-pulse bg-red-400" />
+              REC
             </span>
-            <span
-              class="cut-corner-sm absolute -left-2 bottom-16 z-10 -rotate-3 border border-line bg-surface px-3.5 py-1.5 font-mono text-xs text-muted shadow-md backdrop-blur md:-left-5">
-              \(￣︶￣*\))
-            </span>
+            <span>TC 00:00:12:06</span>
           </div>
         </div>
       </div>
 
       <!-- 滚动提示 -->
       <div data-hero-hint class="absolute bottom-7 left-1/2 hidden -translate-x-1/2 md:block">
-        <div class="flex flex-col items-center gap-2 font-mono text-[10px] tracking-[0.3em] text-faint">
+        <div class="flex flex-col items-center gap-2 font-mono text-[10px] leading-none tracking-[0.3em] text-faint">
           <span>SCROLL</span>
           <span class="block h-10 w-px overflow-hidden bg-line">
             <span class="block h-1/2 w-full animate-[scrolldot_1.6s_ease-in-out_infinite] bg-accent" />
@@ -221,14 +305,23 @@ const marqueeItems = [
       </div>
     </section>
 
-    <!-- ============ 跑马灯（斜切胶片条） ============ -->
-    <div class="relative">
-      <Marquee :items="marqueeItems" :speed="50" :skew="true"
-        class="border-y border-line-soft bg-surface/60 py-5 text-muted backdrop-blur" />
+    <!-- ============ 双向斜切跑马灯 ============ -->
+    <div
+      class="relative my-8 -rotate-[2.2deg] scale-x-105 overflow-hidden border-y border-line bg-bg-soft/60 py-4 backdrop-blur">
+      <Marquee :items="marqueeItems" :speed="46" class="text-muted" />
+      <div class="pointer-events-none absolute inset-0 flex items-center">
+        <Marquee :items="marqueeItemsAlt" :speed="30" :reverse="true" separator="//" class="text-stroke opacity-60" />
+      </div>
     </div>
 
-    <!-- ============ Manifesto（滚动叙事） ============ -->
-    <section ref="manifestoRef" class="mx-auto max-w-5xl px-5 py-32 md:px-10 md:py-44">
+    <!-- ============ Manifesto（滚动叙事 + SVG 描线） ============ -->
+    <section ref="manifestoRef" class="relative mx-auto max-w-5xl px-5 py-32 md:px-10 md:py-44">
+      <!-- 滚动描线的 SVG 竖线 -->
+      <svg class="pointer-events-none absolute left-2 top-24 h-[70%] w-10 text-accent/60 md:left-[-2rem]"
+        viewBox="0 0 40 500" fill="none" preserveAspectRatio="none" aria-hidden="true">
+        <path data-manifesto-path d="M 20 0 V 500" stroke="currentColor" stroke-width="1.5" />
+      </svg>
+
       <p class="text-deco mb-10 flex items-center gap-3 text-sm italic tracking-[0.25em] text-accent">
         <span class="h-px w-10 -skew-x-12 bg-accent" />
         / MANIFESTO
@@ -283,7 +376,8 @@ const marqueeItems = [
 
       <div class="mt-10">
         <PostCard v-for="(post, i) in latestPosts" :key="post.path" :title="post.title" :description="post.description"
-          :date="post.date" :category="post.category" :tags="post.tags" :cover="post.cover" :to="post.path" :index="i" />
+          :date="post.date" :category="post.category" :tags="post.tags" :cover="post.cover" :to="post.path"
+          :index="i" />
       </div>
     </section>
   </div>
@@ -297,6 +391,19 @@ const marqueeItems = [
 
   100% {
     transform: translateY(200%);
+  }
+}
+
+/* 准星外环：描线画出后保持 */
+.reticle-ring {
+  stroke-dasharray: 610;
+  stroke-dashoffset: 610;
+  animation: reticle-draw 1.6s cubic-bezier(0.65, 0, 0.35, 1) forwards 0.7s;
+}
+
+@keyframes reticle-draw {
+  to {
+    stroke-dashoffset: 0;
   }
 }
 </style>

@@ -7,6 +7,7 @@ useHead({
 <template>
   <UApp>
     <NuxtRouteAnnouncer />
+    <BootLoader />
     <RouteLoader />
     <NuxtLayout>
       <NuxtPage />

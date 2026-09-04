@@ -90,7 +90,7 @@ watch(
       <!-- Logo -->
       <NuxtLink to="/" data-cursor="hover" class="group flex items-center gap-2.5" aria-label="回到首页">
         <span
-          class="cut-corner-sm shadow-hard-sm grid size-9 place-items-center border border-line bg-surface transition-colors duration-300 group-hover:border-accent/60"
+          class="cut-corner-sm cut-outline shadow-hard-sm grid size-9 place-items-center bg-surface transition-colors duration-300 group-hover:[--cut-line:var(--accent)]"
         >
           <img src="/favicon.svg" alt="" class="size-5" />
         </span>
@@ -139,7 +139,7 @@ watch(
         <!-- 移动端菜单按钮：双横线 → X -->
         <button
           type="button"
-          class="cut-corner-sm shadow-hard-sm relative grid size-10 place-items-center border border-line bg-surface text-muted transition-colors duration-300 hover:border-accent/60 hover:text-accent md:hidden"
+          class="cut-corner-sm cut-outline shadow-hard-sm relative grid size-10 place-items-center bg-surface text-muted transition-colors duration-300 hover:text-accent hover:[--cut-line:var(--accent)] md:hidden"
           :aria-label="menuOpen ? '关闭菜单' : '打开菜单'"
           :aria-expanded="menuOpen"
           @click="menuOpen ? closeMenu() : openMenu()"
@@ -191,7 +191,7 @@ watch(
             </div>
             <button
               type="button"
-              class="cut-corner-sm relative grid size-10 place-items-center border border-line text-muted transition-colors hover:border-accent/60 hover:text-accent"
+              class="cut-corner-sm cut-outline relative grid size-10 place-items-center text-muted transition-colors hover:text-accent hover:[--cut-line:var(--accent)]"
               aria-label="关闭菜单"
               @click="closeMenu"
             >

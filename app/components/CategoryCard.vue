@@ -49,7 +49,7 @@ const to = computed(() => `/blog/${props.category}`);
       <div class="relative mt-8 flex items-center justify-between">
         <span class="font-mono text-xs text-faint">{{ count }} 篇 →</span>
         <span
-          class="cut-corner-sm grid size-10 place-items-center border border-line text-muted transition-all duration-500 group-hover:border-accent group-hover:bg-accent group-hover:text-bg">
+          class="cut-corner-sm cut-outline grid size-10 place-items-center text-muted transition-all duration-500 group-hover:bg-accent group-hover:text-bg group-hover:[--cut-line:var(--accent)]">
           <UIcon name="lucide:arrow-right"
             class="size-4 transition-transform duration-300 group-hover:translate-x-0.5" />
         </span>

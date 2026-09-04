@@ -258,7 +258,8 @@ body {
   background-size: 160px 160px;
 }
 
-/* 不规则网格线背景：两层错位网格缓慢漂移，形成流动感 */
+/* 不规则网格线背景（Version 3）：两组 45° 斜向交叉网格反向漂移，       */
+/* 构成菱形织网；另有一道斜向光束周期性扫过，强化凌厉感。              */
 .gridlines {
   position: fixed;
   inset: 0;
@@ -268,45 +269,101 @@ body {
   mask-image: radial-gradient(
     ellipse 120% 90% at 50% 0%,
     black 30%,
-    transparent 78%
+    transparent 80%
   );
   -webkit-mask-image: radial-gradient(
     ellipse 120% 90% at 50% 0%,
     black 30%,
-    transparent 78%
+    transparent 80%
   );
 }
 
-.gridlines::before,
+/* 细斜网：45° 双向交叉，水平漂移 */
+.gridlines::before {
+  content: "";
+  position: absolute;
+  inset: -100%;
+  background-image:
+    repeating-linear-gradient(
+      45deg,
+      var(--line-soft) 0px,
+      var(--line-soft) 1px,
+      transparent 1px,
+      transparent 84px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      var(--line-soft) 0px,
+      var(--line-soft) 1px,
+      transparent 1px,
+      transparent 84px
+    );
+  background-size:
+    118.8px 118.8px,
+    118.8px 118.8px;
+  animation: grid-drift-a 34s linear infinite;
+}
+
+/* 粗斜网：更大间距、反向漂移、错位起始 */
 .gridlines::after {
   content: "";
   position: absolute;
   inset: -100%;
   background-image:
-    linear-gradient(to right, var(--line-soft) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--line-soft) 1px, transparent 1px);
+    repeating-linear-gradient(
+      45deg,
+      transparent 0px,
+      var(--line-soft) 1px,
+      transparent 1px,
+      transparent 268px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      var(--line-soft) 0px,
+      var(--line-soft) 1px,
+      transparent 1px,
+      transparent 268px
+    );
+  background-size:
+    379px 379px,
+    379px 379px;
+  background-position:
+    120px 60px,
+    40px 140px;
+  animation: grid-drift-b 64s linear infinite reverse;
 }
 
-/* 细网格层：较快、斜向漂移 */
-.gridlines::before {
-  background-size:
-    120px 120px,
-    120px 120px;
-  background-position:
-    0 0,
-    0 0;
-  animation: grid-drift-a 46s linear infinite;
+/* 斜向光束：周期性扫过 */
+.grid-beam {
+  position: absolute;
+  top: -40%;
+  bottom: -40%;
+  left: -40%;
+  width: 24%;
+  transform: skewX(-18deg);
+  background: linear-gradient(
+    100deg,
+    transparent,
+    var(--line-soft) 36%,
+    var(--accent-soft) 50%,
+    var(--line-soft) 64%,
+    transparent
+  );
+  animation: beam-sweep 9s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+  opacity: 0.8;
 }
 
-/* 粗网格层：较慢、反向漂移、错位起始 */
-.gridlines::after {
-  background-size:
-    347px 347px,
-    347px 347px;
-  background-position:
-    63px 47px,
-    19px 83px;
-  animation: grid-drift-b 83s linear infinite reverse;
+@keyframes beam-sweep {
+  0%,
+  52% {
+    left: -45%;
+  }
+  86% {
+    left: 120%;
+  }
+  100% {
+    left: 120%;
+  }
 }
 
 @keyframes grid-drift-a {
@@ -314,7 +371,7 @@ body {
     transform: translate3d(0, 0, 0);
   }
   to {
-    transform: translate3d(120px, 120px, 0);
+    transform: translate3d(118.8px, 0, 0);
   }
 }
 
@@ -323,7 +380,7 @@ body {
     transform: translate3d(0, 0, 0);
   }
   to {
-    transform: translate3d(347px, 347px, 0);
+    transform: translate3d(-379px, 0, 0);
   }
 }
 
@@ -383,6 +440,29 @@ body {
     calc(100% - 14px) 100%,
     0 100%
   );
+}
+
+/* ------------------------------------------------------------------ */
+/*  斜切边框描线：outline 会跟随 clip-path 的裁切形状绘制，              */
+/*  因此斜边也能得到完整描线（border 是先画矩形框再被裁掉，斜边缺线）。  */
+/*  用法：把带斜切元素的 border 类替换为 .cut-outline。                 */
+/* ------------------------------------------------------------------ */
+.cut-outline {
+  --cut-line: var(--line);
+  outline: 1px solid var(--cut-line);
+  outline-offset: -1px;
+  transition:
+    outline-color 0.3s ease,
+    background-color 0.3s ease,
+    color 0.3s ease,
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.3s ease;
+}
+.cut-line-accent {
+  --cut-line: var(--accent);
+}
+.cut-line-soft {
+  --cut-line: var(--line-soft);
 }
 
 /* 硬阴影：跟随 clip-path 形状的实色偏移投影 */
@@ -535,15 +615,15 @@ body {
 }
 
 /* ------------------------------------------------------------------ */
-/*  页面过渡：斜向裁切擦除（对角线锋面前进）                            */
+/*  页面过渡：斜向裁切擦除（Version 3：更柔和的节奏）                    */
 /* ------------------------------------------------------------------ */
 
 .page-enter-active,
 .page-leave-active {
   transition:
-    clip-path 0.55s cubic-bezier(0.77, 0, 0.18, 1),
-    opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.55s cubic-bezier(0.77, 0, 0.18, 1);
+    clip-path 0.5s cubic-bezier(0.65, 0, 0.35, 1),
+    opacity 0.42s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.5s cubic-bezier(0.65, 0, 0.35, 1);
   will-change: clip-path, transform, opacity;
 }
 
@@ -555,13 +635,13 @@ body {
 
 .page-enter-from {
   clip-path: polygon(100% 0%, 100% 100%, 72% 100%, 100% 0%);
-  transform: translateX(2.5%);
+  transform: translateX(1.5%);
   opacity: 0;
 }
 
 .page-leave-to {
   clip-path: polygon(0% 0%, 0% 100%, 28% 100%, 0% 0%);
-  transform: translateX(-2.5%);
+  transform: translateX(-1.5%);
   opacity: 0;
 }
 
@@ -614,7 +694,13 @@ body {
 
 /* 标签 */
 .tag-chip {
-  @apply inline-flex items-center gap-1.5 border border-line px-3 py-1 text-xs tracking-wide text-muted transition-colors duration-300;
+  @apply inline-flex items-center gap-1.5 px-3 py-1 text-xs tracking-wide text-muted;
+  --cut-line: var(--line);
+  outline: 1px solid var(--cut-line);
+  outline-offset: -1px;
+  transition:
+    outline-color 0.3s ease,
+    color 0.3s ease;
   clip-path: polygon(
     0 0,
     calc(100% - 7px) 0,
@@ -625,7 +711,73 @@ body {
   );
 }
 .tag-chip:hover {
-  @apply border-accent/60 text-accent;
+  --cut-line: var(--accent);
+  @apply text-accent;
+}
+
+/* 胶片齿孔带（左右两排圆孔） */
+.film-strip {
+  background-image:
+    radial-gradient(circle, var(--bg) 0 5px, transparent 5.5px),
+    radial-gradient(circle, var(--bg) 0 5px, transparent 5.5px);
+  background-size:
+    34px 34px,
+    34px 34px;
+  background-position:
+    left center,
+    right center;
+}
+
+/* VU 表：跳动的电平条 */
+.vu-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 22px;
+}
+.vu-bars > span {
+  width: 4px;
+  background: var(--accent);
+  transform-origin: bottom;
+  animation: vu-jump 1.1s ease-in-out infinite alternate;
+}
+.vu-bars > span:nth-child(2) {
+  animation-delay: 0.12s;
+}
+.vu-bars > span:nth-child(3) {
+  animation-delay: 0.24s;
+}
+.vu-bars > span:nth-child(4) {
+  animation-delay: 0.05s;
+}
+.vu-bars > span:nth-child(5) {
+  animation-delay: 0.3s;
+}
+.vu-bars > span:nth-child(6) {
+  animation-delay: 0.18s;
+}
+.vu-bars > span:nth-child(7) {
+  animation-delay: 0.36s;
+}
+@keyframes vu-jump {
+  0% {
+    transform: scaleY(0.18);
+  }
+  100% {
+    transform: scaleY(1);
+  }
+}
+
+/* 慢速旋转的菱形/星形装饰 */
+.spin-slow {
+  animation: spin-slow 14s linear infinite;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* 链接下划线动画 */

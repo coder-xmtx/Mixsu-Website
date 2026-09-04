@@ -1,11 +1,11 @@
 /**
- * 一次性脚本：为博客文章与分类生成 16:9（1280×720）的凌厉风 SVG 封面。
+ * 一次性脚本：为博客文章与分类生成 21:9（1280×549）的凌厉风 SVG 封面。
  * 用法: node scripts/gen-blog-covers.mjs
  */
 import { mkdirSync, writeFileSync } from "node:fs";
 
 const W = 1280;
-const H = 720;
+const H = 549;
 
 /**
  * 斜切风封面模板：
@@ -141,8 +141,8 @@ function slantBands(c) {
 /** 大字符 + 英文小字 */
 function glyphBlock(c) {
   return `<g>
-    <text x="${W - 260}" y="${H - 180}" font-family="'Arial Black','Microsoft YaHei','PingFang SC',sans-serif" font-weight="900" font-size="300" fill="${c.accent}" opacity="0.92" text-anchor="middle" dominant-baseline="middle">${c.glyph}</text>
-    <text x="${W - 260}" y="${H - 60}" font-family="'Courier New',monospace" font-size="34" letter-spacing="14" fill="rgba(255,255,255,0.8)" text-anchor="middle">${c.glyphLatin}</text>
+    <text x="${W - 280}" y="${H - 150}" font-family="'Arial Black','Microsoft YaHei','PingFang SC',sans-serif" font-weight="900" font-size="240" fill="${c.accent}" opacity="0.92" text-anchor="middle" dominant-baseline="middle">${c.glyph}</text>
+    <text x="${W - 280}" y="${H - 45}" font-family="'Courier New',monospace" font-size="30" letter-spacing="14" fill="rgba(255,255,255,0.8)" text-anchor="middle">${c.glyphLatin}</text>
   </g>`;
 }
 
@@ -159,21 +159,20 @@ function labelBar(c) {
 
 function patternWire(c) {
   return `<g fill="none" stroke-width="2">
-    <ellipse cx="250" cy="330" rx="180" ry="240" stroke="${c.accent2}" opacity="0.5" transform="rotate(-8 250 330)"/>
-    <ellipse cx="250" cy="330" rx="120" ry="170" stroke="${c.accent2}" opacity="0.3" transform="rotate(-8 250 330)"/>
-    <path d="M 70 330 H 430 M 250 90 V 570" stroke="rgba(255,255,255,0.16)"/>
-    <circle cx="250" cy="230" r="70" stroke="${c.accent}" opacity="0.6"/>
-    <path d="M 250 300 V 380 M 250 380 L 190 470 M 250 380 L 312 466" stroke="${c.accent}" opacity="0.5"/>
+    <ellipse cx="250" cy="300" rx="170" ry="210" stroke="${c.accent2}" opacity="0.5" transform="rotate(-8 250 300)"/>
+    <ellipse cx="250" cy="300" rx="112" ry="145" stroke="${c.accent2}" opacity="0.3" transform="rotate(-8 250 300)"/>
+    <path d="M 80 300 H 420 M 250 90 V 510" stroke="rgba(255,255,255,0.16)"/>
+    <circle cx="250" cy="210" r="60" stroke="${c.accent}" opacity="0.6"/>
+    <path d="M 250 270 V 340 M 250 340 L 195 415 M 250 340 L 305 412" stroke="${c.accent}" opacity="0.5"/>
   </g>`;
 }
 
 function patternScroll(c) {
   return `<g>
-    <path d="M 120 640 C 60 520 240 470 180 330 C 140 230 30 250 60 120" fill="none" stroke="${c.accent}" stroke-width="4" opacity="0.85"/>
-    <path d="M 120 640 C 60 520 240 470 180 330 C 140 230 30 250 60 120" fill="none" stroke="transparent"/>
+    <path d="M 120 490 C 60 400 240 360 180 250 C 140 180 30 200 60 100" fill="none" stroke="${c.accent}" stroke-width="4" opacity="0.85"/>
     ${Array.from({ length: 9 }, (_, i) => {
       const x = 90 + i * 46;
-      const y = 620 - i * 58;
+      const y = 470 - i * 45;
       return `<rect x="${x}" y="${y}" width="30" height="10" fill="${i % 2 ? c.accent2 : c.accent}" opacity="${0.85 - i * 0.07}" transform="rotate(-18 ${x} ${y})"/>`;
     }).join("")}
   </g>`;
@@ -196,18 +195,18 @@ function patternBrowser(c) {
 function patternSun(c) {
   const rays = Array.from({ length: 12 }, (_, i) => {
     const a = (i * Math.PI) / 6 - Math.PI / 2;
-    const x1 = 250 + Math.cos(a) * 120;
-    const y1 = 320 + Math.sin(a) * 120;
-    const x2 = 250 + Math.cos(a) * 190;
-    const y2 = 320 + Math.sin(a) * 190;
+    const x1 = 250 + Math.cos(a) * 105;
+    const y1 = 300 + Math.sin(a) * 105;
+    const x2 = 250 + Math.cos(a) * 165;
+    const y2 = 300 + Math.sin(a) * 165;
     return `<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="${c.accent2}" stroke-width="3" opacity="${0.25 + (i % 3) * 0.2}"/>`;
   }).join("");
   return `<g>
     ${rays}
-    <circle cx="250" cy="320" r="95" fill="none" stroke="${c.accent}" stroke-width="3.5" opacity="0.85"/>
-    <path d="M 0 560 L 900 560 L 940 600 L 0 600 Z" fill="rgba(8,10,16,0.9)"/>
+    <circle cx="250" cy="300" r="82" fill="none" stroke="${c.accent}" stroke-width="3.5" opacity="0.85"/>
+    <path d="M 0 430 L 900 430 L 940 470 L 0 470 Z" fill="rgba(8,10,16,0.9)"/>
     <g fill="${c.accent}" opacity="0.6">
-      ${Array.from({ length: 10 }, (_, i) => `<rect x="${60 + i * 86}" y="572" width="4" height="${12 + ((i * 37) % 22)}"/>`).join("")}
+      ${Array.from({ length: 10 }, (_, i) => `<rect x="${60 + i * 86}" y="442" width="4" height="${10 + ((i * 37) % 20)}"/>`).join("")}
     </g>
   </g>`;
 }

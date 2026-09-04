@@ -87,7 +87,7 @@ const timeline = [
         <Reveal v-for="(skill, i) in skills" :key="skill.title" variant="wipe" :delay="i * 0.12" :duration="0.8"
           class="h-full">
           <div
-            class="cut-corner shadow-hard flex h-full flex-col border border-line bg-surface p-7 transition-all duration-500 hover:-translate-y-1 hover:border-accent/40">
+            class="cut-corner cut-outline shadow-hard flex h-full flex-col bg-surface p-7 transition-all duration-500 hover:-translate-y-1 hover:[--cut-line:var(--accent)]">
             <div class="flex items-baseline justify-between">
               <span class="inline-flex items-baseline gap-2.5 font-title text-xl tracking-wide text-text">
                 <UIcon :name="skill.icon" class="size-5 text-accent" />
@@ -98,7 +98,7 @@ const timeline = [
             <p class="text-deco mt-1 text-xs italic tracking-[0.25em] text-faint">{{ skill.en }}</p>
             <div class="mt-5 flex flex-wrap gap-2">
               <span v-for="item in skill.items" :key="item"
-                class="cut-corner-sm border border-line-soft px-3 py-1 text-xs text-muted">
+                class="cut-corner-sm cut-outline cut-line-soft px-3 py-1 text-xs text-muted">
                 {{ item }}
               </span>
             </div>

@@ -27,9 +27,17 @@ export default defineNuxtConfig({
         },
         { property: "og:type", content: "website" },
       ],
-      link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
+      link: [
+        { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
+        // 关键字体预加载：配合 BootLoader 等待 document.fonts，消除首屏字体跳变
+        { rel: "preload", as: "font", type: "font/otf", href: "/fonts/Astron.otf", crossorigin: "anonymous" },
+        { rel: "preload", as: "font", type: "font/ttf", href: "/fonts/YouSheBiaoTiHei.ttf", crossorigin: "anonymous" },
+        { rel: "preload", as: "font", type: "font/otf", href: "/fonts/Source%20Han%20Serif.otf", crossorigin: "anonymous" },
+        { rel: "preload", as: "font", type: "font/ttf", href: "/fonts/JetBrains%20Mono.ttf", crossorigin: "anonymous" },
+        { rel: "preload", as: "font", type: "font/ttf", href: "/fonts/Philosopher-Regular.ttf", crossorigin: "anonymous" },
+      ],
     },
-    pageTransition: { name: "page", mode: "out-in" },
+    pageTransition: { name: "page", mode: "out-in", appear: true },
   },
 
   colorMode: {

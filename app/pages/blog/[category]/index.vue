@@ -44,7 +44,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="mx-auto max-w-5xl px-5 pt-32 md:px-10 md:pt-40">
+  <div class="mx-auto max-w-6xl px-5 pt-32 md:px-10 md:pt-40">
     <Reveal variant="fade">
       <NuxtLink
         to="/blog"
@@ -74,17 +74,17 @@ onMounted(() => {
       </Reveal>
     </div>
 
-    <!-- 16:9 分类横幅 -->
+    <!-- 21:9 分类横幅 -->
     <div ref="bannerRef" class="mt-12">
       <div class="cut-corner-lg shadow-hard relative overflow-hidden border border-line bg-surface">
-        <img :src="meta.cover" :alt="`${meta.label} 分类横幅`" class="aspect-video w-full object-cover" />
+        <img :src="meta.cover" :alt="`${meta.label} 分类横幅`" class="aspect-[21/9] w-full object-cover" />
         <span
           class="absolute left-0 top-0 border-b border-r border-line bg-bg/85 px-3 py-1.5 font-mono text-[10px] tracking-[0.3em] text-accent backdrop-blur">
           CATEGORY/{{ meta.en.toUpperCase() }}
         </span>
         <span
           class="absolute bottom-0 right-0 border-l border-t border-line bg-bg/85 px-3 py-1.5 font-mono text-[10px] tracking-[0.3em] text-faint backdrop-blur">
-          WIDE · 16:9
+          WIDE · 21:9
         </span>
       </div>
     </div>

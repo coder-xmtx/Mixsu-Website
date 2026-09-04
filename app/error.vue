@@ -53,7 +53,7 @@ const is404 = computed(() => (props.error.statusCode ?? 404) === 404);
         <UIcon name="lucide:home" class="size-4" />
       </NuxtLink>
       <NuxtLink to="/blog" data-cursor="hover"
-        class="cut-corner-sm sweep inline-flex items-center gap-2.5 border border-line px-7 py-3.5 font-mono text-sm tracking-widest text-text transition-colors duration-300 hover:border-accent/60 hover:text-accent">
+        class="cut-corner-sm cut-outline sweep inline-flex items-center gap-2.5 px-7 py-3.5 font-mono text-sm tracking-widest text-text transition-colors duration-300 hover:text-accent hover:[--cut-line:var(--accent)]">
         去博客逛逛
       </NuxtLink>
     </div>

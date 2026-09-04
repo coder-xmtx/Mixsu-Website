@@ -57,15 +57,15 @@ function animateIn(): Promise<void> {
     tl.set(overlay, { display: "block" })
       .set([band, ghost], { xPercent: -200, autoAlpha: 0 })
       .to([band, ghost], { autoAlpha: 1, duration: 0.14, ease: "power1.out" }, 0)
-      .to(band, { xPercent: 260, duration: 0.58, ease: "power2.in" }, 0.05)
-      .to(ghost, { xPercent: 245, duration: 0.66, ease: "power2.in" }, 0.12)
-      .to([band, ghost], { autoAlpha: 0, duration: 0.16, ease: "power1.in" }, 0.55)
+      .to(band, { xPercent: 260, duration: 0.5, ease: "power2.inOut" }, 0.05)
+      .to(ghost, { xPercent: 245, duration: 0.58, ease: "power2.inOut" }, 0.11)
+      .to([band, ghost], { autoAlpha: 0, duration: 0.18, ease: "power1.in" }, 0.48)
       // 内容在快门扫过中心时亮出
       .fromTo(
         overlay.querySelectorAll("[data-route-fade]"),
-        { autoAlpha: 0, y: 26 },
-        { autoAlpha: 1, y: 0, duration: 0.42, stagger: 0.05, ease: "power3.out" },
-        0.3,
+        { autoAlpha: 0, y: 22 },
+        { autoAlpha: 1, y: 0, duration: 0.4, stagger: 0.05, ease: "power3.out" },
+        0.26,
       );
 
     if (bar) gsap.set(bar, { scaleX: 0, transformOrigin: "left center" });
@@ -73,14 +73,14 @@ function animateIn(): Promise<void> {
     tl.add(
       gsap.to(counterObj, {
         v: 100,
-        duration: 0.42,
+        duration: 0.4,
         ease: "power2.inOut",
         onUpdate: () => {
           if (bar) gsap.set(bar, { scaleX: counterObj.v / 100 });
           if (counter) counter.textContent = String(Math.round(counterObj.v)).padStart(2, "0");
         },
       }),
-      0.3,
+      0.26,
     );
   });
 }
@@ -105,13 +105,13 @@ function animateOut(): Promise<void> {
       defaults: { ease: "power3.inOut" },
     });
 
-    // 内容熄灭，快门反向扫出
-    tl.to(overlay.querySelectorAll("[data-route-fade]"), { autoAlpha: 0, y: -16, duration: 0.18, ease: "power1.in" }, 0)
+    // 内容熄灭，稍作停留后快门反向扫出（停留让新旧页面切换的硬边藏在遮罩下）
+    tl.to(overlay.querySelectorAll("[data-route-fade]"), { autoAlpha: 0, y: -14, duration: 0.18, ease: "power1.in" }, 0)
       .set([band, ghost], { xPercent: 280, autoAlpha: 0 })
-      .to([band, ghost], { autoAlpha: 1, duration: 0.12, ease: "power1.out" }, 0.06)
-      .to(band, { xPercent: -220, duration: 0.52, ease: "power2.in" }, 0.08)
-      .to(ghost, { xPercent: -235, duration: 0.6, ease: "power2.in" }, 0.14)
-      .to([band, ghost], { autoAlpha: 0, duration: 0.14, ease: "power1.in" }, 0.5);
+      .to([band, ghost], { autoAlpha: 1, duration: 0.12, ease: "power1.out" }, 0.16)
+      .to(band, { xPercent: -220, duration: 0.5, ease: "power2.inOut" }, 0.18)
+      .to(ghost, { xPercent: -235, duration: 0.56, ease: "power2.inOut" }, 0.23)
+      .to([band, ghost], { autoAlpha: 0, duration: 0.14, ease: "power1.in" }, 0.56);
   });
 }
 
